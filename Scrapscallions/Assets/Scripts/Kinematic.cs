@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody))]
 public class Kinematic : MonoBehaviour
 {
     public Vector3 linearVelocity;
@@ -13,13 +14,16 @@ public class Kinematic : MonoBehaviour
     public float maxAngularVelocity = 45.0f; // degrees
 
     public GameObject myTarget;
+    private Rigidbody m_rb;
 
     // child classes will get new steering data for use in our update function
     protected SteeringOutput steeringUpdate;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
+        m_rb = GetComponent<Rigidbody>();
+
         steeringUpdate = new SteeringOutput(); // default to nothing. should be overriden by children
     }
 
@@ -34,11 +38,11 @@ public class Kinematic : MonoBehaviour
         }
 
         // update my position and rotation - Millington p. 58, lines 7-9
-        this.transform.position += linearVelocity * Time.deltaTime;
+        m_rb.velocity = linearVelocity;
         if (Mathf.Abs(angularVelocity) > 0.01f)
         {
             Vector3 v = new Vector3(0, angularVelocity, 0);
-            this.transform.eulerAngles += v * Time.deltaTime;
+            m_rb.MoveRotation(m_rb.rotation * Quaternion.Euler(v * Time.deltaTime));
         }
 
         // update linear and angular velocities - I might be accelerating or decelerating, etc.

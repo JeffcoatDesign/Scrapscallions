@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Scraps.AI;
 
+[RequireComponent(typeof(Rigidbody))]
 public class CustomKinematic : Kinematic
 {
     public RobotState robotState;
