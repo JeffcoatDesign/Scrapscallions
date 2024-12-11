@@ -56,8 +56,8 @@ namespace Scraps.AI
 
         protected float GetTargetAngle(Vector2 target)
         {
-            Vector3 direction = m_robotState.Position - target;
-            float targetAngle = Mathf.Atan2(-direction.x, direction.z) * Mathf.Rad2Deg;
+            Vector2 direction = m_robotState.Position - target;
+            float targetAngle = Mathf.Atan2(-direction.x, direction.y) * Mathf.Rad2Deg;
 
             return targetAngle;
         }

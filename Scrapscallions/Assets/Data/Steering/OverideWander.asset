@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   behaviorName: Overide Wander 1
   flee: 0
-  rayLength: 1
+  baseBehavior: {fileID: 11400000, guid: 466a5394463241c4abba0abf17725148, type: 2}
+  rayLength: 2
   avoidanceRadius: 3
   layermask:
     serializedVersion: 2
-    m_Bits: 4
-  baseBehavior: {fileID: 11400000, guid: 466a5394463241c4abba0abf17725148, type: 2}
+    m_Bits: 4294967295

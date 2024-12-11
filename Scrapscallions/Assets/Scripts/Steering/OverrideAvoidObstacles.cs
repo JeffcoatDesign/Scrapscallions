@@ -5,13 +5,36 @@ using UnityEngine;
 namespace Scraps.AI
 {
     [CreateAssetMenu(fileName = "New Override Obstacle Avoidance", menuName = "Steering/Override Obstacle Avoidance")]
-    public class OverrideAvoidObstacles : ObstacleAvoidance
+    public class OverrideAvoidObstacles : Seek
     {
         public SteeringBehavior baseBehavior;
+        
+        public float rayLength = 1f;
+        public float avoidanceRadius = 3f;
+        public LayerMask layermask;
+        private Vector3 targetPos;
+
+        public override SteeringOutput GetSteering(RobotState robotState)
+        {
+            this.robotState = robotState;
+            Ray ray = new()
+            {
+                direction = robotState.character.linearVelocity,
+                origin = robotState.character.transform.position
+            };
+            Debug.DrawRay(robotState.character.transform.position, robotState.character.transform.position + robotState.character.linearVelocity);
+            if (Physics.Raycast(ray, out RaycastHit hit, rayLength, layermask))
+            {
+                Debug.Log("Hit");
+                targetPos = new Vector2(hit.point.x, hit.point.z) + new Vector2(hit.normal.x, hit.normal.z) * avoidanceRadius;
+                return base.GetSteering(robotState);
+            }
+            Debug.Log("Hi");
+            return baseBehavior.GetSteering(robotState);
+        }
         protected override Vector2 GetTargetPosition(GameObject target)
         {
-            SteeringOutput steeringOutput = baseBehavior.GetSteering(robotState);
-            return robotState.Position + steeringOutput.linear;
+            return targetPos;
         }
         public override SteeringBehavior Clone()
         {

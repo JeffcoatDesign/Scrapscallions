@@ -15,5 +15,5 @@ MonoBehaviour:
   behaviorName: Wander 1
   wanderRadius: 5
   wanderRate: 5
-  slowRadius: 10
+  slowRadius: 20
   timeToTarget: 0.1
