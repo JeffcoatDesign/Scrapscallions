@@ -9,7 +9,7 @@ public class UIManager : MonoBehaviour
 
     [Header("Menus")]
     [SerializeField]
-    private GameObject mainMenu, optionsMenu;
+    private GameObject mainMenu, optionsMenu, debugMenu, battleUI, workshopUI, heapUI;
     void Start()
     {
         Cursor.SetCursor(cursor, Vector2.zero, CursorMode.ForceSoftware);
@@ -26,7 +26,55 @@ public class UIManager : MonoBehaviour
         mainMenu.SetActive(true);
         optionsMenu.SetActive(false);
     }
-    
+
+    public void OpenDebug()
+    {
+        mainMenu.SetActive(false);
+        debugMenu.SetActive(true);
+    }
+
+    public void CloseDebug()
+    {
+        mainMenu.SetActive(true);
+        debugMenu.SetActive(false);
+    }
+
+    public void OpenBattle()
+    {
+        debugMenu.SetActive(false);
+        battleUI.SetActive(true);
+    }
+
+    public void CloseBattle()
+    {
+        debugMenu.SetActive(true);
+        battleUI.SetActive(false);
+    }
+
+    public void OpenWorkshop()
+    {
+        debugMenu.SetActive(false);
+        workshopUI.SetActive(true);
+    }
+
+    public void CloseWorkshop()
+    {
+        debugMenu.SetActive(true);
+        workshopUI.SetActive(false);
+    }
+
+    public void OpenHeap()
+    {
+        debugMenu.SetActive(false);
+        heapUI.SetActive(true);
+    }
+
+    public void CloseHeap()
+    {
+        debugMenu.SetActive(true);
+        heapUI.SetActive(false);
+    }
+
     public void QuitGame()
     {
         Application.Quit();
