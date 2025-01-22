@@ -15,15 +15,20 @@ public class UIManager : MonoBehaviour
         Cursor.SetCursor(cursor, Vector2.zero, CursorMode.ForceSoftware);
     }
 
-    void OpenOptions()
+    public void OpenOptions()
     {
         mainMenu.SetActive(false);
         optionsMenu.SetActive(true);
     }
 
-    void CloseOptions()
+    public void CloseOptions()
     {
         mainMenu.SetActive(true);
         optionsMenu.SetActive(false);
+    }
+    
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 }
