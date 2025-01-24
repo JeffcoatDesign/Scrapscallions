@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro.EditorUtilities;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class UIManager : MonoBehaviour
     [Header("Menus")]
     [SerializeField]
     private GameObject mainMenu, optionsMenu, debugMenu, battleUI, workshopUI, heapUI;
+
     void Start()
     {
         Cursor.SetCursor(cursor, Vector2.zero, CursorMode.ForceSoftware);
@@ -43,6 +45,7 @@ public class UIManager : MonoBehaviour
     {
         debugMenu.SetActive(false);
         battleUI.SetActive(true);
+        battleUI.GetComponent<BattleUI>().ResetBattle();
     }
 
     public void CloseBattle()
