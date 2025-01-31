@@ -23,13 +23,6 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
         homePosition = rectTransform.position;
     }
 
-    private void AddEventTriggerListener(EventTrigger trigger, EventTriggerType eventType, System.Action<PointerEventData> action)
-    {
-        EventTrigger.Entry entry = new EventTrigger.Entry { eventID = eventType };
-        entry.callback.AddListener((eventData) => action((PointerEventData)eventData));
-        trigger.triggers.Add(entry);
-    }
-
     public void OnBeginDrag(PointerEventData eventData)
     {
         Debug.Log("OnBeginDrag");
