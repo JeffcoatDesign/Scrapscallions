@@ -4,23 +4,24 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndDragHandler, IDragHandler
 {
     [SerializeField] private Canvas canvas;
     private RectTransform rectTransform;
     private CanvasGroup canvasGroup;
-    private Canvas itemCanvas;
-    public Vector3 homePosition;
+    private Image itemImage;
     public ItemSlot homeSlot;
+    public Vector3 homePosition;
     public bool dropped;
 
     private void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
         canvasGroup = GetComponent<CanvasGroup>();
-        itemCanvas = GetComponentInParent<Canvas>();
-        homePosition = rectTransform.position;
+        homeSlot = GetComponentInParent<ItemSlot>();
+        itemImage = GetComponent<Image>();
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -28,13 +29,13 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
         Debug.Log("OnBeginDrag");
         canvasGroup.alpha = .6f;
         canvasGroup.blocksRaycasts = false;
-        itemCanvas.overrideSorting = true;
-        itemCanvas.sortingOrder = 100;
+        itemImage.maskable = false;
     }
 
     public void OnDrag(PointerEventData eventData)
     {
         rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;
+        homeSlot.occupied = false;
     }
 
     public void OnEndDrag(PointerEventData eventData)
@@ -42,9 +43,14 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
         Debug.Log("OnEndDrag");
         canvasGroup.alpha = 1f;
         canvasGroup.blocksRaycasts = true;
-        itemCanvas.overrideSorting = false;
         if (!dropped)
+        {
+            homePosition = homeSlot.GetComponent<RectTransform>().position;
             eventData.pointerDrag.GetComponent<RectTransform>().position = eventData.pointerDrag.GetComponent<DragDrop>().homePosition;
+            homeSlot.occupied = true;
+        }
+        if(homeSlot.gameObject.layer == 3)
+            itemImage.maskable = true;
     }
 
     public void OnPointerDown(PointerEventData eventData)
