@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,7 +14,7 @@ public class Kinematic : MonoBehaviour
     public float maxSpeed = 10.0f;
     public float maxAngularVelocity = 45.0f; // degrees
 
-    public GameObject myTarget;
+    public Func<GameObject> myTarget;
     private Rigidbody m_rb;
 
     // child classes will get new steering data for use in our update function
@@ -38,7 +39,7 @@ public class Kinematic : MonoBehaviour
         }
 
         // update my position and rotation - Millington p. 58, lines 7-9
-        m_rb.velocity = linearVelocity;
+        m_rb.velocity = linearVelocity.With(y:m_rb.velocity.y);
         if (Mathf.Abs(angularVelocity) > 0.01f)
         {
             Vector3 v = new Vector3(0, angularVelocity, 0);

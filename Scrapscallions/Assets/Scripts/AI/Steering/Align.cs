@@ -31,7 +31,7 @@ namespace Scraps.AI
 
             // get the naive direction to the target
             //float rotation = Mathf.DeltaAngle(character.transform.eulerAngles.y, target.transform.eulerAngles.y);
-            float rotation = Mathf.DeltaAngle(robotState.character.transform.eulerAngles.y, GetTargetAngle(robotState.target));
+            float rotation = Mathf.DeltaAngle(robotState.character.transform.eulerAngles.y, GetTargetAngle(robotState.target()));
             float rotationSize = Mathf.Abs(rotation);
 
             // check if we are there, return no steering

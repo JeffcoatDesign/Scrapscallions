@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Scraps.AI;
+using Scraps;
 
 [RequireComponent(typeof(Rigidbody))]
 public class CustomKinematic : Kinematic

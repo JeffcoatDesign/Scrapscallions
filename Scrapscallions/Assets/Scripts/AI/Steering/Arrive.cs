@@ -10,17 +10,17 @@ namespace Scraps.AI
         public float timeToTarget = 0.1f;
 
         // the radius for arriving at the target
-        float targetRadius = 1.5f;
+        public float targetRadius = 1.5f;
 
         // the radius for beginning to slow down
-        float slowRadius = 3f;
+        public float slowRadius = 3f;
 
         public override SteeringOutput GetSteering(RobotState robotState)
         {
             SteeringOutput result = new SteeringOutput();
 
             // get the direction to the target
-            Vector3 direction = robotState.target.transform.position - robotState.character.transform.position;
+            Vector3 direction = robotState.target().transform.position - robotState.character.transform.position;
             float distance = direction.magnitude;
 
             // if we are outside the slow radius, then move at max speed
@@ -41,13 +41,14 @@ namespace Scraps.AI
             targetVelocity *= targetSpeed;
 
             // acceleration tries to get to the target velocity
-            result.linear = targetVelocity - robotState.character.linearVelocity;
+            Vector3 resultingVelocity = targetVelocity - robotState.character.linearVelocity;
+            result.linear = new(resultingVelocity.x, resultingVelocity.z);
             result.linear /= timeToTarget;
 
             // check if the acceleration is too fast
             if (result.linear.magnitude > robotState.maxSpeed)
             {
-                result.linear.y = 0f;
+                //sresult.linear.y = 0f;
                 result.linear.Normalize();
                 result.linear *= robotState.maxSpeed;
             }

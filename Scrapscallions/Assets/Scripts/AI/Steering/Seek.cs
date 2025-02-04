@@ -20,7 +20,7 @@ namespace Scraps.AI
         {
             this.robotState = robotState;
             SteeringOutput result = new SteeringOutput();
-            Vector2 targetPosition = GetTargetPosition(robotState.target);
+            Vector2 targetPosition = GetTargetPosition(robotState.target());
             if (targetPosition == Vector2.positiveInfinity)
             {
                 return null;

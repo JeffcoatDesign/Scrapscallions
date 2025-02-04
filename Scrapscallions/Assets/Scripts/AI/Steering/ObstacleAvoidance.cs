@@ -29,7 +29,7 @@ namespace Scraps.AI
             }
             else
             {
-                targetPos = GetTargetPosition(robotState.target);
+                targetPos = GetTargetPosition(robotState.target());
             }
 
             return base.GetSteering(robotState);
