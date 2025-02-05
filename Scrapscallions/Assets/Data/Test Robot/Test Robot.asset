@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2da390640ade0d4b9fa33039877d6d1, type: 3}
+  m_Name: Test Robot
+  m_EditorClassIdentifier: 
+  head: {fileID: 11400000, guid: f7144498c5d1ba24fb41ac376f707bd6, type: 2}
+  body: {fileID: 11400000, guid: 4b2713e698cd7c34f98ad66e541405b1, type: 2}
+  legs: {fileID: 11400000, guid: adba465eed4ab0249a957a07fb064c78, type: 2}
+  leftArm: {fileID: 11400000, guid: 3247d783d104f0648a948c646bea268f, type: 2}
+  rightArm: {fileID: 11400000, guid: 14e6e4223624bfc4b8f20c2bace6555d, type: 2}
+  hasPath: 0

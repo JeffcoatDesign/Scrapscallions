@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 2ff7c5e7f1f1c034ca3dd6ea50a3ca76
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - robot: {instanceID: 0}
+  - goapAgent: {fileID: 848583480206608809, guid: f540ac7ac6edc704997bca9629021aa0, type: 3}
+  - spawnpoint: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
