@@ -15,7 +15,7 @@ namespace Scraps.Parts
             throw new System.NotImplementedException();
         }
 
-        public SerializableHashSet<AgentAction> GetActions(GoapAgent agent, Dictionary<string, AgentBelief> agentBeliefs)
+        public void GetActions(GoapAgent agent, SerializableHashSet<AgentAction> actions, Dictionary<string, AgentBelief> agentBeliefs)
         {
             throw new System.NotImplementedException();
         }
@@ -25,7 +25,7 @@ namespace Scraps.Parts
             throw new System.NotImplementedException();
         }
 
-        public SerializableHashSet<AgentGoal> GetGoals(GoapAgent agent, Dictionary<string, AgentBelief> agentBeliefs)
+        public void GetGoals(GoapAgent agent, SerializableHashSet<AgentGoal> goals, Dictionary<string, AgentBelief> agentBeliefs)
         {
             throw new System.NotImplementedException();
         }

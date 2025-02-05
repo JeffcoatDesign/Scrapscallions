@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Scraps.Parts;
+using UnityEngine;
 
 namespace Scraps.AI.GOAP
 {
@@ -7,12 +8,15 @@ namespace Scraps.AI.GOAP
     {
         [SerializeField] float attackTime = 2;
         private CountdownTimer timer;
+        private ArmController arm;
 
         public bool CanPerform => true;
         public bool IsComplete { get; private set; }
 
-        public AttackStrategy Initialize(float attackTime = -1f)
+        public AttackStrategy Initialize(ArmController arm, float attackTime = -1f)
         {
+            this.arm = arm;
+
             if (attackTime >= 0)
                 this.attackTime = attackTime;
 
@@ -26,6 +30,12 @@ namespace Scraps.AI.GOAP
         {
             timer.Time = attackTime;
             timer.Start();
+            arm.Attack();
+        }
+
+        public void Stop() {
+            Debug.Log("Stopped Attack");
+            arm.Idle();
         }
 
         public void Tick(float deltaTime) => timer.Tick(deltaTime);

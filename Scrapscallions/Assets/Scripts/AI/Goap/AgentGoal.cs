@@ -13,6 +13,7 @@ namespace Scraps.AI.GOAP
 
         internal void Initialize(string name, float priority = 1f, HashSet<AgentBelief> desiredEffects = null)
         {
+            this.name = name;
             Name = name;
             Priority = priority;
             if (desiredEffects != null)

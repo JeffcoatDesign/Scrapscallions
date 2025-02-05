@@ -13,7 +13,7 @@ namespace Scraps.Parts
         void Repair(int amount);
         void Break();
         void GetBeliefs(GoapAgent agent, Dictionary<string, AgentBelief> agentBeliefs);
-        SerializableHashSet<AgentAction> GetActions(GoapAgent agent, Dictionary<string, AgentBelief> agentBeliefs);
-        SerializableHashSet<AgentGoal> GetGoals(GoapAgent agent, Dictionary<string, AgentBelief> agentBeliefs);
+        void GetActions(GoapAgent agent, SerializableHashSet<AgentAction> actions, Dictionary<string, AgentBelief> agentBeliefs);
+        void GetGoals(GoapAgent agent, SerializableHashSet<AgentGoal> goals, Dictionary<string, AgentBelief> agentBeliefs);
     }
 }

@@ -154,7 +154,7 @@ namespace Scraps.AI.GOAP
                 .AddEffect(beliefs["PlayerInAttackRange"])
                 .Build(),
             new AgentAction.Builder("AttackPlayer")
-                .WithStrategy(new AttackStrategy().Initialize(1))
+                //.WithStrategy(new AttackStrategy().Initialize(1))
                 .WithPrecondition(beliefs["PlayerInAttackRange"])
                 .AddEffect(beliefs["AttackingPlayer"])
                 .Build()

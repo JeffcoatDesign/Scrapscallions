@@ -9,7 +9,7 @@ namespace Scraps.AI.GOAP
 {
     public class GoapAgent: MonoBehaviour
     {
-        Robot robot;
+        public Robot robot;
         Rigidbody rb;
 
         [SerializeField] Sensor chaseSensor;
@@ -87,11 +87,6 @@ namespace Scraps.AI.GOAP
             /*      PART BELIEFS        */
             robot.State.LeftArmController.GetBeliefs(this, beliefs);
             robot.State.RightArmController.GetBeliefs(this, beliefs);
-
-            foreach (KeyValuePair<string, AgentBelief> pair in beliefs)
-            {
-                Debug.Log(pair.Key);
-            }
         }
 
         private void GetActions()
@@ -100,13 +95,8 @@ namespace Scraps.AI.GOAP
             {
                 new AgentAction.Builder("Do Nothing").AddEffect(beliefs["Nothing"]).WithStrategy(ScriptableObject.CreateInstance<IdleStrategy>().Initialize(5)).Build()
             };
-            actions.CopyFrom(robot.State.LeftArmController.GetActions(this, beliefs));
-            actions.CopyFrom(robot.State.RightArmController.GetActions(this, beliefs));
-
-            foreach (var value in actions)
-            {
-                Debug.Log(value.Name);
-            }
+            robot.State.LeftArmController.GetActions(this, actions, beliefs);
+            robot.State.RightArmController.GetActions(this, actions, beliefs);
         }
 
         private void GetGoals()
@@ -119,13 +109,8 @@ namespace Scraps.AI.GOAP
             };
 
             /*      PART GOALS      */
-            goals.CopyFrom(robot.State.LeftArmController.GetGoals(this, beliefs));
-            goals.CopyFrom(robot.State.RightArmController.GetGoals(this, beliefs));
-
-            foreach (AgentGoal goal in goals)
-            {
-                Debug.Log(goal.Name);
-            }
+            robot.State.LeftArmController.GetGoals(this, goals, beliefs);
+            robot.State.RightArmController.GetGoals(this, goals, beliefs);
         }
 
         private void HandleTargetChanged()
@@ -155,6 +140,9 @@ namespace Scraps.AI.GOAP
                     currentAction = actionPlan.Actions.Pop();
                     Debug.Log($"Popped action: {currentAction.Name}");
                     //Verify all precondition effects are true
+                    foreach (var precondition in currentAction.Preconditions) {
+                        Debug.Log($"Precondition {precondition.name} is {precondition.Evaluate()}");
+                    }
                     if (currentAction.Preconditions.All(b => b.Evaluate()))
                         currentAction.Start();
                     else

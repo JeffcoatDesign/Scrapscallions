@@ -27,20 +27,6 @@ namespace Scraps.AI.GOAP
             Name = name;
         }
 
-        public override bool Equals(object other)
-        {
-            if (other is AgentAction otherAction)
-            {
-                return GetInstanceID() == otherAction.GetInstanceID();
-            }
-            return false;
-        }
-
-        public override int GetHashCode()
-        {
-            return GetInstanceID();
-        }
-
         public void Initialize(string name, float cost = 0, List<AgentBelief> preconditions = null, List<AgentBelief> effects = null, IActionStrategy strategy = null)
         {
             Name = name;
@@ -84,7 +70,6 @@ namespace Scraps.AI.GOAP
             public Builder(string name)
             {
                 action = CreateInstance<AgentAction>();
-                Debug.Log(action.GetInstanceID());
                 action.name = name;
                 action.Initialize(name);
             }

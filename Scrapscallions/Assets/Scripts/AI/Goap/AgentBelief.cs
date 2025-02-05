@@ -75,6 +75,8 @@ namespace Scraps.AI.GOAP
             public Builder(string name)
             {
                 belief = CreateInstance<AgentBelief>();
+                belief.Name = name;
+                belief.name = name;
             }
 
             public Builder WithCondition(Func<bool> condition)
