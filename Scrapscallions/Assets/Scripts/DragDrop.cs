@@ -10,11 +10,13 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
 {
     [SerializeField] private Canvas canvas;
     private RectTransform rectTransform;
-    private CanvasGroup canvasGroup;
-    private Image itemImage;
+    public CanvasGroup canvasGroup;
+    public Image itemImage;
     public ItemSlot homeSlot;
     public Vector3 homePosition;
     public bool dropped;
+    public bool draggable;
+    public DragDrop dragDropOrigin;
 
     private void Awake()
     {
@@ -22,40 +24,58 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
         canvasGroup = GetComponent<CanvasGroup>();
         homeSlot = GetComponentInParent<ItemSlot>();
         itemImage = GetComponent<Image>();
+        draggable = true;
     }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        Debug.Log("OnBeginDrag");
-        canvasGroup.alpha = .6f;
-        canvasGroup.blocksRaycasts = false;
-        itemImage.maskable = false;
+        if (draggable)
+        {
+            Debug.Log("OnBeginDrag");
+            canvasGroup.alpha = .5f;
+            canvasGroup.blocksRaycasts = false;
+            itemImage.maskable = false;
+        }
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;
-        homeSlot.occupied = false;
+        if(draggable)
+            rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
         Debug.Log("OnEndDrag");
-        canvasGroup.alpha = 1f;
-        canvasGroup.blocksRaycasts = true;
         if (!dropped)
-        {
-            homePosition = homeSlot.GetComponent<RectTransform>().position;
-            eventData.pointerDrag.GetComponent<RectTransform>().position = eventData.pointerDrag.GetComponent<DragDrop>().homePosition;
-            homeSlot.occupied = true;
-        }
-        if(homeSlot.gameObject.layer == 3)
-            itemImage.maskable = true;
+            ResetDragDrop();
     }
 
     public void OnPointerDown(PointerEventData eventData)
     {
         Debug.Log("OnPointerDown");
-        EventSystem.current.SetSelectedGameObject(gameObject);
+        if (draggable)
+            EventSystem.current.SetSelectedGameObject(gameObject);
+    }
+
+    public void ResetDragDrop()
+    {
+        Debug.Log("Reset " + gameObject.name);
+        canvasGroup.alpha = 1f;
+        canvasGroup.blocksRaycasts = true;
+        draggable = true;
+        homePosition = homeSlot.GetComponent<RectTransform>().position;
+        GetComponent<RectTransform>().position = homePosition;
+    }
+
+    public void ResetItemSlotDragDrop()
+    {
+        canvasGroup.alpha = 1f;
+        canvasGroup.blocksRaycasts = true;
+        draggable = true;
+        homePosition = homeSlot.GetComponent<RectTransform>().position;
+        GetComponent<RectTransform>().position = homePosition;
+        dragDropOrigin = null;
+        gameObject.SetActive(false);
     }
 }

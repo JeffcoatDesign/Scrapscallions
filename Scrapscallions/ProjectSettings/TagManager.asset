@@ -9,6 +9,7 @@ TagManager:
   - Body
   - Arm
   - Leg
+  - Trash
   layers:
   - Default
   - TransparentFX
