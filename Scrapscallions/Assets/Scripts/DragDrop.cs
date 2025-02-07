@@ -17,6 +17,7 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
     public bool dropped;
     public bool draggable;
     public DragDrop dragDropOrigin;
+    public ItemSlot slotOccupying;
 
     private void Awake()
     {
@@ -49,6 +50,8 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
         Debug.Log("OnEndDrag");
         if (!dropped)
             ResetDragDrop();
+        else
+            itemImage.maskable = true;
     }
 
     public void OnPointerDown(PointerEventData eventData)
@@ -63,7 +66,9 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
         Debug.Log("Reset " + gameObject.name);
         canvasGroup.alpha = 1f;
         canvasGroup.blocksRaycasts = true;
+        dropped = false;
         draggable = true;
+        itemImage.maskable = true;
         homePosition = homeSlot.GetComponent<RectTransform>().position;
         GetComponent<RectTransform>().position = homePosition;
     }
@@ -73,6 +78,7 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
         canvasGroup.alpha = 1f;
         canvasGroup.blocksRaycasts = true;
         draggable = true;
+        dropped = false;
         homePosition = homeSlot.GetComponent<RectTransform>().position;
         GetComponent<RectTransform>().position = homePosition;
         dragDropOrigin = null;
