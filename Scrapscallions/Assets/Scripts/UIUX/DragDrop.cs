@@ -4,12 +4,11 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using static UnityEditor.Experimental.GraphView.GraphView;
 using Scraps.Parts;
 
 public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndDragHandler, IDragHandler
 {
-    [SerializeField] private Canvas canvas;
+    public Canvas canvas;
     private RectTransform rectTransform;
     public CanvasGroup canvasGroup;
     public Image itemImage;
@@ -21,14 +20,13 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
     public ItemSlot slotOccupying;
     public RobotPart botPart;
 
-    //Set all variables
     private void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
+        canvas = GetComponentInParent<Canvas>();
         canvasGroup = GetComponent<CanvasGroup>();
         homeSlot = GetComponentInParent<ItemSlot>();
         itemImage = GetComponent<Image>();
-        //itemImage.sprite = botPart.Sprite;
         draggable = true;
     }
 
@@ -75,6 +73,27 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
         itemImage.maskable = true;
         homePosition = homeSlot.GetComponent<RectTransform>().position;
         GetComponent<RectTransform>().position = homePosition;
+        if(GetComponentInParent<ItemSlot>().gameObject.layer != 3)
+        {
+            switch (GetComponentInParent<ItemSlot>().gameObject.name)
+            {
+                case "Head":
+                    GetComponentInParent<BotPartsEquip>().equippedHead = null;
+                    break;
+                case "Body":
+                    GetComponentInParent<BotPartsEquip>().equippedBody = null;
+                    break;
+                case "Left Arm":
+                    GetComponentInParent<BotPartsEquip>().equippedLArm = null;
+                    break;
+                case "Right Arm":
+                    GetComponentInParent<BotPartsEquip>().equippedRArm = null;
+                    break;
+                case "Legs":
+                    GetComponentInParent<BotPartsEquip>().equippedLegs = null;
+                    break;
+            }
+        }
     }
 
     //Specifically for resetting DragDrops that are children of the Equip Regions

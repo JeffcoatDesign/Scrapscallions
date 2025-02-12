@@ -1,0 +1,11 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class ContentSetToTop : MonoBehaviour
+{
+    void Awake()
+    {
+        GetComponent<RectTransform>().position = new Vector3(GetComponent<RectTransform>().position.x, 0);
+    }
+}

@@ -35,27 +35,49 @@ public class ItemSlot : MonoBehaviour, IDropHandler
             //Check if DragDrop is the correct Part Type and not being dragged to a diffferent inventory slot
             else if (tag != itemTag || gameObject.layer == 3)
                 dragDropInQuestion.ResetDragDrop();
-            //Check if part is specifically an Arm and being dragged from an Equip Region
-            else if (tag == "Arm" && dragDropInQuestion.dragDropOrigin != null)
-            {
-                //Check if Equip Region Slot is filled, and replace with the Part In Question if so
-                if (itemOccupiedBy != null)
-                    itemOccupiedBy.ResetDragDrop();
-                //Clear the previous Equip Region's item and set the current Equip Region's item
-                dragDropInQuestion.homeSlot.itemOccupiedBy = null;
-                itemOccupiedBy = dragDropInQuestion.dragDropOrigin;
-                dragDropInQuestion.ResetItemSlotDragDrop();
-                ItemSlotDragDropEnable();
-            }
             else
             {
-                //Check if Equip Region Slot is filled, and replace with the Part In Question if so
-                if (itemOccupiedBy != null)
-                    itemOccupiedBy.ResetDragDrop();
-                //Send the DragDrop dragged from the inventory back to the inventory, create a reference to it on the Equip Region, and enable the Equip Region's DragDrop
-                eventData.pointerDrag.GetComponent<RectTransform>().position = dragDropInQuestion.homeSlot.GetComponent<RectTransform>().position;
-                itemOccupiedBy = dragDropInQuestion;
-                ItemSlotDragDropEnable();
+                //Check if part is specifically an Arm and being dragged from an Equip Region
+                if (tag == "Arm" && dragDropInQuestion.dragDropOrigin != null)
+                {
+                    //Check if Equip Region Slot is filled, and replace with the Part In Question if so
+                    if (itemOccupiedBy != null)
+                        itemOccupiedBy.ResetDragDrop();
+                    //Clear the previous Equip Region's item and set the current Equip Region's item
+                    dragDropInQuestion.homeSlot.itemOccupiedBy = null;
+                    itemOccupiedBy = dragDropInQuestion.dragDropOrigin;
+                    dragDropInQuestion.ResetItemSlotDragDrop();
+                    ItemSlotDragDropEnable();
+                }
+                else
+                {
+                    //Check if Equip Region Slot is filled, and replace with the Part In Question if so
+                    if (itemOccupiedBy != null)
+                        itemOccupiedBy.ResetDragDrop();
+                    //Send the DragDrop dragged from the inventory back to the inventory, create a reference to it on the Equip Region, and enable the Equip Region's DragDrop
+                    eventData.pointerDrag.GetComponent<RectTransform>().position = dragDropInQuestion.homeSlot.GetComponent<RectTransform>().position;
+                    itemOccupiedBy = dragDropInQuestion;
+                    ItemSlotDragDropEnable();
+                }
+
+                switch(gameObject.name)
+                {
+                    case "Head":
+                        GetComponentInParent<BotPartsEquip>().equippedHead = itemOccupiedBy.botPart;
+                        break;
+                    case "Body":
+                        GetComponentInParent<BotPartsEquip>().equippedBody = itemOccupiedBy.botPart;
+                        break;
+                    case "Left Arm":
+                        GetComponentInParent<BotPartsEquip>().equippedLArm = itemOccupiedBy.botPart;
+                        break;
+                    case "Right Arm":
+                        GetComponentInParent<BotPartsEquip>().equippedRArm = itemOccupiedBy.botPart;
+                        break;
+                    case "Legs":
+                        GetComponentInParent<BotPartsEquip>().equippedLegs = itemOccupiedBy.botPart;
+                        break;
+                }
             }
         }
     }
@@ -71,6 +93,24 @@ public class ItemSlot : MonoBehaviour, IDropHandler
     public void ItemSlotDragDropTrash()
     {
         //Clear the Equip Region's variables, and reset all related DragDrops
+        switch (dragDropInQuestion.slotOccupying.gameObject.name)
+        {
+            case "Head":
+                GetComponentInParent<BotPartsEquip>().equippedHead = null;
+                break;
+            case "Body":
+                GetComponentInParent<BotPartsEquip>().equippedBody = null;
+                break;
+            case "Left Arm":
+                GetComponentInParent<BotPartsEquip>().equippedLArm = null;
+                break;
+            case "Right Arm":
+                GetComponentInParent<BotPartsEquip>().equippedRArm = null;
+                break;
+            case "Legs":
+                GetComponentInParent<BotPartsEquip>().equippedLegs = null;
+                break;
+        }
         dragDropInQuestion.slotOccupying.itemOccupiedBy = null;
         dragDropInQuestion.slotOccupying = dragDropInQuestion.homeSlot;
         dragDropInQuestion.dragDropOrigin.ResetDragDrop();
