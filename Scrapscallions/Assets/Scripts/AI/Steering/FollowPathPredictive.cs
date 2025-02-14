@@ -15,9 +15,9 @@ namespace Scraps.AI
         private float currentParam;
         private Vector3 targetPos;
 
-        protected override Vector2 GetTargetPosition(GameObject target)
+        protected override Vector3 GetTargetPosition(GameObject target)
         {
-            return new(targetPos.x, targetPos.z);
+            return new(targetPos.x, 0, targetPos.z);
         }
 
         public override SteeringOutput GetSteering(RobotState robotState)

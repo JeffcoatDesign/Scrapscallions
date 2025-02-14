@@ -22,7 +22,11 @@ namespace Scraps.AI.GOAP
 
             timer = new CountdownTimer(this.attackTime);
             timer.OnTimerStart += () => IsComplete = false;
-            timer.OnTimerStop += () => IsComplete = true;
+            timer.OnTimerStop += () =>
+            { 
+                IsComplete = true;
+                arm.Idle();
+            };
             return this;
         }
 
@@ -34,8 +38,7 @@ namespace Scraps.AI.GOAP
         }
 
         public void Stop() {
-            Debug.Log("Stopped Attack");
-            arm.Idle();
+
         }
 
         public void Tick(float deltaTime) => timer.Tick(deltaTime);

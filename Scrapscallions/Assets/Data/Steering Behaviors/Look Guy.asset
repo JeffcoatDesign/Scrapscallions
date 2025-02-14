@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   behaviorName: 
   linearSteeringBehavior: {fileID: 11400000, guid: bfb706bc66ee1324a8bef3a7026ad76e, type: 2}
-  angularSteeringBehavior: {fileID: 11400000, guid: b16540138b7f6b145a2f6dad0d900e7d, type: 2}
+  angularSteeringBehavior: {fileID: 11400000, guid: 77553a81626cc2b4cb8c5303c65e0194, type: 2}

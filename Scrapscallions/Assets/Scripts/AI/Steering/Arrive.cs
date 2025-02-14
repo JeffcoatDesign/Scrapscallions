@@ -7,7 +7,7 @@ namespace Scraps.AI
     [CreateAssetMenu(fileName = "New Arrive", menuName = "Steering/Arrive")]
     public class Arrive : SteeringBehavior
     {
-        public float timeToTarget = 0.1f;
+        public float timeToDestination = 0.1f;
 
         // the radius for arriving at the target
         public float targetRadius = 1.5f;
@@ -19,8 +19,11 @@ namespace Scraps.AI
         {
             SteeringOutput result = new SteeringOutput();
 
-            // get the direction to the target
-            Vector3 direction = robotState.target().transform.position - robotState.character.transform.position;
+            // get the direction to the destination
+            Vector3 direction = Vector3.zero;
+            if (robotState.hasPath)
+                direction = robotState.destination() - robotState.character.transform.position;
+
             float distance = direction.magnitude;
 
             // if we are outside the slow radius, then move at max speed
@@ -43,7 +46,7 @@ namespace Scraps.AI
             // acceleration tries to get to the target velocity
             Vector3 resultingVelocity = targetVelocity - robotState.character.linearVelocity;
             result.linear = new(resultingVelocity.x, resultingVelocity.z);
-            result.linear /= timeToTarget;
+            result.linear /= timeToDestination;
 
             // check if the acceleration is too fast
             if (result.linear.magnitude > robotState.maxSpeed)

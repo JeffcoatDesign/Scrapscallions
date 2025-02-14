@@ -7,22 +7,34 @@ using UnityEngine;
 
 namespace Scraps.Parts
 {
-    public class ArmController : MonoBehaviour, IPartController
+    public class ArmController : PartController
     {
         public Side side;
+        [SerializeField] protected GameObject m_armVisual;
         [SerializeField] protected Sensor m_attackRangeSensor;
         [SerializeField] protected float m_timeBetweenAttacks = 3f;
+        [SerializeField] private float m_facingThreshold = 0.9f;
+
+        public RobotPartArm arm;
 
         protected bool m_isAttacking = false;
         protected bool m_isReady = true;
+        protected bool m_facingOpponent = true;
 
         private CountdownTimer m_attackReadyTimer;
+
+        internal Action Attacked, AttackEnded;
+
+        //TODO Check if the body breaks through Robot.body.Break action
+        // ALSO add as precondition to the attack action
 
         virtual public void Attack()
         {
             m_isAttacking = true;
             m_isReady = false;
             transform.localRotation = Quaternion.Euler(270f, 0f, 0f);
+
+            Attacked?.Invoke();
         }
 
         virtual public void Idle()
@@ -32,56 +44,73 @@ namespace Scraps.Parts
             m_attackReadyTimer = new(m_timeBetweenAttacks);
             m_attackReadyTimer.OnTimerStop += Ready;
             m_attackReadyTimer.Start();
+
+            AttackEnded?.Invoke();
         }
 
-        virtual public void Break()
+        override public void Break()
         {
-            throw new System.NotImplementedException();
+            isBroken = true;
+            m_armVisual.SetActive(false);
         }
 
-        virtual public void Hit(int damage)
+        override public void Hit(int damage)
         {
-            throw new System.NotImplementedException();
+            int currentHP = arm.CurrentHP - damage;
+            if (currentHP <= 0)
+            {
+                currentHP = 0;
+                Break();
+            }
+            arm.CurrentHP = currentHP;
+            PartHit?.Invoke(damage / arm.MaxHP);
         }
 
-        virtual public void Repair(int amount)
+        /// <summary>
+        /// Generally repairing is not something the arm controller will do, unless a special part has an ability for it.
+        /// </summary>
+        /// <param name="amount">The amount of HP to gain.</param>
+        override public void Repair(int amount)
         {
-            throw new System.NotImplementedException();
+            //NOOP
         }
 
-        virtual public void SetParent(Transform parent)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public virtual void GetBeliefs(GoapAgent agent, Dictionary<string, AgentBelief> agentBeliefs)
+        override public void GetBeliefs(GoapAgent agent, Dictionary<string, AgentBelief> agentBeliefs)
         {
             BeliefFactory beliefFactory = new BeliefFactory(agent, agentBeliefs);
             beliefFactory.AddBelief(side.ToString() + "ArmAttacking", () => m_isAttacking);
             beliefFactory.AddBelief(side.ToString() + "ArmReady", () => m_isReady);
+            beliefFactory.AddBelief(side.ToString() + "ArmWorking", () => !isBroken);
+            beliefFactory.AddBelief(side.ToString() + "ArmFacingOpponent", () => m_facingOpponent);
+            //beliefFactory.AddLocationBelief(side.ToString() + "ArmInAttackRange", 3f, () => m_robot.State.target().transform.position);
             beliefFactory.AddSensorBelief(side.ToString() + "ArmInAttackRange", m_attackRangeSensor);
         }
 
-        public virtual void GetActions(GoapAgent agent, SerializableHashSet<AgentAction> actions, Dictionary<string, AgentBelief> agentBeliefs)
+        override public void GetActions(GoapAgent agent, SerializableHashSet<AgentAction> actions, Dictionary<string, AgentBelief> agentBeliefs)
         {
             actions.Add(
                 new AgentAction.Builder(side.ToString() + "ArmAttack")
                 .WithStrategy(ScriptableObject.CreateInstance<AttackStrategy>().Initialize(this, 2))
                 .WithPrecondition(agentBeliefs[side.ToString()+"ArmInAttackRange"])
+                .WithPrecondition(agentBeliefs[side.ToString()+ "ArmFacingOpponent"])
                 .WithPrecondition(agentBeliefs[side.ToString()+"ArmReady"])
+                .WithPrecondition(agentBeliefs[side.ToString() + "ArmWorking"])
+                .WithPrecondition(agentBeliefs["Alive"])
                 .AddEffect(agentBeliefs["AttackingOpponent"])
                 .AddEffect(agentBeliefs[side.ToString() + "ArmAttacking"])
                 .Build()
             );
             actions.Add(
-                new AgentAction.Builder("Move Into " + side.ToString() + "Arm Attack Range")
-                .WithStrategy(ScriptableObject.CreateInstance<MoveToStrategy>().Initialize(agent.robot, () => agent.robot.State.target().transform.position))
+                new AgentAction.Builder("MoveInto" + side.ToString() + "ArmAttackRange")
+                .WithStrategy(ScriptableObject.CreateInstance<MoveToStrategy>().Initialize(agent.robot.State, () => agent.robot.State.target().transform.position, 2))
+                .WithPrecondition(agentBeliefs[side.ToString() + "ArmWorking"])
+                .WithPrecondition(agentBeliefs["Alive"])
                 .AddEffect(agentBeliefs[side.ToString() + "ArmInAttackRange"])
                 .Build()
             );
         }
 
-        public virtual void GetGoals(GoapAgent agent, SerializableHashSet<AgentGoal> goals, Dictionary<string, AgentBelief> agentBeliefs)
+        override public void GetGoals(GoapAgent agent, SerializableHashSet<AgentGoal> goals, Dictionary<string, AgentBelief> agentBeliefs)
         {
             return;
         }
@@ -98,10 +127,23 @@ namespace Scraps.Parts
         }
         private void Update()
         {
+            if (isBroken)
+                return;
+
             if(m_attackReadyTimer != null)
             {
                 m_attackReadyTimer.Tick(Time.deltaTime);
             }
+
+            CheckFacing();
+        }
+
+        private void CheckFacing()
+        {
+            Vector3 position = transform.position.With(y: 0);
+            Vector3 opponentPosition = m_robot.State.target().transform.position.With(y:0);
+
+            m_facingOpponent = Vector3.Dot(m_robot.State.Agent.transform.forward, opponentPosition - position) > m_facingThreshold;
         }
     }
 }

@@ -112,11 +112,11 @@ namespace Scraps.AI.GOAP
                 .AddEffect(beliefs["Nothing"])
                 .Build(),
             new AgentAction.Builder("Wander Around")
-                .WithStrategy(new WanderStrategy().Initialize(robot, 10))
+                .WithStrategy(new WanderStrategy().Initialize(robot.State, 10))
                 .AddEffect(beliefs["AgentMoving"])
                 .Build(),
             new AgentAction.Builder("MoveToEatingPostion")
-                .WithStrategy(new MoveToStrategy().Initialize(robot, () => foodShack.position))
+                .WithStrategy(new MoveToStrategy().Initialize(robot.State, () => foodShack.position))
                 .AddEffect(beliefs["AgentAtFoodShack"])
                 .Build(),
             new AgentAction.Builder("Eat")
@@ -125,20 +125,20 @@ namespace Scraps.AI.GOAP
                 .WithPrecondition(beliefs["AgentAtFoodShack"])
                 .Build(),
             new AgentAction.Builder("MoveToDoorOne")
-                .WithStrategy(new MoveToStrategy().Initialize(robot, () => doorOnePosition.position))
+                .WithStrategy(new MoveToStrategy().Initialize(robot.State, () => doorOnePosition.position))
                 .AddEffect(beliefs["AgentAtDoorOne"])
                 .Build(),
             new AgentAction.Builder("MoveToDoorTwo")
-                .WithStrategy(new MoveToStrategy().Initialize(robot, () => doorTwoPosition.position))
+                .WithStrategy(new MoveToStrategy().Initialize(robot.State, () => doorTwoPosition.position))
                 .AddEffect(beliefs["AgentAtDoorTwo"])
                 .Build(),
             new AgentAction.Builder("MoveFromDoorOneToRestArea")
-                .WithStrategy(new MoveToStrategy().Initialize(robot, () => restingPosition.position))
+                .WithStrategy(new MoveToStrategy().Initialize(robot.State, () => restingPosition.position))
                 .WithPrecondition(beliefs["AgentAtDoorOne"])
                 .AddEffect(beliefs["AgentAtRestingPosition"])
                 .Build(),
             new AgentAction.Builder("MoveFromDoorTwoToRestArea")
-                .WithStrategy(new MoveToStrategy().Initialize(robot, () => restingPosition.position))
+                .WithStrategy(new MoveToStrategy().Initialize(robot.State, () => restingPosition.position))
                 .WithCost(2)
                 .WithPrecondition(beliefs["AgentAtDoorTwo"])
                 .AddEffect(beliefs["AgentAtRestingPosition"])
@@ -149,7 +149,7 @@ namespace Scraps.AI.GOAP
                 .AddEffect(beliefs["AgentIsRested"])
                 .Build(),
             new AgentAction.Builder("ChasePlayer")
-                .WithStrategy(new MoveToStrategy().Initialize(robot, () => beliefs["PlayerInChaseRange"].Location))
+                .WithStrategy(new MoveToStrategy().Initialize(robot.State, () => beliefs["PlayerInChaseRange"].Location))
                 .WithPrecondition(beliefs["PlayerInChaseRange"])
                 .AddEffect(beliefs["PlayerInAttackRange"])
                 .Build(),
@@ -194,7 +194,7 @@ namespace Scraps.AI.GOAP
 
                 if (actionPlan != null && actionPlan.Actions.Count > 0)
                 {
-                    robot.ResetPath();
+                    robot.State.ResetPath();
 
                     currentGoal = actionPlan.AgentGoal;
                     Debug.Log($"Goal: {currentGoal.Name} with {actionPlan.Actions.Count} actions in plan.");

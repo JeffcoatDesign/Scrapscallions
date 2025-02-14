@@ -1,5 +1,6 @@
 using JetBrains.Annotations;
 using System;
+using System.Diagnostics;
 
 public abstract class Timer
 {
@@ -8,8 +9,8 @@ public abstract class Timer
     public bool IsRunning { get; protected set; }
     public float Progress => Time / initialTime;
 
-    public System.Action OnTimerStart = delegate { };
-    public System.Action OnTimerStop = delegate { };
+    public Action OnTimerStart = delegate { };
+    public Action OnTimerStop = delegate { };
 
     protected Timer(float value)
     {

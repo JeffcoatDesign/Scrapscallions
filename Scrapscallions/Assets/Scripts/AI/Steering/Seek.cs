@@ -11,17 +11,17 @@ namespace Scraps.AI
         internal RobotState robotState;
         public bool flee = false;
 
-        protected virtual Vector2 GetTargetPosition(GameObject target)
+        protected virtual Vector3 GetTargetPosition(GameObject target)
         {
-            return new(target.transform.position.x, target.transform.position.z);
+            return target.transform.position.With(y:0);
         }
 
         public override SteeringOutput GetSteering(RobotState robotState)
         {
             this.robotState = robotState;
             SteeringOutput result = new SteeringOutput();
-            Vector2 targetPosition = GetTargetPosition(robotState.target());
-            if (targetPosition == Vector2.positiveInfinity)
+            Vector3 targetPosition = GetTargetPosition(robotState.target());
+            if (targetPosition == Vector3.positiveInfinity)
             {
                 return null;
             }

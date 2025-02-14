@@ -14,7 +14,7 @@ namespace Scraps.AI
 
         private System.Random m_rng = new();
         private RobotState m_robotState;
-        private Vector2 targetPos;
+        private Vector3 targetPos;
         private float m_lastCheckedTime = 0f;
         private float m_timeUntilWander = 0f;
         public override SteeringOutput GetSteering(RobotState robotState)
@@ -41,22 +41,22 @@ namespace Scraps.AI
             return result;
         }
 
-        protected Vector2 GetRandomPointInUnitCircle()
+        protected Vector3 GetRandomPointInUnitCircle()
         {
             float x = (float)m_rng.NextDouble();
-            float y = (float)m_rng.NextDouble();
+            float z = (float)m_rng.NextDouble();
 
-            float radius = Mathf.Sqrt(x * x + y * y);
+            float radius = Mathf.Sqrt(x * x + z * z);
             
             x /= radius;
-            y /= radius;
+            z /= radius;
 
-            return new(x, y);
+            return new(x, 0, z);
         }
 
-        protected float GetTargetAngle(Vector2 target)
+        protected float GetTargetAngle(Vector3 target)
         {
-            Vector2 direction = m_robotState.Position - target;
+            Vector3 direction = (m_robotState.Position - target).With(y:0);
             float targetAngle = Mathf.Atan2(-direction.x, direction.y) * Mathf.Rad2Deg;
 
             return targetAngle;

@@ -34,7 +34,7 @@ namespace Scraps.AI
 
             return base.GetSteering(robotState);
         }
-        protected override Vector2 GetTargetPosition(GameObject target)
+        protected override Vector3 GetTargetPosition(GameObject target)
         {
             return targetPos;
         }

@@ -3,23 +3,29 @@ using System.Collections.Generic;
 using UnityEngine;
 using Scraps.AI;
 using Scraps;
+using Scraps.AI.GOAP;
 
 [RequireComponent(typeof(Rigidbody))]
 public class CustomKinematic : Kinematic
 {
     public RobotState robotState;
 
+    [SerializeField] private GoapAgent agent;
     [SerializeField] private SteeringBehavior m_steeringBehavior;
 
     private SteeringBehavior m_steeringInstance;
+    private bool m_canMove = true;
+
+    internal void DisableMovement()
+    {
+        m_canMove = false;
+    }
 
     private void Start()
     {
-        robotState = new(this)
-        {
-            target = myTarget,
-            maxSpeed = maxSpeed
-        };
+        robotState = agent.robot.State;
+        robotState.maxSpeed = maxSpeed;
+        robotState.maxAngularAcceleration = maxAngularVelocity;
 
         if (m_steeringBehavior != null)
         {
@@ -29,6 +35,8 @@ public class CustomKinematic : Kinematic
 
     protected override void Update()
     {
+        if (!m_canMove) return;
+
         if (m_steeringInstance != null)
             steeringUpdate = m_steeringInstance.GetSteering(robotState);
 

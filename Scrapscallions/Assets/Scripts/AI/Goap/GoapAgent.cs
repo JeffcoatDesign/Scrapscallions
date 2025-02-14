@@ -12,9 +12,6 @@ namespace Scraps.AI.GOAP
         public Robot robot;
         Rigidbody rb;
 
-        [SerializeField] Sensor chaseSensor;
-        [SerializeField] Sensor attackSensor;
-
         [Header("Stats")]
         public float health = 100;
         public float stamina = 100;
@@ -50,7 +47,20 @@ namespace Scraps.AI.GOAP
             GetActions();
             GetGoals();
 
+            robot.body.Break += OnDie;
+
             m_isInitialized = true;
+        }
+
+        private void OnDie()
+        {
+            robot.State.isAlive = false;
+            GetComponent<CustomKinematic>().DisableMovement();
+        }
+
+        private void OnDestroy()
+        {
+            robot.body.Break -= OnDie;
         }
 
         private void SetUpTimers()
@@ -83,20 +93,29 @@ namespace Scraps.AI.GOAP
             BeliefFactory factory = new(this, beliefs);
             factory.AddBelief("Nothing", () => false);
             factory.AddBelief("AttackingOpponent", () => false);
+            factory.AddBelief("Alive", () => robot.State.isAlive);
 
             /*      PART BELIEFS        */
             robot.State.LeftArmController.GetBeliefs(this, beliefs);
             robot.State.RightArmController.GetBeliefs(this, beliefs);
+            robot.State.HeadController.GetBeliefs(this, beliefs);
         }
 
         private void GetActions()
         {
             actions = new SerializableHashSet<AgentAction>()
             {
-                new AgentAction.Builder("Do Nothing").AddEffect(beliefs["Nothing"]).WithStrategy(ScriptableObject.CreateInstance<IdleStrategy>().Initialize(5)).Build()
+                new AgentAction.Builder("Do Nothing")
+                .AddEffect(beliefs["Nothing"])
+                .WithStrategy(ScriptableObject
+                .CreateInstance<IdleStrategy>()
+                .Initialize(5))
+                .WithCost(10)
+                .Build()
             };
             robot.State.LeftArmController.GetActions(this, actions, beliefs);
             robot.State.RightArmController.GetActions(this, actions, beliefs);
+            robot.State.HeadController.GetActions(this, actions, beliefs);
         }
 
         private void GetGoals()
@@ -111,8 +130,10 @@ namespace Scraps.AI.GOAP
             /*      PART GOALS      */
             robot.State.LeftArmController.GetGoals(this, goals, beliefs);
             robot.State.RightArmController.GetGoals(this, goals, beliefs);
+            robot.State.HeadController.GetGoals(this, goals, beliefs);
         }
 
+        //TODO Reapply this
         private void HandleTargetChanged()
         {
             Debug.Log("Target changed, clearing current action and goal");
@@ -133,7 +154,7 @@ namespace Scraps.AI.GOAP
 
                 if (actionPlan != null && actionPlan.Actions.Count > 0)
                 {
-                    robot.ResetPath();
+                    robot.State.ResetPath();
 
                     currentGoal = actionPlan.AgentGoal;
                     Debug.Log($"Goal: {currentGoal.Name} with {actionPlan.Actions.Count} actions in plan.");
@@ -176,7 +197,7 @@ namespace Scraps.AI.GOAP
 
         void CalculatePlan()
         {
-            var priorityLevel = currentGoal?.Priority ?? 0;
+            float priorityLevel = currentGoal != null ? currentGoal.Priority : 0;
 
             SerializableHashSet<AgentGoal> goalsToCheck = goals;
 
