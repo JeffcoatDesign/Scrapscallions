@@ -34,7 +34,7 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
     {
         if (draggable)
         {
-            Debug.Log("OnBeginDrag");
+            //Debug.Log("OnBeginDrag");
             canvasGroup.alpha = .5f;
             canvasGroup.blocksRaycasts = false;
             itemImage.maskable = false;
@@ -49,7 +49,7 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        Debug.Log("OnEndDrag");
+        //Debug.Log("OnEndDrag");
         if (!dropped)
             ResetDragDrop();
         else
@@ -58,14 +58,14 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        Debug.Log("OnPointerDown");
+        //Debug.Log("OnPointerDown");
         if (draggable)
             EventSystem.current.SetSelectedGameObject(gameObject);
     }
 
     public void ResetDragDrop()
     {
-        Debug.Log("Reset " + gameObject.name);
+        //Debug.Log("Reset " + gameObject.name);
         canvasGroup.alpha = 1f;
         canvasGroup.blocksRaycasts = true;
         dropped = false;
@@ -96,7 +96,7 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
         }
     }
 
-    //Specifically for resetting DragDrops that are children of the Equip Regions
+    //Specifically for resetting DragDrops that are children of the Equip Region Slots
     public void ResetItemSlotDragDrop()
     {
         canvasGroup.alpha = 1f;

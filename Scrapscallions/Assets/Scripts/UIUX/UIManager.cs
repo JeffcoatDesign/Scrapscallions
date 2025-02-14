@@ -9,8 +9,13 @@ public class UIManager : MonoBehaviour
     public Texture2D cursor;
 
     [Header("Menus")]
-    [SerializeField]
-    private GameObject mainMenu, optionsMenu, debugMenu, battleUI, workshopUI, heapUI;
+    [SerializeField] private GameObject mainMenu;
+    [SerializeField] private GameObject optionsMenu;
+    [SerializeField] private GameObject debugMenu;
+    [SerializeField] private GameObject battleUI;
+    [SerializeField] private GameObject workshopUI;
+    [SerializeField] private GameObject heapUI;
+    [SerializeField] private GameObject shopUI;
 
     void Start()
     {
@@ -76,6 +81,18 @@ public class UIManager : MonoBehaviour
     {
         debugMenu.SetActive(true);
         heapUI.SetActive(false);
+    }
+
+    public void OpenShop()
+    {
+        debugMenu.SetActive(false);
+        shopUI.SetActive(true);
+    }
+
+    public void CloseShop()
+    {
+        debugMenu.SetActive(true);
+        shopUI.SetActive(false);
     }
 
     public void QuitGame()

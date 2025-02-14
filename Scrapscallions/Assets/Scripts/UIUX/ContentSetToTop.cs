@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ContentSetToTop : MonoBehaviour
 {
-    void Awake()
+    void OnEnable()
     {
         GetComponent<RectTransform>().position = new Vector3(GetComponent<RectTransform>().position.x, 0);
     }

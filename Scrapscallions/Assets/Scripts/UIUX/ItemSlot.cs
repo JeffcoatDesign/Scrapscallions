@@ -7,11 +7,10 @@ using Scraps.Parts;
 
 public class ItemSlot : MonoBehaviour, IDropHandler
 {
-    //The DragDrop's Tag
     private string itemTag;
     //The DragDrop attached to the item slot
     public DragDrop slotDragDrop;
-    //The DragDrop occupying the ItemSlot
+    //The DragDrop currently occupying the ItemSlot
     public DragDrop itemOccupiedBy;
     //The DragDrop dropped into the ItemSlot
     private DragDrop dragDropInQuestion;
