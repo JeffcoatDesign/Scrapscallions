@@ -13,9 +13,12 @@ namespace Scraps.Parts
         internal bool isBroken;
         internal Action<int> PartHit;
         internal Action PartBroken;
+        public Action Broke;
+
         virtual public void Break()
         {
-            throw new System.NotImplementedException();
+            Broke.Invoke();
+            Debug.LogWarning("Function Break not defined in part: " + this);
         }
 
         virtual public void GetActions(GoapAgent agent, SerializableHashSet<AgentAction> actions, Dictionary<string, AgentBelief> agentBeliefs)

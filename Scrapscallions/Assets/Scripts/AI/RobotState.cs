@@ -17,6 +17,7 @@ namespace Scraps
         public Kinematic[] targets;
         public bool hasPath = false;
         public bool isAlive = true;
+        public bool isPlayer;
 
         private readonly HeadController m_headController;
         private readonly BodyController m_bodyController;
@@ -62,8 +63,9 @@ namespace Scraps
         public float collisionRadius = 0.5f;
 
         public RobotState(HeadController headController, BodyController bodyController, LegsController legsController, 
-            ArmController leftArmController, ArmController rightArmController, GoapAgent agent, Robot targetRobot)
+            ArmController leftArmController, ArmController rightArmController, GoapAgent agent, Robot targetRobot, bool isPlayer)
         {
+            this.isPlayer = isPlayer;
             m_headController = headController;
             m_bodyController = bodyController;
             m_legsController = legsController;

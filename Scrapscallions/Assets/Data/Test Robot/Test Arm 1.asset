@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5b8edd017d9bd0478918ce27d394b1b, type: 3}
   m_Name: Test Arm 1
   m_EditorClassIdentifier: 
-  <PartName>k__BackingField: Test Arn 1
+  <PartName>k__BackingField: Test Arm 1
   <MaxHP>k__BackingField: 10
   <CurrentHP>k__BackingField: 10
   <Price>k__BackingField: 10

@@ -2,7 +2,6 @@ using Scraps.AI.GOAP;
 using Scraps.Utilities;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting.Dependencies.Sqlite;
 using UnityEngine;
 
 namespace Scraps.Parts

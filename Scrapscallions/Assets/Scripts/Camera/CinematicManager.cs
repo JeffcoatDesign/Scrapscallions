@@ -1,7 +1,6 @@
 using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 namespace Scraps.Cinematic
@@ -35,13 +34,16 @@ namespace Scraps.Cinematic
         {
             m_singleTargetVCam.gameObject.SetActive(false);
             m_targetGroupVCam.gameObject.SetActive(false);
-
+            m_activeCamera = cameraType;
             switch (cameraType)
             {
                 case CameraType.SingleTarget:
                     m_singleTargetVCam.gameObject.SetActive(true); break;
                 case CameraType.Group:
-                    m_targetGroupVCam.gameObject.SetActive(true); break;
+                    {
+                        RandomizeTargetGroupCamera();
+                        m_targetGroupVCam.gameObject.SetActive(true); break;
+                    }
                 case CameraType.None:
                     break;
             }
@@ -50,6 +52,21 @@ namespace Scraps.Cinematic
         internal void AddTarget(Transform target, float weight = 1f, float radius = 3f)
         {
             m_targetGroup.AddMember(target, weight, radius);
+        }
+
+        internal void SetSingleTarget(Transform target)
+        {
+            m_singleTargetVCam.LookAt = target;
+            m_singleTargetVCam.Follow = target;
+        }
+
+        private void RandomizeTargetGroupCamera()
+        {
+            Vector3 offset = Vector3.zero;
+            offset.x = Random.Range(-20, 20);
+            offset.y = Random.Range(-20, -1);
+            offset.z = Random.Range(-20, 20);
+            m_targetGroupVCam.GetCinemachineComponent<CinemachineGroupComposer>().m_TrackedObjectOffset = offset;
         }
 
         internal enum CameraType

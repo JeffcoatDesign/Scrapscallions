@@ -25,7 +25,7 @@ public class Robot : ScriptableObject
     public RobotState State { get; private set; }
     public Func<GameObject> AgentObject;
 
-    internal void Spawn(GoapAgent agent, Robot target)
+    internal void Spawn(GoapAgent agent, Robot target, bool isPlayer)
     {
         legsController = legs.Spawn(agent);
         bodyController = body.Spawn(legsController);
@@ -44,7 +44,7 @@ public class Robot : ScriptableObject
         leftArmController.Initialize(this);
         rightArmController.Initialize(this);
 
-        State = new(headController, bodyController, legsController, leftArmController, rightArmController, agent, target);
+        State = new(headController, bodyController, legsController, leftArmController, rightArmController, agent, target, isPlayer);
 
         State.character.myTarget = target.AgentObject;
 

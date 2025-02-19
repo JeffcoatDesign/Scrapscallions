@@ -12,16 +12,11 @@ namespace Scraps.AI.GOAP
         public Robot robot;
         Rigidbody rb;
 
-        [Header("Stats")]
-        public float health = 100;
-        public float stamina = 100;
-
-        CountdownTimer statsTimer;
-
         public GameObject target;
-        Vector3 destination;
 
-        AgentGoal lastGoal;
+        [HideInInspector] public CustomKinematic kinematic;
+
+        private AgentGoal lastGoal;
         public AgentGoal currentGoal;
         public ActionPlan actionPlan;
         public AgentAction currentAction;
@@ -32,17 +27,21 @@ namespace Scraps.AI.GOAP
 
         IGoapPlanner gPlanner;
 
-        bool m_isInitialized = false;
+        private bool m_isInitialized = false;
+
+        public event Action Died;
 
         internal void Initialize(Robot robot)
         {
             this.robot = robot;
+
+            kinematic = GetComponent<CustomKinematic>();
+
             rb = GetComponent<Rigidbody>();
             rb.freezeRotation = true;
 
             gPlanner = new GoapPlanner();
 
-            SetUpTimers();
             GetBeliefs();
             GetActions();
             GetGoals();
@@ -55,7 +54,8 @@ namespace Scraps.AI.GOAP
         private void OnDie()
         {
             robot.State.isAlive = false;
-            GetComponent<CustomKinematic>().DisableMovement();
+            Died?.Invoke();
+            kinematic.DisableMovement();
         }
 
         private void OnDestroy()
@@ -63,26 +63,7 @@ namespace Scraps.AI.GOAP
             robot.body.Break -= OnDie;
         }
 
-        private void SetUpTimers()
-        {
-            statsTimer = new CountdownTimer(2f);
-            statsTimer.OnTimerStop += () =>
-            {
-                UpdateStats();
-                statsTimer.Start();
-            };
-            statsTimer.Start();
-        }
-
-        //TODO Move to stats system
-        private void UpdateStats()
-        {
-            /*stamina += InRangeOf(restingPosition.position, 3f) ? 20 : -10;
-            health += InRangeOf(foodShack.position, 3f) ? 20 : -5;
-            stamina = Mathf.Clamp(stamina, 0, 100);
-            health = Mathf.Clamp(health, 0, 100);*/
-        }
-
+        //TODO MOVE THIS TO A STATIC UTIL
         bool InRangeOf(Vector3 position, float range) => Vector3.Distance(transform.position, position) < range;
 
         private void GetBeliefs()
@@ -145,8 +126,6 @@ namespace Scraps.AI.GOAP
         {
             if (!m_isInitialized) return;
 
-            statsTimer.Tick(Time.deltaTime);
-
             if (currentAction == null)
             {
                 Debug.Log("Calculating any potential new plan");
@@ -161,9 +140,6 @@ namespace Scraps.AI.GOAP
                     currentAction = actionPlan.Actions.Pop();
                     Debug.Log($"Popped action: {currentAction.Name}");
                     //Verify all precondition effects are true
-                    foreach (var precondition in currentAction.Preconditions) {
-                        Debug.Log($"Precondition {precondition.name} is {precondition.Evaluate()}");
-                    }
                     if (currentAction.Preconditions.All(b => b.Evaluate()))
                         currentAction.Start();
                     else
