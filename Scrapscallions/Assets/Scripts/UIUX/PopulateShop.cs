@@ -10,7 +10,7 @@ public class PopulateShop : MonoBehaviour
     [SerializeField] private GameObject inventoryParent;
     private DragDrop itemDragDrop;
     [SerializeField] private RobotPart[] itemParts;
-    private List<RobotPart> itemPartsChosen;
+    private List<RobotPart> itemPartsChosen = new List<RobotPart>();
     private RobotPart chosenPart;
     [SerializeField] private InventoryManager inventoryManager;
 
@@ -30,7 +30,7 @@ public class PopulateShop : MonoBehaviour
             itemDragDrop.canvas = GetComponentInParent<Canvas>();
 
             //Randomly creates a RobotPart from a list of RobotPart Prefabs formed in the inspector, and sets the DragDrop's tag accordingly
-            chosenPart = itemPartsChosen[Random.Range(0, 12)];
+            chosenPart = itemPartsChosen[Random.Range(0, itemPartsChosen.Count)];
             if (chosenPart is RobotPartHead)
             {
                 itemDragDrop.gameObject.tag = "Head";
@@ -53,6 +53,8 @@ public class PopulateShop : MonoBehaviour
             itemDragDrop.gameObject.name = itemDragDrop.botPart.PartName;
             itemDragDrop.GetComponent<Image>().sprite = itemDragDrop.botPart.Sprite;
             itemPartsChosen.Remove(chosenPart);
+            //Set layer to be Shop
+            itemDragDrop.gameObject.layer = 6;
         }
     }
 }
