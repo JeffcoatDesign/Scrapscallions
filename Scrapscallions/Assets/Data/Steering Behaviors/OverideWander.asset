@@ -9,14 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a93b7412614ef4b448a76a67618e5167, type: 3}
+  m_Script: {fileID: 11500000, guid: d8ebab4ed50fa7e489078086c35f9c87, type: 3}
   m_Name: OverideWander
   m_EditorClassIdentifier: 
-  behaviorName: Overide Wander 1
+  behaviorName: 
   flee: 0
-  baseBehavior: {fileID: 11400000, guid: 466a5394463241c4abba0abf17725148, type: 2}
-  rayLength: 2
+  baseBehavior: {fileID: 0}
+  rayLength: 1
   avoidanceRadius: 3
   layermask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 0

@@ -9,11 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e7cb04aef9659064f9d533cb5e218a35, type: 3}
-  m_Name: Wander
+  m_Script: {fileID: 11500000, guid: 9003d775250bcfd439ba3948fb7119e4, type: 3}
+  m_Name: Arriver 1
   m_EditorClassIdentifier: 
-  behaviorName: Wander
-  wanderRadius: 5
-  wanderRate: 5
-  slowRadius: 20
-  timeToTarget: 0.1
+  behaviorName: Arrive
+  timeToDestination: 0.1
+  targetRadius: 1.5
+  slowRadius: 3

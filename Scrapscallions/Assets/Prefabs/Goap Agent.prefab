@@ -47,11 +47,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   robot: {fileID: 0}
-  chaseSensor: {fileID: 0}
-  attackSensor: {fileID: 0}
-  health: 100
-  stamina: 100
   target: {fileID: 0}
+  kinematic: {fileID: 0}
   currentGoal: {fileID: 0}
   currentAction: {fileID: 0}
   actions:
@@ -94,7 +91,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1438797480207710902}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 48a311b8fb604864abfce33a12fab8b4, type: 3}
+  m_Script: {fileID: 11500000, guid: 42ea0a1b33a37c14ab29c0882ea7c748, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   linearVelocity: {x: 0, y: 0, z: 0}
@@ -106,9 +103,11 @@ MonoBehaviour:
     obstacles: []
     targets: []
     hasPath: 0
+    isAlive: 0
+    isPlayer: 0
     m_path: {fileID: 0}
-    maxSpeed: 10
-    maxAngularAcceleration: 10
+    maxSpeed: 0
+    maxAngularAcceleration: 0
     collisionRadius: 0
   agent: {fileID: 848583480206608809}
-  m_steeringBehavior: {fileID: 11400000, guid: 96279ad02172a3d4eaa9134f8d00f8ad, type: 2}
+  m_steeringBehavior: {fileID: 11400000, guid: fb3682d57eaf66746b4101e4f6993962, type: 2}

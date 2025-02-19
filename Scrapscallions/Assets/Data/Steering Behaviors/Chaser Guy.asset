@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c928e86a377be9743961a44a8ca33556, type: 3}
+  m_Script: {fileID: 11500000, guid: 7e5e55667a1d0594c88bee2e70ae957d, type: 3}
   m_Name: Chaser Guy
   m_EditorClassIdentifier: 
-  behaviorName: Chases a Target
-  linearSteeringBehavior: {fileID: 11400000, guid: 10212794019c81e45af9e59d300b42a2, type: 2}
+  behaviorName: 
+  linearSteeringBehavior: {fileID: 11400000, guid: bfb706bc66ee1324a8bef3a7026ad76e, type: 2}
   angularSteeringBehavior: {fileID: 11400000, guid: 77553a81626cc2b4cb8c5303c65e0194, type: 2}

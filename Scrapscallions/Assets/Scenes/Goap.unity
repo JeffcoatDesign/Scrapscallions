@@ -366,6 +366,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   detectionRadius: 10
   timerInterval: 1
+  m_part: {fileID: 0}
+  m_goapAgent: {fileID: 0}
 --- !u!135 &397624997
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -434,6 +436,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   detectionRadius: 5
   timerInterval: 1
+  m_part: {fileID: 0}
+  m_goapAgent: {fileID: 0}
 --- !u!135 &548049307
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1088,8 +1092,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2da390640ade0d4b9fa33039877d6d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_speed: 10
-  hasPath: 0
+  head: {fileID: 0}
+  body: {fileID: 0}
+  legs: {fileID: 0}
+  leftArm: {fileID: 0}
+  rightArm: {fileID: 0}
+  headController: {fileID: 0}
+  bodyController: {fileID: 0}
+  legsController: {fileID: 0}
+  leftArmController: {fileID: 0}
+  rightArmController: {fileID: 0}
 --- !u!1 &2134187808
 GameObject:
   m_ObjectHideFlags: 0
