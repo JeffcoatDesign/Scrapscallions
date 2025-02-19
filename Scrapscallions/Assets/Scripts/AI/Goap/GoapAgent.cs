@@ -12,19 +12,11 @@ namespace Scraps.AI.GOAP
         public Robot robot;
         Rigidbody rb;
 
-        [SerializeField] Sensor chaseSensor;
-        [SerializeField] Sensor attackSensor;
-
-        [Header("Stats")]
-        public float health = 100;
-        public float stamina = 100;
-
-        CountdownTimer statsTimer;
-
         public GameObject target;
-        Vector3 destination;
 
-        AgentGoal lastGoal;
+        [HideInInspector] public CustomKinematic kinematic;
+
+        private AgentGoal lastGoal;
         public AgentGoal currentGoal;
         public ActionPlan actionPlan;
         public AgentAction currentAction;
@@ -35,44 +27,43 @@ namespace Scraps.AI.GOAP
 
         IGoapPlanner gPlanner;
 
-        bool m_isInitialized = false;
+        private bool m_isInitialized = false;
+
+        public event Action Died;
 
         internal void Initialize(Robot robot)
         {
             this.robot = robot;
+
+            kinematic = GetComponent<CustomKinematic>();
+
             rb = GetComponent<Rigidbody>();
             rb.freezeRotation = true;
 
             gPlanner = new GoapPlanner();
 
-            SetUpTimers();
             GetBeliefs();
             GetActions();
             GetGoals();
 
+            robot.body.Break += OnDie;
+
             m_isInitialized = true;
         }
 
-        private void SetUpTimers()
+        private void OnDie()
         {
-            statsTimer = new CountdownTimer(2f);
-            statsTimer.OnTimerStop += () =>
-            {
-                UpdateStats();
-                statsTimer.Start();
-            };
-            statsTimer.Start();
+            robot.State.isAlive = false;
+            Died?.Invoke();
+            kinematic.DisableMovement();
         }
 
-        //TODO Move to stats system
-        private void UpdateStats()
+        private void OnDestroy()
         {
-            /*stamina += InRangeOf(restingPosition.position, 3f) ? 20 : -10;
-            health += InRangeOf(foodShack.position, 3f) ? 20 : -5;
-            stamina = Mathf.Clamp(stamina, 0, 100);
-            health = Mathf.Clamp(health, 0, 100);*/
+            robot.body.Break -= OnDie;
         }
 
+        //TODO MOVE THIS TO A STATIC UTIL
         bool InRangeOf(Vector3 position, float range) => Vector3.Distance(transform.position, position) < range;
 
         private void GetBeliefs()
@@ -83,20 +74,29 @@ namespace Scraps.AI.GOAP
             BeliefFactory factory = new(this, beliefs);
             factory.AddBelief("Nothing", () => false);
             factory.AddBelief("AttackingOpponent", () => false);
+            factory.AddBelief("Alive", () => robot.State.isAlive);
 
             /*      PART BELIEFS        */
             robot.State.LeftArmController.GetBeliefs(this, beliefs);
             robot.State.RightArmController.GetBeliefs(this, beliefs);
+            robot.State.HeadController.GetBeliefs(this, beliefs);
         }
 
         private void GetActions()
         {
             actions = new SerializableHashSet<AgentAction>()
             {
-                new AgentAction.Builder("Do Nothing").AddEffect(beliefs["Nothing"]).WithStrategy(ScriptableObject.CreateInstance<IdleStrategy>().Initialize(5)).Build()
+                new AgentAction.Builder("Do Nothing")
+                .AddEffect(beliefs["Nothing"])
+                .WithStrategy(ScriptableObject
+                .CreateInstance<IdleStrategy>()
+                .Initialize(5))
+                .WithCost(10)
+                .Build()
             };
             robot.State.LeftArmController.GetActions(this, actions, beliefs);
             robot.State.RightArmController.GetActions(this, actions, beliefs);
+            robot.State.HeadController.GetActions(this, actions, beliefs);
         }
 
         private void GetGoals()
@@ -111,8 +111,10 @@ namespace Scraps.AI.GOAP
             /*      PART GOALS      */
             robot.State.LeftArmController.GetGoals(this, goals, beliefs);
             robot.State.RightArmController.GetGoals(this, goals, beliefs);
+            robot.State.HeadController.GetGoals(this, goals, beliefs);
         }
 
+        //TODO Reapply this
         private void HandleTargetChanged()
         {
             Debug.Log("Target changed, clearing current action and goal");
@@ -124,8 +126,6 @@ namespace Scraps.AI.GOAP
         {
             if (!m_isInitialized) return;
 
-            statsTimer.Tick(Time.deltaTime);
-
             if (currentAction == null)
             {
                 Debug.Log("Calculating any potential new plan");
@@ -133,16 +133,13 @@ namespace Scraps.AI.GOAP
 
                 if (actionPlan != null && actionPlan.Actions.Count > 0)
                 {
-                    robot.ResetPath();
+                    robot.State.ResetPath();
 
                     currentGoal = actionPlan.AgentGoal;
                     Debug.Log($"Goal: {currentGoal.Name} with {actionPlan.Actions.Count} actions in plan.");
                     currentAction = actionPlan.Actions.Pop();
                     Debug.Log($"Popped action: {currentAction.Name}");
                     //Verify all precondition effects are true
-                    foreach (var precondition in currentAction.Preconditions) {
-                        Debug.Log($"Precondition {precondition.name} is {precondition.Evaluate()}");
-                    }
                     if (currentAction.Preconditions.All(b => b.Evaluate()))
                         currentAction.Start();
                     else
@@ -176,7 +173,7 @@ namespace Scraps.AI.GOAP
 
         void CalculatePlan()
         {
-            var priorityLevel = currentGoal?.Priority ?? 0;
+            float priorityLevel = currentGoal != null ? currentGoal.Priority : 0;
 
             SerializableHashSet<AgentGoal> goalsToCheck = goals;
 

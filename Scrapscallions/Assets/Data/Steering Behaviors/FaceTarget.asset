@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: FaceTarget
   m_EditorClassIdentifier: 
   behaviorName: Face Target
-  target: {fileID: 0}
   maxAngularAcceleration: 100
   maxAngularVelocity: 45
   timeToTarget: 0.1
-  slowRadius: 10
+  slowRadius: 1

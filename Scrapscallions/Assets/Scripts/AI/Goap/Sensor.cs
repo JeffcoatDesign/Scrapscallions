@@ -1,6 +1,9 @@
+using Scraps.AI.GOAP;
+using Scraps.Parts;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 [RequireComponent(typeof(SphereCollider))]
@@ -8,10 +11,12 @@ public class Sensor : MonoBehaviour
 {
     [SerializeField] float detectionRadius = 5f;
     [SerializeField] float timerInterval = 1f;
+    [SerializeField] private PartController m_part;
+    [SerializeField] private GoapAgent m_goapAgent;
 
     SphereCollider detectionRange;
 
-    public event System.Action OnTargetChanged = delegate { };
+    public event Action OnTargetChanged = delegate { };
 
     public Vector3 TargetPosition => target ? target.transform.position : Vector3.zero;
     public bool IsTargetInRange => TargetPosition != Vector3.zero;
@@ -19,12 +24,14 @@ public class Sensor : MonoBehaviour
     GameObject target;
     Vector3 lastKnownPosition;
     CountdownTimer timer;
+    private List<PartController> m_collidingParts;
 
     private void Awake()
     {
         detectionRange = GetComponent<SphereCollider>();
         detectionRange.isTrigger = true;
         detectionRange.radius = detectionRadius;
+        m_collidingParts = new();
     }
 
     private void Start()
@@ -55,13 +62,38 @@ public class Sensor : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (!other.CompareTag("Robot")) return;
+        if (other.TryGetComponent(out PartController otherPart)) {
+            if (otherPart.GetRobot() == null) return;
+            bool partIsNull = m_part == null;
+            bool partRobotIsNull = partIsNull ? true : m_part.GetRobot() == null;
+            bool agentIsNull = m_goapAgent == null;
+            if ((!partIsNull && m_part.GetRobot() == otherPart.GetRobot()) || (!agentIsNull && m_goapAgent.robot == otherPart.GetRobot()))
+            {
+                //Debug.Log("From the same robot");
+                return;
+            }
+            else if ((partIsNull || partRobotIsNull) && agentIsNull)
+            {
+                //Debug.Log("Sensor's robot not found");
+                return;
+            }
+        }
+        m_collidingParts.Add(otherPart);
         UpdateTargetPosition(other.gameObject);
     }
 
     private void OnTriggerExit(Collider other)
     {
         if (!other.CompareTag("Robot")) return;
-        UpdateTargetPosition();
+        if (other.TryGetComponent(out PartController otherPart))
+        {
+            if (m_collidingParts.Contains(otherPart))
+                m_collidingParts.Remove(otherPart);
+            if (m_collidingParts.Count > 0)
+                UpdateTargetPosition(m_collidingParts.First().gameObject);
+            else
+                UpdateTargetPosition();
+        }
     }
 
     private void OnDrawGizmos()

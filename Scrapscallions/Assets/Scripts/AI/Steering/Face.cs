@@ -9,8 +9,8 @@ namespace Scraps.AI
     {
         public override float GetTargetAngle(GameObject target)
         {
-            Vector3 direction = robotState.character.transform.position - target.transform.position;
-            float targetAngle = Mathf.Atan2(-direction.x, direction.z) * Mathf.Rad2Deg;
+            Vector3 direction = target.transform.position - robotState.character.transform.position;
+            float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
 
             return targetAngle;
         }

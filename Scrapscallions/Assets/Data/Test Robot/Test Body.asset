@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: Test Body
   m_EditorClassIdentifier: 
   <PartName>k__BackingField: Test Body
-  <MaxHP>k__BackingField: 0
-  <CurrentHP>k__BackingField: 0
-  <Price>k__BackingField: 0
+  <MaxHP>k__BackingField: 50
+  <CurrentHP>k__BackingField: 50
+  <Price>k__BackingField: 200
   <Prefab>k__BackingField: {fileID: 4797223487188948200, guid: 11164521ddf7e4943a2bbbdaa9611630, type: 3}
   <Sprite>k__BackingField: {fileID: 0}
+  <IsBroken>k__BackingField: 0

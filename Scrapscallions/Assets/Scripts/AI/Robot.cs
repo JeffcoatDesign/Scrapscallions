@@ -4,6 +4,7 @@ using Scraps.Parts;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Robot", menuName = "Robot")]
@@ -14,53 +15,40 @@ public class Robot : ScriptableObject
     public RobotPartLegs legs;
     public RobotPartArm leftArm;
     public RobotPartArm rightArm;
+
+    [HideInInspector] public HeadController headController;
+    [HideInInspector] public BodyController bodyController;
+    [HideInInspector] public LegsController legsController;
+    [HideInInspector] public ArmController leftArmController;
+    [HideInInspector] public ArmController rightArmController;
+
     public RobotState State { get; private set; }
+    public Func<GameObject> AgentObject;
 
-    private Transform m_legsTransform; // Remove when moving remaining distance
-    
-    //Move to state
-    public float RemainingDistance { get => Vector3.Distance(m_legsTransform.position, destination); }
-
-    private Vector3 destination;
-    public bool hasPath = false;
-
-    internal void Spawn(GoapAgent agent, Robot target)
+    internal void Spawn(GoapAgent agent, Robot target, bool isPlayer)
     {
-        LegsController legsController = legs.Spawn(agent);
-        BodyController bodyController = body.Spawn(legsController);
-        HeadController headController = head.Spawn(bodyController);
-        ArmController leftArmController = leftArm.Spawn(bodyController, false);
-        ArmController rightArmController = leftArm.Spawn(bodyController, true);
+        legsController = legs.Spawn(agent);
+        bodyController = body.Spawn(legsController);
+        headController = head.Spawn(bodyController);
+        leftArmController = leftArm.Spawn(bodyController, false);
+        rightArmController = rightArm.Spawn(bodyController, true);
 
-        State = new(headController, bodyController, legsController, leftArmController, rightArmController, agent.GetComponent<Kinematic>(), target);
+        headController.head = head;
+        bodyController.body = body;
+        leftArmController.arm = leftArm;
+        rightArmController.arm = rightArm;
 
-        //Remove this when moving remaining distance to state
-        m_legsTransform = legsController.transform;
+        legsController.Initialize(this);
+        bodyController.Initialize(this);
+        headController.Initialize(this);
+        leftArmController.Initialize(this);
+        rightArmController.Initialize(this);
 
-        State.character.myTarget = () => target.State.character.gameObject;
+        State = new(headController, bodyController, legsController, leftArmController, rightArmController, agent, target, isPlayer);
 
+        State.character.myTarget = target.AgentObject;
+
+        AgentObject = () => agent.gameObject;
         agent.Initialize(this);
-    }
-
-    internal void ResetPath()
-    {
-        destination = m_legsTransform.position;
-        hasPath = false;
-    }
-
-    internal void SetDestination(Vector3 destination)
-    {
-        this.destination = destination;
-        hasPath = true;
-    }
-
-    void Update()
-    {
-        /*if (Vector3.Distance(transform.position, destination) > 1f)
-        {
-            transform.position += (destination - transform.position).normalized * m_speed * Time.deltaTime;
-        }
-        else
-            ResetPath();*/
     }
 }

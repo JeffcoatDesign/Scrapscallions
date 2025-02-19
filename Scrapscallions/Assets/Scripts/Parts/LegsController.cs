@@ -6,43 +6,50 @@ using UnityEngine;
 
 namespace Scraps.Parts
 {
-    public class LegsController : MonoBehaviour, IPartController
+    public class LegsController : PartController
     {
         [SerializeField] private Transform m_bodyAttachPoint;
         public Transform BodyAttachPoint { get => m_bodyAttachPoint; }
-        virtual public void Break()
+        override public void Break()
+        {
+            isBroken = true;
+        }
+
+        override public void GetActions(GoapAgent agent, SerializableHashSet<AgentAction> actions, Dictionary<string, AgentBelief> agentBeliefs)
         {
             throw new System.NotImplementedException();
         }
 
-        public void GetActions(GoapAgent agent, SerializableHashSet<AgentAction> actions, Dictionary<string, AgentBelief> agentBeliefs)
+        override public void GetBeliefs(GoapAgent agent, Dictionary<string, AgentBelief> agentBeliefs)
         {
             throw new System.NotImplementedException();
         }
 
-        public void GetBeliefs(GoapAgent agent, Dictionary<string, AgentBelief> agentBeliefs)
+        override public void GetGoals(GoapAgent agent, SerializableHashSet<AgentGoal> goals, Dictionary<string, AgentBelief> agentBeliefs)
         {
             throw new System.NotImplementedException();
         }
 
-        public void GetGoals(GoapAgent agent, SerializableHashSet<AgentGoal> goals, Dictionary<string, AgentBelief> agentBeliefs)
+        override public Robot GetRobot()
+        {
+            return m_robot;
+        }
+
+        override public void Hit(int damage)
+        {
+            PartHit?.Invoke(damage);
+
+            Debug.Log("You gotta add more stuff to the legs hit function");
+        }
+
+        override public void Repair(int amount)
         {
             throw new System.NotImplementedException();
         }
 
-        virtual public void Hit(int damage)
+        override public void Initialize(Robot robot)
         {
-            throw new System.NotImplementedException();
-        }
-
-        virtual public void Repair(int amount)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        virtual public void SetParent(Transform parent)
-        {
-            throw new System.NotImplementedException();
+            m_robot = robot;
         }
     }
 }

@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: Test Head
   m_EditorClassIdentifier: 
   <PartName>k__BackingField: 
-  <MaxHP>k__BackingField: 0
-  <CurrentHP>k__BackingField: 0
+  <MaxHP>k__BackingField: 11
+  <CurrentHP>k__BackingField: 11
   <Price>k__BackingField: 0
   <Prefab>k__BackingField: {fileID: 1642695058093926673, guid: ac251b2ed3853c1438e7d73b079bd52d, type: 3}
   <Sprite>k__BackingField: {fileID: 0}
+  <IsBroken>k__BackingField: 0
   <Quirks>k__BackingField:
     m_keys: []

@@ -21,7 +21,7 @@ namespace Scraps.AI
 
             foreach (Kinematic target in robotState.targets)
             {
-                Vector2 direction = robotState.Position - new Vector2(target.transform.position.x, target.transform.position.z);
+                Vector3 direction = robotState.Position.With(y: 0) - target.transform.position.With(y:0);
                 float distance = direction.magnitude;
 
                 if (distance < threshold)

@@ -8,7 +8,7 @@ namespace Scraps.AI
     [CreateAssetMenu(fileName = "New Evade", menuName = "Steering/Evade")]
     public class Evade : Pursue
     {
-        protected override Vector2 GetTargetPosition(GameObject target)
+        protected override Vector3 GetTargetPosition(GameObject target)
         {
             // 1. figure out how far ahead in time we should predict
             Vector3 directionToTarget = robotState.character.transform.position - target.transform.position;
@@ -33,7 +33,7 @@ namespace Scraps.AI
             }
 
             Vector3 predictedEvasion = robotState.character.transform.position + myMovingTarget.linearVelocity * predictionTime;
-            return new(predictedEvasion.x, predictedEvasion.z);
+            return new(predictedEvasion.x, 0, predictedEvasion.z);
         }
     }
 }

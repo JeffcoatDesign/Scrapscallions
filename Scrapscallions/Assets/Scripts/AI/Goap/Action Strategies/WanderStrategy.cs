@@ -5,14 +5,14 @@ namespace Scraps.AI.GOAP
     [CreateAssetMenu(fileName = "New Wander Strategy", menuName = "GOAP/Action Strategies/Wander Strategy")]
     public class WanderStrategy : ScriptableObject, IActionStrategy
     {
-        Robot agent;
+        RobotState m_state;
         [SerializeField] float wanderRadius;
         public bool CanPerform => !IsComplete;
-        public bool IsComplete => agent.RemainingDistance <= 2f;// && !agent.pathPending;
+        public bool IsComplete => m_state.RemainingDistance <= 2f;// && !agent.pathPending;
 
-        public WanderStrategy Initialize(Robot agent, float wanderRadius)
+        public WanderStrategy Initialize(RobotState state, float wanderRadius)
         {
-            this.agent = agent;
+            m_state = state;
             this.wanderRadius = wanderRadius;
             return this;
         }
@@ -24,9 +24,9 @@ namespace Scraps.AI.GOAP
                 Vector3 randomDirection = (UnityEngine.Random.insideUnitSphere * wanderRadius).With(y: 0);
 
                 //TODO Needs to be corrected for when legs are implmented in ai
-                if (Physics.Raycast(agent.State.character.transform.position + randomDirection, Vector3.down, out RaycastHit hit, wanderRadius,1))
+                if (Physics.Raycast(m_state.character.transform.position + randomDirection, Vector3.down, out RaycastHit hit, wanderRadius,1))
                 {
-                    agent.SetDestination(hit.point);
+                    m_state.SetDestination(() => hit.point);
                     return;
                 }
             }
