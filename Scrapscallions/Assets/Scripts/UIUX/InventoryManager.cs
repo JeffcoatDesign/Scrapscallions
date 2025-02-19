@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class InventoryManager : MonoBehaviour
 {
@@ -11,10 +12,13 @@ public class InventoryManager : MonoBehaviour
     private DragDrop itemDragDrop;
     [SerializeField] private RobotPart[] itemParts;
     private RobotPart chosenPart;
+    public int money;
+    public TextMeshProUGUI moneyLabel;
 
     void Awake()
     {
         Random.InitState((int)System.DateTime.Now.Ticks);
+        UpdateMoney();
     }
 
     public void AddToInventory()
@@ -23,7 +27,7 @@ public class InventoryManager : MonoBehaviour
         GameObject myInventoryItem = Instantiate(inventoryItemPrefab);
         itemDragDrop = myInventoryItem.GetComponentInChildren<DragDrop>();
         myInventoryItem.transform.SetParent(inventoryParent.transform, false);
-        itemDragDrop.canvas = GetComponentInParent<Canvas>();
+        itemDragDrop.canvas = FindAnyObjectByType<Canvas>().GetComponent<Canvas>();
 
         //Randomly creates a RobotPart from a list of RobotPart Prefabs formed in the inspector, and sets the DragDrop's tag accordingly
         chosenPart = itemParts[Random.Range(0, 12)];
@@ -52,12 +56,13 @@ public class InventoryManager : MonoBehaviour
 
     public void AddToInventory(RobotPart robotPart)
     {
+        //Instantiates given item into the inventory
         GameObject myInventoryItem = Instantiate(inventoryItemPrefab);
         itemDragDrop = myInventoryItem.GetComponentInChildren<DragDrop>();
-        itemDragDrop.canvas = GetComponentInParent<Canvas>();
-        myInventoryItem.transform.SetParent(transform, false);
+        myInventoryItem.transform.SetParent(inventoryParent.transform, false);
+        itemDragDrop.canvas = FindAnyObjectByType<Canvas>().GetComponent<Canvas>();
 
-        //sSets the DragDrop's tag according to the robotPart's type
+        //Sets the DragDrop's tag according to the robotPart's type
         if (robotPart is RobotPartHead)
         {
             itemDragDrop.gameObject.tag = "Head";
@@ -79,5 +84,19 @@ public class InventoryManager : MonoBehaviour
         itemDragDrop.botPart = robotPart;
         itemDragDrop.gameObject.name = itemDragDrop.botPart.PartName;
         itemDragDrop.GetComponent<Image>().sprite = itemDragDrop.botPart.Sprite;
+
+        //Update player money
+        money -= itemDragDrop.botPart.Price;
+        UpdateMoney();
+    }
+
+    public void UpdateMoney()
+    {
+        moneyLabel.text = money.ToString();
+    }
+
+    public void GiveMoney(int moneyToAdd)
+    {
+        money += moneyToAdd;
     }
 }

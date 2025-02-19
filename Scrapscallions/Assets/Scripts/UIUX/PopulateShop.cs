@@ -16,6 +16,7 @@ public class PopulateShop : MonoBehaviour
 
     void OnEnable()
     {
+        inventoryManager.UpdateMoney();
         if(itemPartsChosen != null)
             itemPartsChosen.RemoveRange(0, itemPartsChosen.Count);
         itemPartsChosen.AddRange(itemParts);
