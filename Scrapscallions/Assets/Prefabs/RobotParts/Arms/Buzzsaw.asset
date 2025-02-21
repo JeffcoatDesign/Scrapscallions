@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5b8edd017d9bd0478918ce27d394b1b, type: 3}
   m_Name: Buzzsaw
   m_EditorClassIdentifier: 
-  <PartName>k__BackingField: Buzzsaw
-  <MaxHP>k__BackingField: 5
-  <CurrentHP>k__BackingField: 5
+  <PartName>k__BackingField: What's The Buzz?
+  <MaxHP>k__BackingField: 200
+  <CurrentHP>k__BackingField: 20
   <Price>k__BackingField: 5
   <Prefab>k__BackingField: {fileID: 0}
   <Sprite>k__BackingField: {fileID: 21300000, guid: 031e2ce4c5507f442baaeb28c52c69c7, type: 3}
-  <AttackSpeed>k__BackingField: 5
-  <AttackDamage>k__BackingField: 5
+  <AttackSpeed>k__BackingField: 20
+  <AttackDamage>k__BackingField: 2

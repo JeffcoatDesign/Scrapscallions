@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5b8edd017d9bd0478918ce27d394b1b, type: 3}
   m_Name: Flamethrower
   m_EditorClassIdentifier: 
-  <PartName>k__BackingField: Flamethrower
-  <MaxHP>k__BackingField: 5
-  <CurrentHP>k__BackingField: 5
+  <PartName>k__BackingField: FlameBlaster MK. II
+  <MaxHP>k__BackingField: 100
+  <CurrentHP>k__BackingField: 100
   <Price>k__BackingField: 5
   <Prefab>k__BackingField: {fileID: 0}
   <Sprite>k__BackingField: {fileID: 21300000, guid: 6400b2368952c254b89634348737fe36, type: 3}
   <AttackSpeed>k__BackingField: 5
-  <AttackDamage>k__BackingField: 5
+  <AttackDamage>k__BackingField: 15

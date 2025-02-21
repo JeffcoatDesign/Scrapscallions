@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9aa804005aa56d049bac21f7c7e68273, type: 3}
   m_Name: Cardboard Box
   m_EditorClassIdentifier: 
-  <PartName>k__BackingField: Cardboard Box
-  <MaxHP>k__BackingField: 5
-  <CurrentHP>k__BackingField: 5
-  <Price>k__BackingField: 5
+  <PartName>k__BackingField: Special Delivery
+  <MaxHP>k__BackingField: 20
+  <CurrentHP>k__BackingField: 20
+  <Price>k__BackingField: 1
   <Prefab>k__BackingField: {fileID: 0}
   <Sprite>k__BackingField: {fileID: 21300000, guid: 9ee3912aa50c89249acfc18304423ada, type: 3}

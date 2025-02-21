@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f53028a4deee3cc419ea2ae668ea3d5d, type: 3}
   m_Name: Hover
   m_EditorClassIdentifier: 
-  <PartName>k__BackingField: Hover
-  <MaxHP>k__BackingField: 5
-  <CurrentHP>k__BackingField: 5
-  <Price>k__BackingField: 5
+  <PartName>k__BackingField: HoverBot
+  <MaxHP>k__BackingField: 20
+  <CurrentHP>k__BackingField: 20
+  <Price>k__BackingField: 10
   <Prefab>k__BackingField: {fileID: 0}
   <Sprite>k__BackingField: {fileID: 21300000, guid: 6c3d7af6292417b499744f4ea46a79a5, type: 3}

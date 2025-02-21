@@ -92,7 +92,7 @@ public class InventoryManager : MonoBehaviour
 
     public void UpdateMoney()
     {
-        moneyLabel.text = money.ToString();
+        moneyLabel.text = "$" + money.ToString();
     }
 
     public void GiveMoney(int moneyToAdd)
