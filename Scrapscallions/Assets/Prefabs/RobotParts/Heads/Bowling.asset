@@ -17,6 +17,6 @@ MonoBehaviour:
   <CurrentHP>k__BackingField: 50
   <Price>k__BackingField: 20
   <Prefab>k__BackingField: {fileID: 0}
-  <Sprite>k__BackingField: {fileID: 21300000, guid: 05afa56178ed0f44a8d747911e78030d, type: 3}
+  <Sprite>k__BackingField: {fileID: 21300000, guid: cdbd54d8b3367ea4c88198b5b8c29b68, type: 3}
   <Quirks>k__BackingField:
     m_keys: []

@@ -17,6 +17,6 @@ MonoBehaviour:
   <CurrentHP>k__BackingField: 150
   <Price>k__BackingField: 5
   <Prefab>k__BackingField: {fileID: 0}
-  <Sprite>k__BackingField: {fileID: 21300000, guid: 4a201683ff8928c48b6a0331b4699666, type: 3}
+  <Sprite>k__BackingField: {fileID: 21300000, guid: d007264057ad10a46804330d6450c783, type: 3}
   <AttackSpeed>k__BackingField: 10
   <AttackDamage>k__BackingField: 5
