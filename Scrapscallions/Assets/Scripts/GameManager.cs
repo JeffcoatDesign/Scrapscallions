@@ -5,8 +5,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Scraps.Gameplay;
 
-namespace Scraps
+namespace Scraps.Gameplay
 {
     public class GameManager : MonoBehaviour
     {
@@ -19,14 +20,15 @@ namespace Scraps
         public event Action<string> AnnounceWinner;
         private GoapAgent m_playerAgent;
         private GoapAgent m_opponentAgent;
+        [SerializeField] private LootTable lootTable;
         private void OnEnable()
         {
             Instance = this;
         }
         private void Start()
         {
-            playerRobot = playerRobot.Copy();
-            opponentRobot = opponentRobot.Copy();
+            playerRobot = lootTable.GetRandomRobot();
+            opponentRobot = lootTable.GetRandomRobot();
             SpawnRobot(playerRobot, playerSpawnPoint, opponentRobot, true);
             SpawnRobot(opponentRobot, opponentSpawnPoint, playerRobot, false);
             CinematicManager.instance.SetCamera(CinematicManager.CameraType.Group);

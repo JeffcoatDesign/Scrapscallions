@@ -1,3 +1,4 @@
+using Scraps.AI;
 using Scraps.AI.GOAP;
 using Scraps.Parts;
 using System;
@@ -10,14 +11,19 @@ namespace Scraps
     [System.Serializable]
     public class RobotState
     {
-        public Kinematic character;
+        public CustomKinematic character;
         public Func<GameObject> target;
         public Func<Vector3> destination;
         public GameObject[] obstacles;
         public Kinematic[] targets;
         public bool hasPath = false;
         public bool isAlive = true;
+        internal bool isPursuing = true;
         public bool isPlayer;
+
+        public float maxSpeed = 1f;
+        public float maxAngularAcceleration = 45f;
+        public float collisionRadius = 0.5f;
 
         private readonly HeadController m_headController;
         private readonly BodyController m_bodyController;
@@ -58,10 +64,6 @@ namespace Scraps
         }
         public float RemainingDistance { get => Vector3.Distance(m_agent.transform.position, destination()); }
 
-        public float maxSpeed = 1f;
-        public float maxAngularAcceleration = 45f;
-        public float collisionRadius = 0.5f;
-
         public RobotState(HeadController headController, BodyController bodyController, LegsController legsController, 
             ArmController leftArmController, ArmController rightArmController, GoapAgent agent, Robot targetRobot, bool isPlayer)
         {
@@ -72,7 +74,7 @@ namespace Scraps
             m_leftArmController = leftArmController;
             m_rightArmController = rightArmController;
             m_agent = agent;
-            if (agent.TryGetComponent(out Kinematic kinematic))
+            if (agent.TryGetComponent(out CustomKinematic kinematic))
             {
                 character = kinematic;
             }
@@ -81,7 +83,7 @@ namespace Scraps
             target = () => targetRobot.State.character.gameObject;
         }
 
-        public RobotState(Kinematic character, GameObject target = null, GameObject[] obstacles = null, Kinematic[] targets = null, Path path = null, float maxSpeed = 1f, float maxAngularAcceleration = 45f, float collisionRadius = 0.5f)
+        public RobotState(CustomKinematic character, GameObject target = null, GameObject[] obstacles = null, Kinematic[] targets = null, Path path = null, float maxSpeed = 1f, float maxAngularAcceleration = 45f, float collisionRadius = 0.5f)
         {
             this.character = character;
             this.target = () => target;
@@ -103,6 +105,11 @@ namespace Scraps
         {
             destination = () => m_agent.transform.position;
             hasPath = false;
+        }
+
+        internal SteeringBehavior GetSteeringBehavior(string key)
+        {
+            return m_headController.GetSteeringBehavior(key);
         }
     }
 }

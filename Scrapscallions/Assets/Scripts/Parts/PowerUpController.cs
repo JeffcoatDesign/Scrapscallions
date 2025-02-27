@@ -33,6 +33,8 @@ namespace Scraps.Parts
 
             m_rechargeTimer.OnTimerStop += OnRecharged;
             m_powerUpTimer.OnTimerStop += OnFinished;
+
+            m_rechargeTimer.Start();
         }
 
         private void OnFinished()

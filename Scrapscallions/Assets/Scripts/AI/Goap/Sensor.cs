@@ -9,7 +9,7 @@ using UnityEngine;
 [RequireComponent(typeof(SphereCollider))]
 public class Sensor : MonoBehaviour
 {
-    [SerializeField] float detectionRadius = 5f;
+    [SerializeField] internal float detectionRadius = 5f;
     [SerializeField] float timerInterval = 1f;
     [SerializeField] private PartController m_part;
     [SerializeField] private GoapAgent m_goapAgent;
@@ -19,7 +19,7 @@ public class Sensor : MonoBehaviour
     public event Action OnTargetChanged = delegate { };
 
     public Vector3 TargetPosition => target ? target.transform.position : Vector3.zero;
-    public bool IsTargetInRange => TargetPosition != Vector3.zero;
+    public bool IsTargetInRange => target != null;
 
     GameObject target;
     Vector3 lastKnownPosition;

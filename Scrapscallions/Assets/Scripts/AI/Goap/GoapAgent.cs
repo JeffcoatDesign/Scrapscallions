@@ -75,6 +75,7 @@ namespace Scraps.AI.GOAP
             factory.AddBelief("Nothing", () => false);
             factory.AddBelief("AttackingOpponent", () => false);
             factory.AddBelief("Alive", () => robot.State.isAlive);
+            factory.AddBelief("IsPursuing", () => robot.State.isPursuing);
 
             /*      PART BELIEFS        */
             robot.State.LeftArmController.GetBeliefs(this, beliefs);
@@ -138,8 +139,14 @@ namespace Scraps.AI.GOAP
                     currentGoal = actionPlan.AgentGoal;
                     Debug.Log($"Goal: {currentGoal.Name} with {actionPlan.Actions.Count} actions in plan.");
                     currentAction = actionPlan.Actions.Pop();
-                    Debug.Log($"Popped action: {currentAction.Name}");
+                    Debug.Log($"Popped action: {currentAction.Name}\n");
                     //Verify all precondition effects are true
+                    string debug = "";
+                    foreach(var pre in currentAction.Preconditions)
+                    {
+                        debug += $"{pre.name} is {pre.Evaluate()}";
+                    }
+                    Debug.Log(debug);
                     if (currentAction.Preconditions.All(b => b.Evaluate()))
                         currentAction.Start();
                     else

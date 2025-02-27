@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Test Robot
   m_EditorClassIdentifier: 
   head: {fileID: 11400000, guid: f7144498c5d1ba24fb41ac376f707bd6, type: 2}
-  body: {fileID: 11400000, guid: 4b2713e698cd7c34f98ad66e541405b1, type: 2}
-  legs: {fileID: 11400000, guid: adba465eed4ab0249a957a07fb064c78, type: 2}
-  leftArm: {fileID: 11400000, guid: 3247d783d104f0648a948c646bea268f, type: 2}
-  rightArm: {fileID: 11400000, guid: a4244efad91cd324ba71a2cdd8907ba7, type: 2}
+  body: {fileID: 11400000, guid: 5f8aba46b7c370541b1ed6d9ee074795, type: 2}
+  legs: {fileID: 11400000, guid: 9a14100331d55b746b4421810ab93849, type: 2}
+  leftArm: {fileID: 11400000, guid: e4145b0c6f363c14aab365566b53bef3, type: 2}
+  rightArm: {fileID: 11400000, guid: 1afed882b66c70946809441ac0b4df39, type: 2}
   headController: {fileID: 0}
   bodyController: {fileID: 0}
   legsController: {fileID: 0}

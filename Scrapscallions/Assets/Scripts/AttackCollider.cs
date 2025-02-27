@@ -8,22 +8,12 @@ using UnityEngine;
 public class AttackCollider : MonoBehaviour
 {
     [SerializeField] private ArmController m_armController;
-    private bool m_canHit = false;
     private List<PartController> m_hitParts = new();
-    private void OnEnable()
-    {
-        if (m_armController == null) return;
-
-        m_armController.Attacked += OnAttack;
-        m_armController.AttackEnded += OnAttackEnded;
-    }
-
-    private void OnAttack() => m_canHit = true;
-    private void OnAttackEnded() => m_canHit = false;
+    public bool canHit = false;
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!m_canHit || !other.CompareTag("Robot")) return;
+        if (!canHit && !other.CompareTag("Robot")) return;
         
         if (other.TryGetComponent(out PartController otherPart))
         {

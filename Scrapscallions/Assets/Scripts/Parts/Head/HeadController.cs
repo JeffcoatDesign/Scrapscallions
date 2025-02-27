@@ -1,5 +1,7 @@
+using Scraps.AI;
 using Scraps.AI.GOAP;
 using Scraps.Utilities;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +12,15 @@ namespace Scraps.Parts
     {
         public RobotPartHead head;
         [SerializeField] private GameObject m_headVisual;
+        [SerializeField] private SteeringBehavior m_idleBehavior, m_fleeBehavior, m_pursueBehavior;
+        private Dictionary<string, GameObject> m_steeringBehaviors;
+        private void Awake()
+        {
+            m_steeringBehaviors = new Dictionary<string, GameObject>();
+
+            //m_idleBehavior = m_idleBehavior.Clone();
+            //TO DO THE OTHERS AND PUTTING INTO DICT
+        }
         override public void Break()
         {
             isBroken = true;
@@ -47,6 +58,11 @@ namespace Scraps.Parts
         override public void Repair(int amount)
         {
             throw new System.NotImplementedException();
+        }
+
+        internal SteeringBehavior GetSteeringBehavior(string key)
+        {
+            throw new NotImplementedException();
         }
     }
 }
