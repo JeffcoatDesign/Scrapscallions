@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     public Texture2D cursor;
+    public bool isMainMenuOpen;
 
     [Header("Menus")]
     [SerializeField] private GameObject mainMenu;
@@ -20,29 +21,34 @@ public class UIManager : MonoBehaviour
     void Start()
     {
         Cursor.SetCursor(cursor, Vector2.zero, CursorMode.ForceSoftware);
+        isMainMenuOpen = true;
     }
 
     public void OpenOptions()
     {
         mainMenu.SetActive(false);
+        isMainMenuOpen = false;
         optionsMenu.SetActive(true);
     }
 
     public void CloseOptions()
     {
         mainMenu.SetActive(true);
+        isMainMenuOpen = true;
         optionsMenu.SetActive(false);
     }
 
     public void OpenDebug()
     {
         mainMenu.SetActive(false);
+        isMainMenuOpen = false;
         debugMenu.SetActive(true);
     }
 
     public void CloseDebug()
     {
         mainMenu.SetActive(true);
+        isMainMenuOpen = true;
         debugMenu.SetActive(false);
     }
 

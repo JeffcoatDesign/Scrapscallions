@@ -10,6 +10,7 @@ public class BattleUI : MonoBehaviour
     public float timePassed = 99;
     public bool isTimerGoing = true;
     public bool isBattleOpen = true;
+    public PanoramaCamera panoramaCamera;
 
     [SerializeField]
     private Slider playerHP, enemyHP;
@@ -25,28 +26,28 @@ public class BattleUI : MonoBehaviour
             isTimerGoing = false;
     }
 
-    public void DamagePlayer()
+    public void DamagePlayer(int dmg)
     {
         if (playerHP.value > 0)
-            playerHP.value -= 10;
+            playerHP.value -= dmg;
     }
 
-    public void DamageEnemy()
+    public void DamageEnemy(int dmg)
     {
         if (enemyHP.value > 0)
-            enemyHP.value -= 10;
+            enemyHP.value -= dmg;
     }
 
-    public void HealPlayer()
+    public void HealPlayer(int dmg)
     {
         if (playerHP.value < 100)
-            playerHP.value += 10;
+            playerHP.value += dmg;
     }
 
-    public void HealEnemy()
+    public void HealEnemy(int dmg)
     {
         if (enemyHP.value < 100)
-            enemyHP.value += 10;
+            enemyHP.value += dmg;
     }
 
     public void ResetBattle()

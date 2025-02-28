@@ -25,6 +25,7 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
     private RobotPartArm botPartToArm;
     private RobotPartHead botPartToHead;
     private RectTransform toolTipPos;
+    private InventoryManager inventoryManager;
 
     private void Awake()
     {
@@ -33,6 +34,7 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
         canvasGroup = GetComponent<CanvasGroup>();
         homeSlot = GetComponentInParent<ItemSlot>();
         itemImage = GetComponent<Image>();
+        inventoryManager = FindAnyObjectByType<InventoryManager>();
         if (toolTip != null)
         {
             itemDescription = toolTip.GetComponentsInChildren<TextMeshProUGUI>();
@@ -133,19 +135,19 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
             switch (GetComponentInParent<ItemSlot>().gameObject.name)
             {
                 case "Head":
-                    GetComponentInParent<BotPartsEquip>().equippedHead = null;
+                    inventoryManager.equippedHead = null;
                     break;
                 case "Body":
-                    GetComponentInParent<BotPartsEquip>().equippedBody = null;
+                    inventoryManager.equippedBody = null;
                     break;
                 case "Left Arm":
-                    GetComponentInParent<BotPartsEquip>().equippedLArm = null;
+                    inventoryManager.equippedLArm = null;
                     break;
                 case "Right Arm":
-                    GetComponentInParent<BotPartsEquip>().equippedRArm = null;
+                    inventoryManager.equippedRArm = null;
                     break;
                 case "Legs":
-                    GetComponentInParent<BotPartsEquip>().equippedLegs = null;
+                    inventoryManager.equippedLegs = null;
                     break;
             }
         }

@@ -15,6 +15,12 @@ public class InventoryManager : MonoBehaviour
     public int money;
     public TextMeshProUGUI moneyLabel;
 
+    public RobotPart equippedHead;
+    public RobotPart equippedBody;
+    public RobotPart equippedLArm;
+    public RobotPart equippedRArm;
+    public RobotPart equippedLegs;
+
     void Awake()
     {
         Random.InitState((int)System.DateTime.Now.Ticks);

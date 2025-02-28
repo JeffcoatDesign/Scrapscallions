@@ -15,6 +15,13 @@ public class ItemSlot : MonoBehaviour, IDropHandler
     //The DragDrop dropped into the ItemSlot
     private DragDrop dragDropInQuestion;
 
+    private InventoryManager inventoryManager;
+
+    void Start()
+    {
+        inventoryManager = FindAnyObjectByType<InventoryManager>();
+    }
+
     public void OnDrop(PointerEventData eventData) 
     {
         if (eventData.pointerDrag != null)
@@ -62,19 +69,19 @@ public class ItemSlot : MonoBehaviour, IDropHandler
                 switch(gameObject.name)
                 {
                     case "Head":
-                        GetComponentInParent<BotPartsEquip>().equippedHead = itemOccupiedBy.botPart;
+                        inventoryManager.equippedHead = itemOccupiedBy.botPart;
                         break;
                     case "Body":
-                        GetComponentInParent<BotPartsEquip>().equippedBody = itemOccupiedBy.botPart;
+                        inventoryManager.equippedBody = itemOccupiedBy.botPart;
                         break;
                     case "Left Arm":
-                        GetComponentInParent<BotPartsEquip>().equippedLArm = itemOccupiedBy.botPart;
+                        inventoryManager.equippedLArm = itemOccupiedBy.botPart;
                         break;
                     case "Right Arm":
-                        GetComponentInParent<BotPartsEquip>().equippedRArm = itemOccupiedBy.botPart;
+                        inventoryManager.equippedRArm = itemOccupiedBy.botPart;
                         break;
                     case "Legs":
-                        GetComponentInParent<BotPartsEquip>().equippedLegs = itemOccupiedBy.botPart;
+                        inventoryManager.equippedLegs = itemOccupiedBy.botPart;
                         break;
                 }
             }
@@ -95,19 +102,19 @@ public class ItemSlot : MonoBehaviour, IDropHandler
         switch (dragDropInQuestion.slotOccupying.gameObject.name)
         {
             case "Head":
-                GetComponentInParent<BotPartsEquip>().equippedHead = null;
+                inventoryManager.equippedHead = null;
                 break;
             case "Body":
-                GetComponentInParent<BotPartsEquip>().equippedBody = null;
+                inventoryManager.equippedBody = null;
                 break;
             case "Left Arm":
-                GetComponentInParent<BotPartsEquip>().equippedLArm = null;
+                inventoryManager.equippedLArm = null;
                 break;
             case "Right Arm":
-                GetComponentInParent<BotPartsEquip>().equippedRArm = null;
+                inventoryManager.equippedRArm = null;
                 break;
             case "Legs":
-                GetComponentInParent<BotPartsEquip>().equippedLegs = null;
+                inventoryManager.equippedLegs = null;
                 break;
         }
         dragDropInQuestion.slotOccupying.itemOccupiedBy = null;
