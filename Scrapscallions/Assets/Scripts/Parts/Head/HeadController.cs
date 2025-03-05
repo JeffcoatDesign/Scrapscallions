@@ -1,5 +1,7 @@
+using Scraps.AI;
 using Scraps.AI.GOAP;
 using Scraps.Utilities;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,11 +11,15 @@ namespace Scraps.Parts
     public class HeadController : PartController
     {
         public RobotPartHead head;
-        [SerializeField] private GameObject m_headVisual;
-        override public void Break()
+        public Transform tagTransform;
+        [SerializeField] private SteeringBehavior m_idleBehavior, m_fleeBehavior, m_pursueBehavior;
+        private Dictionary<string, GameObject> m_steeringBehaviors;
+        private void Awake()
         {
-            isBroken = true;
-            m_headVisual.SetActive(false);
+            m_steeringBehaviors = new Dictionary<string, GameObject>();
+
+            //m_idleBehavior = m_idleBehavior.Clone();
+            //TO DO THE OTHERS AND PUTTING INTO DICT
         }
 
         override public void GetActions(GoapAgent agent, SerializableHashSet<AgentAction> actions, Dictionary<string, AgentBelief> agentBeliefs)
@@ -44,9 +50,21 @@ namespace Scraps.Parts
             PartHit?.Invoke(damage);
         }
 
+        public override void Break()
+        {
+            tagTransform.parent = transform.parent;
+
+            base.Break();
+        }
+
         override public void Repair(int amount)
         {
             throw new System.NotImplementedException();
+        }
+
+        internal SteeringBehavior GetSteeringBehavior(string key)
+        {
+            throw new NotImplementedException();
         }
     }
 }

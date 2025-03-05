@@ -9,7 +9,7 @@ using UnityEngine;
 [RequireComponent(typeof(SphereCollider))]
 public class Sensor : MonoBehaviour
 {
-    [SerializeField] float detectionRadius = 5f;
+    [SerializeField] internal float detectionRadius = 5f;
     [SerializeField] float timerInterval = 1f;
     [SerializeField] private PartController m_part;
     [SerializeField] private GoapAgent m_goapAgent;
@@ -19,7 +19,7 @@ public class Sensor : MonoBehaviour
     public event Action OnTargetChanged = delegate { };
 
     public Vector3 TargetPosition => target ? target.transform.position : Vector3.zero;
-    public bool IsTargetInRange => TargetPosition != Vector3.zero;
+    public bool IsTargetInRange => target != null;
 
     GameObject target;
     Vector3 lastKnownPosition;
@@ -90,7 +90,17 @@ public class Sensor : MonoBehaviour
             if (m_collidingParts.Contains(otherPart))
                 m_collidingParts.Remove(otherPart);
             if (m_collidingParts.Count > 0)
-                UpdateTargetPosition(m_collidingParts.First().gameObject);
+            {
+                var firstPart = m_collidingParts.First();
+                while (firstPart == null && m_collidingParts.Count > 0)
+                {
+                    m_collidingParts.Remove(firstPart);
+                    if (m_collidingParts.Count > 0)
+                        firstPart = m_collidingParts.First();
+                }
+                if (firstPart != null)
+                    UpdateTargetPosition(firstPart.gameObject);
+            }
             else
                 UpdateTargetPosition();
         }

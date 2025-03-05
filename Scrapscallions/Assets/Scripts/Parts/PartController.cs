@@ -1,3 +1,4 @@
+using Assets.Scripts.Parts;
 using Scraps.AI.GOAP;
 using Scraps.Utilities;
 using System;
@@ -7,9 +8,10 @@ using UnityEngine;
 
 namespace Scraps.Parts
 {
+    [RequireComponent(typeof(DetachOnBreak))]
     public abstract class PartController : MonoBehaviour, IPartController
     {
-        protected Robot m_robot;
+        protected Robot m_robot { get; private set; }
         internal bool isBroken;
         internal Action<int> PartHit;
         internal Action PartBroken;
@@ -17,8 +19,8 @@ namespace Scraps.Parts
 
         virtual public void Break()
         {
+            isBroken = true;
             Broke.Invoke();
-            Debug.LogWarning("Function Break not defined in part: " + this);
         }
 
         virtual public void GetActions(GoapAgent agent, SerializableHashSet<AgentAction> actions, Dictionary<string, AgentBelief> agentBeliefs)
@@ -44,11 +46,20 @@ namespace Scraps.Parts
             throw new System.NotImplementedException();
         }
 
-        public virtual void Initialize(Robot robot) => m_robot = robot;
+        public virtual void Initialize(Robot robot)
+        {
+            m_robot = robot;
+            m_robot.agent.Died += OnDied;
+        }
 
         virtual public void Repair(int amount)
         {
             throw new System.NotImplementedException();
+        }
+
+        protected void OnDied()
+        {
+            Broke?.Invoke();
         }
     }
 }

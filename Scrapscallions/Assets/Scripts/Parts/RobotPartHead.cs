@@ -22,6 +22,7 @@ namespace Scraps.Parts
 
         internal HeadController Spawn(BodyController bodyController)
         {
+            if (bodyController == null) Debug.LogWarning("Body controller not found");
             return Instantiate(Prefab, bodyController.HeadAttachPoint).GetComponent<HeadController>();
         }
     }

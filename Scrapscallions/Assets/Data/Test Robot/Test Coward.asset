@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2da390640ade0d4b9fa33039877d6d1, type: 3}
   m_Name: Test Coward
   m_EditorClassIdentifier: 
-  head: {fileID: 11400000, guid: 303a855133554134394e28ab0f9233a2, type: 2}
-  body: {fileID: 11400000, guid: 4b2713e698cd7c34f98ad66e541405b1, type: 2}
-  legs: {fileID: 11400000, guid: adba465eed4ab0249a957a07fb064c78, type: 2}
-  leftArm: {fileID: 11400000, guid: 3247d783d104f0648a948c646bea268f, type: 2}
-  rightArm: {fileID: 11400000, guid: 14e6e4223624bfc4b8f20c2bace6555d, type: 2}
+  head: {fileID: 11400000, guid: 69244bc8865b31c498fa57f050b8a7b5, type: 2}
+  body: {fileID: 11400000, guid: aa45c68a164be3541bb93ed4b818682e, type: 2}
+  legs: {fileID: 11400000, guid: 6d2b8c68705e29d40beb3172dff0cee5, type: 2}
+  leftArm: {fileID: 11400000, guid: 1afed882b66c70946809441ac0b4df39, type: 2}
+  rightArm: {fileID: 11400000, guid: 2a19679e74095ee47a47571efdf3b8c8, type: 2}
   headController: {fileID: 0}
   bodyController: {fileID: 0}
   legsController: {fileID: 0}

@@ -16,9 +16,19 @@ public class CustomKinematic : Kinematic
     private SteeringBehavior m_steeringInstance;
     private bool m_canMove = true;
 
+    internal void SetSteeringBehavior(SteeringBehavior steeringBehavior)
+    {
+        m_steeringBehavior = steeringBehavior;
+    }
+
     internal void DisableMovement()
     {
         m_canMove = false;
+    }
+
+    internal void EnableMovement()
+    {
+        m_canMove = true;
     }
 
     private void Start()

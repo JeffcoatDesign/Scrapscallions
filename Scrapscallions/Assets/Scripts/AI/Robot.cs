@@ -15,6 +15,7 @@ public class Robot : ScriptableObject
     public RobotPartLegs legs;
     public RobotPartArm leftArm;
     public RobotPartArm rightArm;
+    public GoapAgent agent;
 
     [HideInInspector] public HeadController headController;
     [HideInInspector] public BodyController bodyController;
@@ -27,6 +28,8 @@ public class Robot : ScriptableObject
 
     internal void Spawn(GoapAgent agent, Robot target, bool isPlayer)
     {
+        this.agent = agent;
+
         legsController = legs.Spawn(agent);
         bodyController = body.Spawn(legsController);
         headController = head.Spawn(bodyController);

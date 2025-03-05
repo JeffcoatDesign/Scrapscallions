@@ -10,49 +10,19 @@ namespace Scraps.Parts
     public class ArmController : PartController
     {
         public Side side;
-        [SerializeField] protected GameObject m_armVisual;
         [SerializeField] protected Sensor m_attackRangeSensor;
         [SerializeField] protected float m_timeBetweenAttacks = 3f;
         [SerializeField] private float m_facingThreshold = 0.9f;
+        [SerializeField] protected ActionController m_actionController;
 
         public RobotPartArm arm;
 
-        protected bool m_isAttacking = false;
-        protected bool m_isReady = true;
         protected bool m_facingOpponent = true;
 
         private CountdownTimer m_attackReadyTimer;
 
-        internal Action Attacked, AttackEnded;
-
         //TODO Check if the body breaks through Robot.body.Break action
         // ALSO add as precondition to the attack action
-
-        virtual public void Attack()
-        {
-            m_isAttacking = true;
-            m_isReady = false;
-            transform.localRotation = Quaternion.Euler(270f, 0f, 0f);
-
-            Attacked?.Invoke();
-        }
-
-        virtual public void Idle()
-        {
-            m_isAttacking = false;
-            transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
-            m_attackReadyTimer = new(m_timeBetweenAttacks);
-            m_attackReadyTimer.OnTimerStop += Ready;
-            m_attackReadyTimer.Start();
-
-            AttackEnded?.Invoke();
-        }
-
-        override public void Break()
-        {
-            isBroken = true;
-            m_armVisual.SetActive(false);
-        }
 
         override public void Hit(int damage)
         {
@@ -78,8 +48,8 @@ namespace Scraps.Parts
         override public void GetBeliefs(GoapAgent agent, Dictionary<string, AgentBelief> agentBeliefs)
         {
             BeliefFactory beliefFactory = new BeliefFactory(agent, agentBeliefs);
-            beliefFactory.AddBelief(side.ToString() + "ArmAttacking", () => m_isAttacking);
-            beliefFactory.AddBelief(side.ToString() + "ArmReady", () => m_isReady);
+            beliefFactory.AddBelief(side.ToString() + "ArmAttacking", () => m_actionController.IsTakingAction);
+            beliefFactory.AddBelief(side.ToString() + "ArmReady", () => m_actionController.IsReady);
             beliefFactory.AddBelief(side.ToString() + "ArmWorking", () => !isBroken);
             beliefFactory.AddBelief(side.ToString() + "ArmFacingOpponent", () => m_facingOpponent);
             //beliefFactory.AddLocationBelief(side.ToString() + "ArmInAttackRange", 3f, () => m_robot.State.target().transform.position);
@@ -89,12 +59,13 @@ namespace Scraps.Parts
         override public void GetActions(GoapAgent agent, SerializableHashSet<AgentAction> actions, Dictionary<string, AgentBelief> agentBeliefs)
         {
             actions.Add(
-                new AgentAction.Builder(side.ToString() + "ArmAttack")
-                .WithStrategy(ScriptableObject.CreateInstance<AttackStrategy>().Initialize(this, 2))
-                .WithPrecondition(agentBeliefs[side.ToString()+"ArmInAttackRange"])
-                .WithPrecondition(agentBeliefs[side.ToString()+ "ArmFacingOpponent"])
-                .WithPrecondition(agentBeliefs[side.ToString()+"ArmReady"])
+                new AgentAction.Builder(side.ToString() + m_actionController.ActionName)
+                .WithStrategy(ScriptableObject.CreateInstance<TakeActionStrategy>().Initialize(m_actionController))
+                .WithPrecondition(agentBeliefs[side.ToString() + "ArmInAttackRange"])
+                .WithPrecondition(agentBeliefs[side.ToString() + "ArmFacingOpponent"])
+                .WithPrecondition(agentBeliefs[side.ToString() + "ArmReady"])
                 .WithPrecondition(agentBeliefs[side.ToString() + "ArmWorking"])
+                .WithPrecondition(agentBeliefs["IsPursuing"])
                 .WithPrecondition(agentBeliefs["Alive"])
                 .AddEffect(agentBeliefs["AttackingOpponent"])
                 .AddEffect(agentBeliefs[side.ToString() + "ArmAttacking"])
@@ -106,6 +77,7 @@ namespace Scraps.Parts
                 .WithPrecondition(agentBeliefs[side.ToString() + "ArmWorking"])
                 .WithPrecondition(agentBeliefs["Alive"])
                 .AddEffect(agentBeliefs[side.ToString() + "ArmInAttackRange"])
+                .AddEffect(agentBeliefs["IsPursuing"])
                 .Build()
             );
         }
@@ -119,11 +91,6 @@ namespace Scraps.Parts
         {
             Left,
             Right
-        }
-
-        private void Ready()
-        {
-            m_isReady = true;
         }
         private void Update()
         {

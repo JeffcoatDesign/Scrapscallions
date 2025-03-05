@@ -21,7 +21,7 @@ public class Projectile : MonoBehaviour
         {
             if (otherPart.GetRobot() == robot) return;
             if (otherPart.isBroken) return;
-            Debug.Log("Ranged hit");
+            Debug.Log("Ranged hit for " + damage);
             otherPart.Hit(damage);
             Destroy(gameObject);
         }
