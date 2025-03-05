@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 970269559669371203}
   - component: {fileID: 7873114296011334200}
   - component: {fileID: 6002168036279243231}
+  - component: {fileID: 6512339162029684147}
   m_Layer: 0
   m_Name: Vacuum Legs
   m_TagString: Robot
@@ -70,6 +71,23 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.0610157, y: 0.10608804, z: 1.0326167}
   m_Center: {x: 0.0030457377, y: 0.10323596, z: 0.000073730946}
+--- !u!114 &6512339162029684147
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1139219294892635153}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7a04f45ed91be445a4bf51370a1663b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  part: {fileID: 7873114296011334200}
+  force: 10
+  m_excludeLayers:
+    serializedVersion: 2
+    m_Bits: 1
 --- !u!1 &6911840186747955748
 GameObject:
   m_ObjectHideFlags: 0

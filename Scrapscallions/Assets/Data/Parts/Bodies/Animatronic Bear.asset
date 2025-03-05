@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: Animatronic Bear
   m_EditorClassIdentifier: 
   <PartName>k__BackingField: Animatronic Bear
-  <MaxHP>k__BackingField: 5
-  <CurrentHP>k__BackingField: 5
+  <MaxHP>k__BackingField: 10
+  <CurrentHP>k__BackingField: 10
   <Price>k__BackingField: 5
-  <Prefab>k__BackingField: {fileID: 0}
+  <Prefab>k__BackingField: {fileID: 4797223487188948200, guid: 6d719edcf5e7dcf47b5b3d45d0ce8d59, type: 3}
   <Sprite>k__BackingField: {fileID: 21300000, guid: 54be3a4eeb9c86b4297621502919ff83, type: 3}
+  <IsBroken>k__BackingField: 0

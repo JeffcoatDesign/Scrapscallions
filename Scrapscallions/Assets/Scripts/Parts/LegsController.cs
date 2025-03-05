@@ -22,7 +22,9 @@ namespace Scraps.Parts
 
         override public void GetBeliefs(GoapAgent agent, Dictionary<string, AgentBelief> agentBeliefs)
         {
-            throw new System.NotImplementedException();
+            BeliefFactory beliefFactory = new(agent, agentBeliefs);
+
+            beliefFactory.AddBelief("Legs Working", () => !isBroken);
         }
 
         override public void GetGoals(GoapAgent agent, SerializableHashSet<AgentGoal> goals, Dictionary<string, AgentBelief> agentBeliefs)
@@ -38,18 +40,11 @@ namespace Scraps.Parts
         override public void Hit(int damage)
         {
             PartHit?.Invoke(damage);
-
-            Debug.Log("You gotta add more stuff to the legs hit function");
         }
 
         override public void Repair(int amount)
         {
             throw new System.NotImplementedException();
-        }
-
-        override public void Initialize(Robot robot)
-        {
-            m_robot = robot;
         }
     }
 }

@@ -26,6 +26,11 @@ public class CustomKinematic : Kinematic
         m_canMove = false;
     }
 
+    internal void EnableMovement()
+    {
+        m_canMove = true;
+    }
+
     private void Start()
     {
         robotState = agent.robot.State;

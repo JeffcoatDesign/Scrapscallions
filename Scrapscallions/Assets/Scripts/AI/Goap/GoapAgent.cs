@@ -141,16 +141,20 @@ namespace Scraps.AI.GOAP
                     currentAction = actionPlan.Actions.Pop();
                     Debug.Log($"Popped action: {currentAction.Name}\n");
                     //Verify all precondition effects are true
-                    string debug = "";
-                    foreach(var pre in currentAction.Preconditions)
-                    {
-                        debug += $"{pre.name} is {pre.Evaluate()}";
-                    }
-                    Debug.Log(debug);
+                    //string debug = "";
+                    //foreach(var pre in currentAction.Preconditions)
+                    //{
+                    //    debug += $"{pre.name} is {pre.Evaluate()}";
+                    //}
+                    //Debug.Log(debug);
                     if (currentAction.Preconditions.All(b => b.Evaluate()))
                         currentAction.Start();
                     else
                     {
+                        foreach (var precon in currentAction.Preconditions)
+                        {
+                            if (!precon.Evaluate()) Debug.Log("Precon not met: " + precon.Name);
+                        }
                         Debug.Log("Preconditions not met, clearing current action and goal");
                         currentAction = null;
                         currentGoal = null;

@@ -23,33 +23,23 @@ namespace Scraps.Parts
         private void OnLaserStopped()
         {
             m_laserActive = false;
-            m_isAttacking = false;
-            Idle();
+            //m_isAttacking = false;
+            //Idle();
         }
 
         private void OnLaserActivated()
         {
             m_laserActive = true;
-            m_isAttacking = true;
-        }
-
-        public override void Attack()
-        {
-            base.Attack();
-        }
-
-        public override void Idle()
-        {
-            base.Idle();
+            //m_isAttacking = true;
         }
 
         private void Update()
         {
-            if (m_laserActive)
+            /*if (m_laserActive)
             {
                 Aim();
                 Fire?.Invoke();
-            }
+            }*/
         }
 
         public override void GetBeliefs(GoapAgent agent, Dictionary<string, AgentBelief> agentBeliefs)
@@ -57,8 +47,8 @@ namespace Scraps.Parts
             BeliefFactory beliefFactory = new(agent, agentBeliefs);
 
             beliefFactory.AddBelief(side.ToString() + "ArmNotTooClose", () => !m_opponentCloseSensor.IsTargetInRange);
-            beliefFactory.AddBelief(side.ToString() + "ArmAttacking", () => m_isAttacking);
-            beliefFactory.AddBelief(side.ToString() + "ArmReady", () => m_isReady);
+            beliefFactory.AddBelief(side.ToString() + "ArmAttacking", () => m_actionController.IsTakingAction);
+            beliefFactory.AddBelief(side.ToString() + "ArmReady", () => m_actionController.IsReady);
             beliefFactory.AddBelief(side.ToString() + "ArmWorking", () => !isBroken);
             beliefFactory.AddBelief(side.ToString() + "ArmLaserNotFiring", () => !m_laserActive);
             beliefFactory.AddBelief(side.ToString() + "ArmLaserFiring", () => m_powerUpController.isUsingPowerUp);
@@ -70,8 +60,8 @@ namespace Scraps.Parts
         public override void GetActions(GoapAgent agent, SerializableHashSet<AgentAction> actions, Dictionary<string, AgentBelief> agentBeliefs)
         {
             actions.Add(
-                new AgentAction.Builder(side.ToString() + "ArmAttack")
-                .WithStrategy(ScriptableObject.CreateInstance<AttackStrategy>().Initialize(this, 2))
+                new AgentAction.Builder(side.ToString() + m_actionController.ActionName)
+                .WithStrategy(ScriptableObject.CreateInstance<TakeActionStrategy>().Initialize(m_actionController))
                 .WithPrecondition(agentBeliefs[side.ToString() + "ArmInAttackRange"])
                 .WithPrecondition(agentBeliefs[side.ToString() + "ArmReady"])
                 .WithPrecondition(agentBeliefs[side.ToString() + "ArmNotTooClose"])

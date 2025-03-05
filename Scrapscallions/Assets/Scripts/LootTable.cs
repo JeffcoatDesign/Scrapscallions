@@ -11,7 +11,7 @@ namespace Scraps.Gameplay
     {
         [SerializeField] private List<LootTableEntry> m_entries = new();
         [SerializeField] private float m_rareChance, m_epicChance;
-        [SerializeField] private RobotPartHead head;
+        [SerializeField] private AnimationCurve m_healthCurve;
         internal RobotPart GetRandomPart(PartType type, Rarity rarity = Rarity.Any, bool randomizeHealth = false)
         {
             RobotPart part = null;
@@ -26,7 +26,7 @@ namespace Scraps.Gameplay
                 float commonChance = 1f - m_rareChance - m_epicChance;
                 float randomValue = Random.Range(0f, 1f);
                 bool isCommon = randomValue < commonChance;
-                bool isRare = randomValue >= commonChance;
+                bool isRare = !isCommon && randomValue < m_epicChance;
                 if (isCommon) rarity = Rarity.Common;
                 else if (isRare) rarity = Rarity.Rare;
                 else rarity = Rarity.Epic;
@@ -45,7 +45,8 @@ namespace Scraps.Gameplay
 
             if (randomizeHealth)
             {
-                part.CurrentHP = Random.Range(1, part.MaxHP);
+                float randomValue = m_healthCurve.Evaluate(Random.Range(0f, 1f));
+                part.CurrentHP = (int)randomValue * part.MaxHP;
             } 
             else
                 part.CurrentHP = part.MaxHP;
@@ -56,8 +57,7 @@ namespace Scraps.Gameplay
         public Robot GetRandomRobot(bool randomizeHealth = false)
         {
             Robot robot = CreateInstance<Robot>();
-            head = (RobotPartHead)GetRandomPart(PartType.Head, Rarity.Any, randomizeHealth);
-            robot.head = head;
+            robot.head = (RobotPartHead)GetRandomPart(PartType.Head, Rarity.Any, randomizeHealth);
             robot.leftArm = (RobotPartArm)GetRandomPart(PartType.Arm, Rarity.Any, randomizeHealth);
             robot.rightArm = (RobotPartArm)GetRandomPart(PartType.Arm, Rarity.Any, randomizeHealth);
             robot.body = (RobotPartBody)GetRandomPart(PartType.Body, Rarity.Any, randomizeHealth);

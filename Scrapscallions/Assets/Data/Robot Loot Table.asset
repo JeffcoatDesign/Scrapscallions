@@ -51,4 +51,36 @@ MonoBehaviour:
     part: {fileID: 11400000, guid: 0ee43c51ecc1ae545837745ae7af5880, type: 2}
   m_rareChance: 0.3
   m_epicChance: 0.1
-  head: {fileID: 0}
+  m_healthCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.09984207
+      value: 0.100616455
+      inSlope: 0.01875518
+      outSlope: 0.01875518
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.28283298
+    - serializedVersion: 3
+      time: 0.73022854
+      value: 0.33999455
+      inSlope: 1.413134
+      outSlope: 1.413134
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 2.4465356
+      outSlope: 2.4465356
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4

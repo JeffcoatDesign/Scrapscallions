@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4852571777985651534}
   - component: {fileID: 568241485857722258}
   - component: {fileID: 8647152283081783725}
+  - component: {fileID: 5567292755947444428}
   m_Layer: 0
   m_Name: Bowling Head
   m_TagString: Robot
@@ -31,6 +32,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 2010925383818333966}
   - {fileID: 2636191860862596514}
   - {fileID: 7116988717620857512}
   m_Father: {fileID: 0}
@@ -48,7 +50,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   head: {fileID: 0}
-  m_headVisual: {fileID: 7606385314288979986}
+  tagTransform: {fileID: 2010925383818333966}
   m_idleBehavior: {fileID: 0}
   m_fleeBehavior: {fileID: 0}
   m_pursueBehavior: {fileID: 0}
@@ -73,6 +75,58 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1.3229843, z: 0.9240874}
   m_Center: {x: 0, y: 0.1614924, z: -0.037956297}
+--- !u!114 &5567292755947444428
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1642695058093926673}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7a04f45ed91be445a4bf51370a1663b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  part: {fileID: 568241485857722258}
+  force: 2
+  m_excludeLayers:
+    serializedVersion: 2
+    m_Bits: 1
+  m_timeUntilDisableColliders: 2
+  m_doesShrinkAndDisappear: 1
+  m_shrinkSpeed: 0.05
+  m_timeUntilShrink: 10
+--- !u!1 &8365147072014622575
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2010925383818333966}
+  m_Layer: 5
+  m_Name: Tag Parent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2010925383818333966
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8365147072014622575}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4852571777985651534}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &7299814881853467971
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -133,11 +187,6 @@ PrefabInstance:
 --- !u!4 &7116988717620857512 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 86fbea45c91d1db4abc57c416657586f, type: 3}
-  m_PrefabInstance: {fileID: 7299814881853467971}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &7606385314288979986 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 86fbea45c91d1db4abc57c416657586f, type: 3}
   m_PrefabInstance: {fileID: 7299814881853467971}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7686374745919118433

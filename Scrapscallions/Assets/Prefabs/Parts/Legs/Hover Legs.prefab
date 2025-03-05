@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 970269559669371203}
   - component: {fileID: 7873114296011334200}
-  - component: {fileID: 8831860545223731534}
   - component: {fileID: 6333798979428039341}
+  - component: {fileID: 6512339162029684147}
   m_Layer: 0
   m_Name: Hover Legs
   m_TagString: Robot
@@ -49,27 +49,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_bodyAttachPoint: {fileID: 920319634739895438}
---- !u!65 &8831860545223731534
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1139219294892635153}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1.0551792, z: 0.33907402}
-  m_Center: {x: 0, y: 0.47723252, z: -0.021841079}
 --- !u!135 &6333798979428039341
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -91,6 +70,23 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.69
   m_Center: {x: 0, y: 0.91, z: 0}
+--- !u!114 &6512339162029684147
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1139219294892635153}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7a04f45ed91be445a4bf51370a1663b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  part: {fileID: 7873114296011334200}
+  force: 10
+  m_excludeLayers:
+    serializedVersion: 2
+    m_Bits: 1
 --- !u!1 &6911840186747955748
 GameObject:
   m_ObjectHideFlags: 0

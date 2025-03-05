@@ -11,7 +11,7 @@ namespace Scraps.Parts
     public class HeadController : PartController
     {
         public RobotPartHead head;
-        [SerializeField] private GameObject m_headVisual;
+        public Transform tagTransform;
         [SerializeField] private SteeringBehavior m_idleBehavior, m_fleeBehavior, m_pursueBehavior;
         private Dictionary<string, GameObject> m_steeringBehaviors;
         private void Awake()
@@ -20,11 +20,6 @@ namespace Scraps.Parts
 
             //m_idleBehavior = m_idleBehavior.Clone();
             //TO DO THE OTHERS AND PUTTING INTO DICT
-        }
-        override public void Break()
-        {
-            isBroken = true;
-            m_headVisual.SetActive(false);
         }
 
         override public void GetActions(GoapAgent agent, SerializableHashSet<AgentAction> actions, Dictionary<string, AgentBelief> agentBeliefs)
@@ -53,6 +48,13 @@ namespace Scraps.Parts
             head.CurrentHP = currentHP;
 
             PartHit?.Invoke(damage);
+        }
+
+        public override void Break()
+        {
+            tagTransform.parent = transform.parent;
+
+            base.Break();
         }
 
         override public void Repair(int amount)

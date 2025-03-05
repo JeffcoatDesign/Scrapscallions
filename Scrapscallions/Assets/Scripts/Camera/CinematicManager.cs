@@ -43,6 +43,13 @@ namespace Scraps.Cinematic
         private void Update()
         {
             m_countdownTimer.Tick(Time.deltaTime);
+
+            if (Input.GetMouseButtonDown(0) && m_activeCamera == CameraType.Group)
+            {
+                RandomizeTargetGroupCamera();
+                m_countdownTimer.Reset();
+                m_countdownTimer.Start();
+            }
         }
 
         internal void SetCamera(CameraType cameraType)
@@ -67,6 +74,11 @@ namespace Scraps.Cinematic
         internal void AddTarget(Transform target, float weight = 1f, float radius = 3f)
         {
             m_targetGroup.AddMember(target, weight, radius);
+        }
+
+        internal void RemoveTarget(Transform target)
+        {
+            m_targetGroup.RemoveMember(target);
         }
 
         internal void SetSingleTarget(Transform target)

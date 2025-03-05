@@ -90,7 +90,17 @@ public class Sensor : MonoBehaviour
             if (m_collidingParts.Contains(otherPart))
                 m_collidingParts.Remove(otherPart);
             if (m_collidingParts.Count > 0)
-                UpdateTargetPosition(m_collidingParts.First().gameObject);
+            {
+                var firstPart = m_collidingParts.First();
+                while (firstPart == null && m_collidingParts.Count > 0)
+                {
+                    m_collidingParts.Remove(firstPart);
+                    if (m_collidingParts.Count > 0)
+                        firstPart = m_collidingParts.First();
+                }
+                if (firstPart != null)
+                    UpdateTargetPosition(firstPart.gameObject);
+            }
             else
                 UpdateTargetPosition();
         }

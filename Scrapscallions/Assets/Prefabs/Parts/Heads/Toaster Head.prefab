@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4852571777985651534}
   - component: {fileID: 568241485857722258}
   - component: {fileID: 8647152283081783725}
+  - component: {fileID: 7688042876950681949}
   m_Layer: 0
   m_Name: Toaster Head
   m_TagString: Robot
@@ -31,6 +32,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1708466519074745328}
   - {fileID: 5528850695758097849}
   - {fileID: 2636191860862596514}
   m_Father: {fileID: 0}
@@ -48,7 +50,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   head: {fileID: 0}
-  m_headVisual: {fileID: 5184132207662692099}
+  tagTransform: {fileID: 1708466519074745328}
+  m_idleBehavior: {fileID: 0}
+  m_fleeBehavior: {fileID: 0}
+  m_pursueBehavior: {fileID: 0}
 --- !u!65 &8647152283081783725
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -70,6 +75,58 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 0.9614811, z: 0.6438412}
   m_Center: {x: 0, y: 0.48050308, z: 0.0026147068}
+--- !u!114 &7688042876950681949
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1642695058093926673}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7a04f45ed91be445a4bf51370a1663b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  part: {fileID: 568241485857722258}
+  force: 2
+  m_excludeLayers:
+    serializedVersion: 2
+    m_Bits: 1
+  m_timeUntilDisableColliders: 2
+  m_doesShrinkAndDisappear: 1
+  m_shrinkSpeed: 0.05
+  m_timeUntilShrink: 10
+--- !u!1 &3304845592263209114
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1708466519074745328}
+  m_Layer: 5
+  m_Name: Tag Parent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1708466519074745328
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3304845592263209114}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.402, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4852571777985651534}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &5418064647937346130
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -118,6 +175,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -4620282718447106903, guid: 8f9d27a6cb4343a4aa472463f67a2413, type: 3}
+      propertyPath: m_Name
+      value: Toast
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 8f9d27a6cb4343a4aa472463f67a2413, type: 3}
       propertyPath: m_Name
       value: toaster
@@ -125,18 +186,42 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: -4620282718447106903, guid: 8f9d27a6cb4343a4aa472463f67a2413, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 503631580841983502}
   m_SourcePrefab: {fileID: 100100000, guid: 8f9d27a6cb4343a4aa472463f67a2413, type: 3}
---- !u!1 &5184132207662692099 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 8f9d27a6cb4343a4aa472463f67a2413, type: 3}
-  m_PrefabInstance: {fileID: 5418064647937346130}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5528850695758097849 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 8f9d27a6cb4343a4aa472463f67a2413, type: 3}
   m_PrefabInstance: {fileID: 5418064647937346130}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &8417685442303741691 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -4620282718447106903, guid: 8f9d27a6cb4343a4aa472463f67a2413, type: 3}
+  m_PrefabInstance: {fileID: 5418064647937346130}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &503631580841983502
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8417685442303741691}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7a04f45ed91be445a4bf51370a1663b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  part: {fileID: 568241485857722258}
+  force: 20
+  m_excludeLayers:
+    serializedVersion: 2
+    m_Bits: 1
+  m_timeUntilDisableColliders: 2
+  m_doesShrinkAndDisappear: 1
+  m_shrinkSpeed: 0.05
+  m_timeUntilShrink: 10
 --- !u!1001 &7686374745919118433
 PrefabInstance:
   m_ObjectHideFlags: 0

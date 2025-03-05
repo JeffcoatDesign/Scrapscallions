@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Scraps.Parts
 {
-    public class MeleeAttackController : AttackController
+    public class MeleeAttackController : ActionController
     {
         public override bool IsTakingAction { get; set; } = false;
         public override bool IsReady { get => !IsTakingAction && IsCooledDown; set { } }
@@ -19,35 +19,15 @@ namespace Scraps.Parts
         [SerializeField] Sensor m_meleeSensor;
         [SerializeField] Vector3 m_attackRotation;
         [SerializeField] float m_peakSwing = 0.5f;
-        private CountdownTimer m_cooldownTimer;
-
-        private void OnEnable()
-        {
-            m_cooldownTimer = new(CooldownTime);
-
-            m_cooldownTimer.OnTimerStop += () =>
-            {
-                IsCooledDown = true;
-            };
-
-            m_cooldownTimer.Start();
-        }
 
         public override void Activate()
         {
             StartCoroutine(MeleeAttack());
         }
 
-        private void Update()
-        {
-            m_cooldownTimer.Tick(Time.deltaTime);
-        }
-
         private IEnumerator MeleeAttack()
         {
             IsTakingAction = true;
-
-            Debug.Log("Melee Attack activated");
 
             m_attackCollider.canHit = true;
             float startTime = Time.time;

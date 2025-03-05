@@ -1,17 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 namespace Scraps.Parts
 {
     public class SmokeEmitter : MonoBehaviour
     {
         [SerializeField] PartController m_part;
-        private ParticleSystem m_particleSystem;
+        private VisualEffect m_visualEffect;
 
         private void OnEnable()
         {
-            m_particleSystem = GetComponent<ParticleSystem>();
+            m_visualEffect = GetComponent<VisualEffect>();
             if (m_part != null)
             {
                 m_part.Broke += OnBreak;
@@ -27,7 +28,7 @@ namespace Scraps.Parts
 
         private void OnBreak()
         {
-            m_particleSystem.Play();
+            m_visualEffect.enabled = true;
         }
     }
 }

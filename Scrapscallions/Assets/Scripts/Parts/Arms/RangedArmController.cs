@@ -9,62 +9,8 @@ namespace Scraps.Parts
 {
     public class RangedArmController : ArmController
     {
-        internal Action Fire;
         [SerializeField] protected Sensor m_opponentCloseSensor;
         [SerializeField] bool m_aimsWithDown;
-        public override void Attack()
-        {
-            m_isAttacking = true;
-            m_isReady = false;
-
-            Aim();
-            Debug.Log("Firing");
-            Invoke("FireWeapon", 1f);
-
-            Attacked?.Invoke();
-        }
-
-        public override void Idle()
-        {
-            base.Idle();
-        }
-
-        virtual protected void Aim()
-        {
-            StartCoroutine(PointWhileAttacking());
-        }
-
-        private IEnumerator PointWhileAttacking()
-        {
-            //TODO Aim at targeted part
-
-            Vector3 right = transform.right;
-            while (m_isAttacking)
-            {
-                if (m_aimsWithDown)
-                {
-                    Vector3 directionToTarget = (m_robot.State.target().transform.position.With(y: 1.5f) - transform.position).normalized;
-
-                    Vector3 up = Vector3.Cross(directionToTarget, right);
-                    Quaternion rotation = Quaternion.LookRotation(up, -directionToTarget);
-
-                    transform.rotation = rotation;
-
-                    Debug.DrawLine(transform.position, transform.position + directionToTarget, Color.blue);
-                    Debug.DrawLine(transform.position, transform.position + up, Color.yellow);
-                }
-                else
-                    transform.LookAt(m_robot.State.target().transform.position.With(y: 1.5f), transform.up);
-
-                yield return new WaitForFixedUpdate();
-            }
-            yield return null;
-        }
-
-        private void FireWeapon()
-        {
-            Fire?.Invoke();
-        }
 
         public override void GetBeliefs(GoapAgent agent, Dictionary<string, AgentBelief> agentBeliefs)
         {
@@ -72,8 +18,8 @@ namespace Scraps.Parts
 
             beliefFactory.AddBelief(side.ToString() + "ArmNotTooClose", () => !m_opponentCloseSensor.IsTargetInRange);
             beliefFactory.AddBelief(side.ToString() + "ArmNotInRange", () => !m_attackRangeSensor.IsTargetInRange);
-            beliefFactory.AddBelief(side.ToString() + "ArmAttacking", () => m_isAttacking);
-            beliefFactory.AddBelief(side.ToString() + "ArmReady", () => m_isReady);
+            beliefFactory.AddBelief(side.ToString() + "ArmAttacking", () => m_actionController.IsTakingAction);
+            beliefFactory.AddBelief(side.ToString() + "ArmReady", () => m_actionController.IsReady);
             beliefFactory.AddBelief(side.ToString() + "ArmWorking", () => !isBroken);
             beliefFactory.AddSensorBelief(side.ToString() + "ArmInAttackRange", m_attackRangeSensor);
             beliefFactory.AddSensorBelief(side.ToString() + "ArmTooClose", m_opponentCloseSensor);
@@ -85,7 +31,7 @@ namespace Scraps.Parts
             actions.Add(
                 new AgentAction.Builder(side.ToString() + m_actionController.ActionName)
                 //.WithStrategy(ScriptableObject.CreateInstance<TakeActionStrategy>().Initialize(m_actionController))
-                .WithStrategy(ScriptableObject.CreateInstance<AttackStrategy>().Initialize(this, 2))
+                .WithStrategy(ScriptableObject.CreateInstance<TakeActionStrategy>().Initialize(m_actionController))
                 .WithPrecondition(agentBeliefs[side.ToString() + "ArmInAttackRange"])
                 .WithPrecondition(agentBeliefs[side.ToString() + "ArmReady"])
                 .WithPrecondition(agentBeliefs[side.ToString() + "ArmNotTooClose"])
@@ -111,6 +57,7 @@ namespace Scraps.Parts
                 .AddEffect(agentBeliefs[side.ToString() + "ArmNotTooClose"])
                 .WithPrecondition(agentBeliefs["Alive"])
                 .WithPrecondition(agentBeliefs[side.ToString() + "ArmTooClose"])
+                .WithPrecondition(agentBeliefs[side.ToString() + "ArmWorking"])
                 .Build()
             );
         }

@@ -20,4 +20,4 @@ MonoBehaviour:
   <Sprite>k__BackingField: {fileID: 21300000, guid: 031e2ce4c5507f442baaeb28c52c69c7, type: 3}
   <IsBroken>k__BackingField: 0
   <AttackSpeed>k__BackingField: 5
-  <AttackDamage>k__BackingField: 5
+  <AttackDamage>k__BackingField: 2

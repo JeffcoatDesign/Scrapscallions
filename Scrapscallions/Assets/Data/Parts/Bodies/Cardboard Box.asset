@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Cardboard Box
   m_EditorClassIdentifier: 
   <PartName>k__BackingField: Cardboard Box
-  <MaxHP>k__BackingField: 5
-  <CurrentHP>k__BackingField: 5
+  <MaxHP>k__BackingField: 7
+  <CurrentHP>k__BackingField: 7
   <Price>k__BackingField: 5
   <Prefab>k__BackingField: {fileID: 4797223487188948200, guid: d2ee6e828d93ec94199991592b315d94, type: 3}
   <Sprite>k__BackingField: {fileID: 21300000, guid: 9ee3912aa50c89249acfc18304423ada, type: 3}
