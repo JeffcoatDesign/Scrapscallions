@@ -9,7 +9,7 @@ namespace Scraps.AI
 
         private int index = 0;
 
-        protected override Vector2 GetTargetPosition(GameObject target)
+        protected override Vector3 GetTargetPosition(GameObject target)
         {
             Path path = robotState.Path;
             Vector3 directionToTarget = path.pathNodes[index].transform.position - robotState.character.transform.position;
@@ -24,7 +24,7 @@ namespace Scraps.AI
 
 
             Transform targetNode = path.pathNodes[index];
-            return new(targetNode.position.x, targetNode.position.z);
+            return new(targetNode.position.x, 0, targetNode.position.z);
         }
     }
 }

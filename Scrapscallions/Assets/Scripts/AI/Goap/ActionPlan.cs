@@ -23,7 +23,7 @@ namespace Scraps.AI.GOAP
             //Try to solve for each goal in order
             foreach (var goal in orderedGoals)
             {
-                Node goalNode = new Node(null, null, goal.DesiredEffects, 0);
+                Node goalNode = new(null, null, goal.DesiredEffects, 0);
 
                 //If we can find a path to the goal, return the plan
                 if (FindPath(goalNode, agent.actions))

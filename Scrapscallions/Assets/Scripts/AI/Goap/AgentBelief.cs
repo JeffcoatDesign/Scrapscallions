@@ -32,6 +32,15 @@ namespace Scraps.AI.GOAP
                 .Build());
         }
 
+        public void AddLocationBelief(string key, float distance, Func<Vector3> locationFunc)
+        {
+            beliefs.Add(key, new AgentBelief.Builder(key)
+                .WithCondition(() => InRangeOf(locationFunc, distance))
+                .WithLocation(locationFunc)
+                .Build()
+            );
+        }
+
         public void AddLocationBelief(string key, float distance, Transform locationCondition)
         {
             AddLocationBelief(key, distance, locationCondition.position);
@@ -46,6 +55,7 @@ namespace Scraps.AI.GOAP
         }
 
         bool InRangeOf(Vector3 pos, float range) => Vector3.Distance(agent.transform.position, pos) < range;
+        bool InRangeOf(Func<Vector3> pos, float range) => Vector3.Distance(agent.transform.position, pos()) < range;
     }
 
     [CreateAssetMenu(fileName = "Agent Belief", menuName = "GOAP/Agent Belief")]

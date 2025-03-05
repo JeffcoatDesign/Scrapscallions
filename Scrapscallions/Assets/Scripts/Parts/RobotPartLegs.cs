@@ -9,11 +9,12 @@ namespace Scraps.Parts
     public class RobotPartLegs : RobotPart
     {
         [field: SerializeField] public override string PartName { get; set; }
-        [field: SerializeField] public override float MaxHP { get; set; }
-        [field: SerializeField] public override float CurrentHP { get; set; }
+        [field: SerializeField] public override int MaxHP { get; set; }
+        [field: SerializeField] public override int CurrentHP { get; set; }
         [field: SerializeField] public override int Price { get; set; }
         [field: SerializeField] protected override GameObject Prefab { get; set; }
         [field: SerializeField] public override Sprite Sprite { get; set; }
+        [field: SerializeField] public override bool IsBroken { get; set; } = false;
 
         /*  LEG PROPERTIES  */
         //[field: SerializeField, Header("Leg Properties")] public float AttackSpeed { get; set; }

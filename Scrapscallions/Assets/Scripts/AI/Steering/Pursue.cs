@@ -14,7 +14,7 @@ namespace Scraps.AI
         // overrides the position seek will aim for
         // assume the target will continue travelling in the same direction and speed
         // pick a point farther along that vector
-        protected override Vector2 GetTargetPosition(GameObject target)
+        protected override Vector3 GetTargetPosition(GameObject target)
         {
             // 1. figure out how far ahead in time we should predict
             Vector3 directionToTarget = target.transform.position - robotState.character.transform.position;
@@ -44,7 +44,7 @@ namespace Scraps.AI
             }
 
             Vector3 predictedPos = target.transform.position + myMovingTarget.linearVelocity * predictionTime;
-            return new(predictedPos.x, predictedPos.z);
+            return new(predictedPos.x, 0, predictedPos.z);
         }
     }
 }

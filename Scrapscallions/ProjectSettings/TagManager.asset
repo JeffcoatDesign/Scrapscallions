@@ -4,22 +4,18 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - InventorySlot
+  - Robot
   - Head
-  - Body
-  - Arm
-  - Leg
-  - Trash
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Inventory
+  - 
   - Water
   - UI
-  - Shop
   - 
-  - 
+  - Environment
+  - Broken Parts
   - 
   - 
   - 

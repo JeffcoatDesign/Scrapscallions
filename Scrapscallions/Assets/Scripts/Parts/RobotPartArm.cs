@@ -7,16 +7,18 @@ namespace Scraps.Parts
     [CreateAssetMenu(fileName = "New Robot Arm", menuName = "Parts/Arm")]
     public class RobotPartArm : RobotPart
     {
-        [field: SerializeField] public override string PartName { get; set; }
-        [field: SerializeField] public override float MaxHP { get; set; }
-        [field: SerializeField] public override float CurrentHP { get; set; }
-        [field: SerializeField] public override int Price { get; set; }
+        [field: SerializeField] public override string PartName { get; set; } = "Robot Arm";
+        [field: SerializeField] public override int MaxHP { get; set; } = 40;
+        [field: SerializeField] public override int CurrentHP { get; set; } = 40;
+        [field: SerializeField] public override int Price { get; set; } = 100;
         [field: SerializeField] protected override GameObject Prefab { get; set; }
         [field: SerializeField] public override Sprite Sprite { get; set; }
+        [field: SerializeField] public override bool IsBroken { get; set; } = false;
 
         /*  ARM PROPERTIES  */
-        [field: SerializeField, Header("Arm Properties")] public float AttackSpeed { get; set; }
-        [field: SerializeField] public float AttackDamage { get; set; }
+        [field: SerializeField, Header("Arm Properties")] public float AttackSpeed { get; set; } = 10;
+        [field: SerializeField] public int AttackDamage { get; set; } = 20;
+
         public ArmController Spawn(BodyController bodyController, bool isRightArm)
         {
             Transform attachPoint = null;
@@ -33,5 +35,6 @@ namespace Scraps.Parts
 
             return armController;
         }
+        
     }
 }
