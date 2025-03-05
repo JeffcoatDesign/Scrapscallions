@@ -15,6 +15,16 @@ public class ItemSlot : MonoBehaviour, IDropHandler
     //The DragDrop dropped into the ItemSlot
     private DragDrop dragDropInQuestion;
 
+    public SFXPlayer sfxPlayer;
+
+    private InventoryManager inventoryManager;
+
+    void Start()
+    {
+        inventoryManager = FindAnyObjectByType<InventoryManager>();
+        sfxPlayer = FindAnyObjectByType<SFXPlayer>();
+    }
+
     public void OnDrop(PointerEventData eventData) 
     {
         if (eventData.pointerDrag != null)
@@ -31,11 +41,13 @@ public class ItemSlot : MonoBehaviour, IDropHandler
                 else
                     dragDropInQuestion.ResetDragDrop();
             }
-            //Check if DragDrop is the correct Part Type and not being dragged to a diffferent inventory slot
+            //Check if DragDrop is the correct Part Type and not being dragged to a different inventory slot
             else if (tag != itemTag || gameObject.layer == 3)
                 dragDropInQuestion.ResetDragDrop();
             else
             {
+                sfxPlayer.EquipPart();
+
                 //Check if part is specifically an Arm and being dragged from an Equip Region
                 if (tag == "Arm" && dragDropInQuestion.dragDropOrigin != null)
                 {
@@ -62,19 +74,19 @@ public class ItemSlot : MonoBehaviour, IDropHandler
                 switch(gameObject.name)
                 {
                     case "Head":
-                        GetComponentInParent<BotPartsEquip>().equippedHead = itemOccupiedBy.botPart;
+                        inventoryManager.equippedHead = itemOccupiedBy.botPart;
                         break;
                     case "Body":
-                        GetComponentInParent<BotPartsEquip>().equippedBody = itemOccupiedBy.botPart;
+                        inventoryManager.equippedBody = itemOccupiedBy.botPart;
                         break;
                     case "Left Arm":
-                        GetComponentInParent<BotPartsEquip>().equippedLArm = itemOccupiedBy.botPart;
+                        inventoryManager.equippedLArm = itemOccupiedBy.botPart;
                         break;
                     case "Right Arm":
-                        GetComponentInParent<BotPartsEquip>().equippedRArm = itemOccupiedBy.botPart;
+                        inventoryManager.equippedRArm = itemOccupiedBy.botPart;
                         break;
                     case "Legs":
-                        GetComponentInParent<BotPartsEquip>().equippedLegs = itemOccupiedBy.botPart;
+                        inventoryManager.equippedLegs = itemOccupiedBy.botPart;
                         break;
                 }
             }
@@ -91,23 +103,24 @@ public class ItemSlot : MonoBehaviour, IDropHandler
 
     public void ItemSlotDragDropTrash()
     {
+        sfxPlayer.Trash();
         //Clear the Equip Region's variables, and reset all related DragDrops
         switch (dragDropInQuestion.slotOccupying.gameObject.name)
         {
             case "Head":
-                GetComponentInParent<BotPartsEquip>().equippedHead = null;
+                inventoryManager.equippedHead = null;
                 break;
             case "Body":
-                GetComponentInParent<BotPartsEquip>().equippedBody = null;
+                inventoryManager.equippedBody = null;
                 break;
             case "Left Arm":
-                GetComponentInParent<BotPartsEquip>().equippedLArm = null;
+                inventoryManager.equippedLArm = null;
                 break;
             case "Right Arm":
-                GetComponentInParent<BotPartsEquip>().equippedRArm = null;
+                inventoryManager.equippedRArm = null;
                 break;
             case "Legs":
-                GetComponentInParent<BotPartsEquip>().equippedLegs = null;
+                inventoryManager.equippedLegs = null;
                 break;
         }
         dragDropInQuestion.slotOccupying.itemOccupiedBy = null;

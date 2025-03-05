@@ -5,8 +5,9 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using Scraps.Parts;
+using TMPro;
 
-public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndDragHandler, IDragHandler
+public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndDragHandler, IDragHandler, IPointerEnterHandler, IPointerExitHandler
 {
     public Canvas canvas;
     private RectTransform rectTransform;
@@ -19,6 +20,12 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
     public DragDrop dragDropOrigin;
     public ItemSlot slotOccupying;
     public RobotPart botPart;
+    public GameObject toolTip;
+    public TextMeshProUGUI[] itemDescription;
+    private RobotPartArm botPartToArm;
+    private RobotPartHead botPartToHead;
+    private RectTransform toolTipPos;
+    private InventoryManager inventoryManager;
 
     private void Awake()
     {
@@ -27,6 +34,12 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
         canvasGroup = GetComponent<CanvasGroup>();
         homeSlot = GetComponentInParent<ItemSlot>();
         itemImage = GetComponent<Image>();
+        inventoryManager = FindAnyObjectByType<InventoryManager>();
+        if (toolTip != null)
+        {
+            itemDescription = toolTip.GetComponentsInChildren<TextMeshProUGUI>();
+            toolTipPos = toolTip.GetComponent<RectTransform>();
+        }
         draggable = true;
     }
 
@@ -63,6 +76,50 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
             EventSystem.current.SetSelectedGameObject(gameObject);
     }
 
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        //Does nothing if DragDrop doesn't have a ToolTip
+        if (toolTip == null)
+            return;
+
+        //Checks and sets the text field of the ToolTip according to the botPart type
+        if (tag == "Arm")
+        {
+            botPartToArm = (RobotPartArm)botPart;
+            itemDescription[3].gameObject.SetActive(true);
+            itemDescription[4].gameObject.SetActive(true);
+            itemDescription[3].text = "Attack Speed: " + botPartToArm.AttackSpeed;
+            itemDescription[4].text = "Damage: " + botPartToArm.AttackDamage;
+        }
+        else if (tag == "Head")
+        {
+            botPartToHead = (RobotPartHead)botPart;
+            itemDescription[3].gameObject.SetActive(true);
+            itemDescription[3].text = "Quirks: "; //Need quirks done for quirk description
+            itemDescription[4].gameObject.SetActive(false);
+        }
+        else
+        {
+            itemDescription[3].gameObject.SetActive(false);
+            itemDescription[4].gameObject.SetActive(false);
+        }
+        itemDescription[0].text = tag + ": \"" + botPart.PartName + "\"";
+        itemDescription[1].text = "Maximum HP: " + botPart.MaxHP.ToString();
+        itemDescription[2].text = "Price: $" + botPart.Price.ToString();
+        toolTip.SetActive(true);
+
+        //Moves ToolTip position if it's in a position that it can go off screen
+        if ((int)toolTipPos.position.x == 1848)
+            toolTipPos.position = new Vector2(toolTipPos.position.x - 400, toolTipPos.position.y);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        if (toolTip == null)
+            return;
+        toolTip.SetActive(false);
+    }
+
     public void ResetDragDrop()
     {
         //Debug.Log("Reset " + gameObject.name);
@@ -78,19 +135,19 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
             switch (GetComponentInParent<ItemSlot>().gameObject.name)
             {
                 case "Head":
-                    GetComponentInParent<BotPartsEquip>().equippedHead = null;
+                    inventoryManager.equippedHead = null;
                     break;
                 case "Body":
-                    GetComponentInParent<BotPartsEquip>().equippedBody = null;
+                    inventoryManager.equippedBody = null;
                     break;
                 case "Left Arm":
-                    GetComponentInParent<BotPartsEquip>().equippedLArm = null;
+                    inventoryManager.equippedLArm = null;
                     break;
                 case "Right Arm":
-                    GetComponentInParent<BotPartsEquip>().equippedRArm = null;
+                    inventoryManager.equippedRArm = null;
                     break;
                 case "Legs":
-                    GetComponentInParent<BotPartsEquip>().equippedLegs = null;
+                    inventoryManager.equippedLegs = null;
                     break;
             }
         }
