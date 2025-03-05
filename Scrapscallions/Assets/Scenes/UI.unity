@@ -448,8 +448,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 697109600}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0.499995, y: 0}
+  m_AnchorMax: {x: 0.499995, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -1480,6 +1480,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slotDragDrop: {fileID: 1951688820}
   itemOccupiedBy: {fileID: 0}
+  sfxPlayer: {fileID: 0}
 --- !u!223 &157454780
 Canvas:
   m_ObjectHideFlags: 0
@@ -2341,6 +2342,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slotDragDrop: {fileID: 0}
   itemOccupiedBy: {fileID: 0}
+  sfxPlayer: {fileID: 0}
 --- !u!114 &276742878
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3762,6 +3764,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slotDragDrop: {fileID: 1723301009}
   itemOccupiedBy: {fileID: 0}
+  sfxPlayer: {fileID: 0}
 --- !u!223 &478353332
 Canvas:
   m_ObjectHideFlags: 0
@@ -5112,7 +5115,7 @@ RectTransform:
   m_Father: {fileID: 1609317413}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0.499995, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -7078,7 +7081,7 @@ MonoBehaviour:
   m_MinValue: 0.001
   m_MaxValue: 100
   m_WholeNumbers: 0
-  m_Value: 100
+  m_Value: 50
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -7429,6 +7432,7 @@ MonoBehaviour:
   inventoryManager: {fileID: 1635810068}
   shopInventory: {fileID: 1190928059}
   tooExpensiveAlert: {fileID: 130064723}
+  sfxPlayer: {fileID: 0}
 --- !u!1 &928964145
 GameObject:
   m_ObjectHideFlags: 0
@@ -8076,7 +8080,7 @@ MonoBehaviour:
   m_MinValue: 0.001
   m_MaxValue: 100
   m_WholeNumbers: 0
-  m_Value: 100
+  m_Value: 50
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -8560,6 +8564,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cursor: {fileID: 2800000, guid: 9cca4f44eb9a8d34cb653b60a8eac6dc, type: 3}
   isMainMenuOpen: 0
+  musicPlayer: {fileID: 1758320579}
+  sfxPlayer: {fileID: 1446510064}
+  battleButton: {fileID: 2127858461}
   mainMenu: {fileID: 444639440}
   optionsMenu: {fileID: 1225081164}
   debugMenu: {fileID: 1613546687}
@@ -9383,7 +9390,7 @@ RectTransform:
   m_Father: {fileID: 268731397}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0.499995, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -10211,6 +10218,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slotDragDrop: {fileID: 1958146920}
   itemOccupiedBy: {fileID: 0}
+  sfxPlayer: {fileID: 0}
 --- !u!223 &1257628070
 Canvas:
   m_ObjectHideFlags: 0
@@ -11193,7 +11201,7 @@ RectTransform:
   m_Father: {fileID: 1508782302}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0.499995, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -11405,6 +11413,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slotDragDrop: {fileID: 257866646}
   itemOccupiedBy: {fileID: 0}
+  sfxPlayer: {fileID: 0}
 --- !u!223 &1400599557
 Canvas:
   m_ObjectHideFlags: 0
@@ -11636,8 +11645,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1446510063}
   - component: {fileID: 1446510062}
+  - component: {fileID: 1446510064}
   m_Layer: 0
-  m_Name: MenuSFXPlayer
+  m_Name: SFXPlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11755,6 +11765,35 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1446510064
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1446510061}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81961d3eed2d8a54ab710829c69a493a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sfxPlayer: {fileID: 1446510062}
+  blaster: {fileID: 8300000, guid: fdf993f2a8306e044a2b45e1667790c8, type: 3}
+  buy: {fileID: 8300000, guid: 1e7cb5ef399d6ad45b21dd6a49367a66, type: 3}
+  death: {fileID: 8300000, guid: 6bf8e727474fced4dbe51afc7d1a93f5, type: 3}
+  flameblaster: {fileID: 8300000, guid: 701de8add9b37d14499176c6f4facc01, type: 3}
+  buttonClick: {fileID: 8300000, guid: 82a7244dcd7b00a4e81e5e70ebb08738, type: 3}
+  equipPart: {fileID: 8300000, guid: c2a3f4908d2af1543bab5c5ee6747fc7, type: 3}
+  buzzsaw: {fileID: 8300000, guid: b21694c48d44e8346b75d0ce8566e2c3, type: 3}
+  toasterDie: {fileID: 8300000, guid: bbd93f1ddd5639842bba2b85dca3440c, type: 3}
+  trash: {fileID: 8300000, guid: afb463463d0d09b46ab45bc3876224a3, type: 3}
+  hitSounds:
+  - {fileID: 8300000, guid: eed3d1928c24b034aae89e0d2bb1fd52, type: 3}
+  - {fileID: 8300000, guid: 55a69a34da806c241957796bf58fd68e, type: 3}
+  - {fileID: 8300000, guid: 06b0a0a18d6a7134d891a39b811ffbee, type: 3}
+  - {fileID: 8300000, guid: 5261fffd6ab83a04c8ccabc5f95732ee, type: 3}
+  - {fileID: 8300000, guid: 848ed0ffbb1e59b43aa2b02aa4655893, type: 3}
+  - {fileID: 8300000, guid: 9819b065cb6dd8740bea2bbbc339b825, type: 3}
 --- !u!1 &1461754880
 GameObject:
   m_ObjectHideFlags: 0
@@ -12167,8 +12206,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 618790922}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0.499995, y: 0}
+  m_AnchorMax: {x: 0.499995, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -14083,8 +14122,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1483364062}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0.499995, y: 0}
+  m_AnchorMax: {x: 0.499995, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -14451,6 +14490,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1758320578}
   - component: {fileID: 1758320577}
+  - component: {fileID: 1758320579}
   m_Layer: 0
   m_Name: MusicPlayer
   m_TagString: Untagged
@@ -14468,8 +14508,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: -6580140844913312689, guid: 7bb0b0a0eb9b1694c8a51c73e7613844, type: 2}
-  m_audioClip: {fileID: 8300000, guid: 81a4f18b54835e34e9bd3351347476a8, type: 3}
-  m_Resource: {fileID: 8300000, guid: 81a4f18b54835e34e9bd3351347476a8, type: 3}
+  m_audioClip: {fileID: 8300000, guid: fac732d13fa95bf4cbf7d8b68f95ce88, type: 3}
+  m_Resource: {fileID: 8300000, guid: fac732d13fa95bf4cbf7d8b68f95ce88, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -14570,6 +14610,25 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1758320579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1758320576}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 577bf8fa047c38a4cba84f7bd3f351d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  musicPlayer: {fileID: 0}
+  mainMenu: {fileID: 8300000, guid: fac732d13fa95bf4cbf7d8b68f95ce88, type: 3}
+  battle: {fileID: 8300000, guid: b772835913e940c46a4f5b73a73234b0, type: 3}
+  workshop: {fileID: 8300000, guid: 72e39cd1371260b49b63910c1da83487, type: 3}
+  shop: {fileID: 8300000, guid: 3b8f5a7028bf5784abb8f017a57a1625, type: 3}
+  heap: {fileID: 8300000, guid: ceb110724cadbe44eb7b97e2707f2943, type: 3}
+  heapBattle: {fileID: 8300000, guid: 29ebc25802f5a6a4fb0de4a874de1db5, type: 3}
 --- !u!1 &1793178953
 GameObject:
   m_ObjectHideFlags: 0
@@ -14875,6 +14934,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slotDragDrop: {fileID: 1705467240}
   itemOccupiedBy: {fileID: 0}
+  sfxPlayer: {fileID: 0}
 --- !u!223 &1828688344
 Canvas:
   m_ObjectHideFlags: 0
@@ -17296,7 +17356,7 @@ MonoBehaviour:
   m_MinValue: 0.001
   m_MaxValue: 100
   m_WholeNumbers: 0
-  m_Value: 100
+  m_Value: 50
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:

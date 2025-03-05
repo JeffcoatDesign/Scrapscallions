@@ -13,6 +13,13 @@ public class Shop : MonoBehaviour, IDropHandler
     [SerializeField] private ShopInventoryReset shopInventory;
     [SerializeField] private GameObject tooExpensiveAlert;
 
+    public SFXPlayer sfxPlayer;
+
+    void Start()
+    {
+        sfxPlayer = FindAnyObjectByType<SFXPlayer>();
+    }
+
     public void OnDrop(PointerEventData eventData)
     {
         if (eventData.pointerDrag != null)
@@ -20,6 +27,7 @@ public class Shop : MonoBehaviour, IDropHandler
             dragDropInQuestion = eventData.pointerDrag.GetComponent<DragDrop>();
             if (dragDropInQuestion.botPart.Price <= inventoryManager.money)
             {
+                sfxPlayer.Buy();
                 dragDropInQuestion.dropped = true;
                 inventoryManager.AddToInventory(dragDropInQuestion.botPart);
                 Destroy(dragDropInQuestion.GetComponentInParent<ItemSlot>().gameObject);

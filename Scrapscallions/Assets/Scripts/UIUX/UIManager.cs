@@ -8,6 +8,9 @@ public class UIManager : MonoBehaviour
 {
     public Texture2D cursor;
     public bool isMainMenuOpen;
+    public MusicPlayer musicPlayer;
+    public SFXPlayer sfxPlayer;
+    public Button battleButton;
 
     [Header("Menus")]
     [SerializeField] private GameObject mainMenu;
@@ -26,6 +29,8 @@ public class UIManager : MonoBehaviour
 
     public void OpenOptions()
     {
+
+        sfxPlayer.ButtonClick();
         mainMenu.SetActive(false);
         isMainMenuOpen = false;
         optionsMenu.SetActive(true);
@@ -33,6 +38,7 @@ public class UIManager : MonoBehaviour
 
     public void CloseOptions()
     {
+        sfxPlayer.ButtonClick();
         mainMenu.SetActive(true);
         isMainMenuOpen = true;
         optionsMenu.SetActive(false);
@@ -40,13 +46,20 @@ public class UIManager : MonoBehaviour
 
     public void OpenDebug()
     {
+        sfxPlayer.ButtonClick();
         mainMenu.SetActive(false);
         isMainMenuOpen = false;
         debugMenu.SetActive(true);
+        InventoryManager invMan = FindAnyObjectByType<InventoryManager>();
+        if (invMan.equippedBody != null && invMan.equippedHead != null && invMan.equippedLArm != null && invMan.equippedRArm != null && invMan.equippedLegs != null)
+            battleButton.interactable = true;
+        else
+            battleButton.interactable = false;
     }
 
     public void CloseDebug()
     {
+        sfxPlayer.ButtonClick();
         mainMenu.SetActive(true);
         isMainMenuOpen = true;
         debugMenu.SetActive(false);
@@ -54,55 +67,88 @@ public class UIManager : MonoBehaviour
 
     public void OpenBattle()
     {
+        sfxPlayer.ButtonClick();
         debugMenu.SetActive(false);
         battleUI.SetActive(true);
         battleUI.GetComponent<BattleUI>().ResetBattle();
+        musicPlayer.Battle();
     }
 
     public void CloseBattle()
     {
+        sfxPlayer.ButtonClick();
         debugMenu.SetActive(true);
         battleUI.SetActive(false);
+        musicPlayer.MainMenu();
     }
 
     public void OpenWorkshop()
     {
+        sfxPlayer.ButtonClick();
         debugMenu.SetActive(false);
         workshopUI.SetActive(true);
+        musicPlayer.Workshop();
     }
 
     public void CloseWorkshop()
     {
+        sfxPlayer.ButtonClick();
         debugMenu.SetActive(true);
         workshopUI.SetActive(false);
+        musicPlayer.MainMenu();
+        InventoryManager invMan = FindAnyObjectByType<InventoryManager>();
+        if (invMan.equippedBody != null && invMan.equippedHead != null && invMan.equippedLArm != null && invMan.equippedRArm != null && invMan.equippedLegs != null)
+            battleButton.interactable = true;
+        else
+            battleButton.interactable = false;
+
     }
 
     public void OpenHeap()
     {
+        sfxPlayer.ButtonClick();
         debugMenu.SetActive(false);
         heapUI.SetActive(true);
+        musicPlayer.Heap();
     }
 
     public void CloseHeap()
     {
+        sfxPlayer.ButtonClick();
         debugMenu.SetActive(true);
         heapUI.SetActive(false);
+        musicPlayer.MainMenu();
+        InventoryManager invMan = FindAnyObjectByType<InventoryManager>();
+        if (invMan.equippedBody != null && invMan.equippedHead != null && invMan.equippedLArm != null && invMan.equippedRArm != null && invMan.equippedLegs != null)
+            battleButton.interactable = true;
+        else
+            battleButton.interactable = false;
     }
 
     public void OpenShop()
     {
+        sfxPlayer.ButtonClick();
         debugMenu.SetActive(false);
         shopUI.SetActive(true);
+        musicPlayer.Shop();
     }
 
     public void CloseShop()
     {
+        sfxPlayer.ButtonClick();
         debugMenu.SetActive(true);
         shopUI.SetActive(false);
+        musicPlayer.MainMenu();
+        InventoryManager invMan = FindAnyObjectByType<InventoryManager>();
+        if (invMan.equippedBody != null && invMan.equippedHead != null && invMan.equippedLArm != null && invMan.equippedRArm != null && invMan.equippedLegs != null)
+            battleButton.interactable = true;
+        else
+            battleButton.interactable = false;
     }
 
     public void QuitGame()
     {
+        sfxPlayer.ButtonClick();
         Application.Quit();
     }
 }

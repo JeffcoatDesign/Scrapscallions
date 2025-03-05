@@ -15,11 +15,14 @@ public class ItemSlot : MonoBehaviour, IDropHandler
     //The DragDrop dropped into the ItemSlot
     private DragDrop dragDropInQuestion;
 
+    public SFXPlayer sfxPlayer;
+
     private InventoryManager inventoryManager;
 
     void Start()
     {
         inventoryManager = FindAnyObjectByType<InventoryManager>();
+        sfxPlayer = FindAnyObjectByType<SFXPlayer>();
     }
 
     public void OnDrop(PointerEventData eventData) 
@@ -38,11 +41,13 @@ public class ItemSlot : MonoBehaviour, IDropHandler
                 else
                     dragDropInQuestion.ResetDragDrop();
             }
-            //Check if DragDrop is the correct Part Type and not being dragged to a diffferent inventory slot
+            //Check if DragDrop is the correct Part Type and not being dragged to a different inventory slot
             else if (tag != itemTag || gameObject.layer == 3)
                 dragDropInQuestion.ResetDragDrop();
             else
             {
+                sfxPlayer.EquipPart();
+
                 //Check if part is specifically an Arm and being dragged from an Equip Region
                 if (tag == "Arm" && dragDropInQuestion.dragDropOrigin != null)
                 {
@@ -98,6 +103,7 @@ public class ItemSlot : MonoBehaviour, IDropHandler
 
     public void ItemSlotDragDropTrash()
     {
+        sfxPlayer.Trash();
         //Clear the Equip Region's variables, and reset all related DragDrops
         switch (dragDropInQuestion.slotOccupying.gameObject.name)
         {
