@@ -4,27 +4,43 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
+using Scraps.Utilities;
 
 public class InventoryManager : MonoBehaviour
 {
+    internal static InventoryManager Instance;
+    internal event Action<int> MoneyChanged;
+    internal event Action InventoryChanged;
+
     [SerializeField] private GameObject inventoryItemPrefab;
     [SerializeField] private GameObject inventoryParent;
     private DragDrop itemDragDrop;
     [SerializeField] private RobotPart[] itemParts;
     private RobotPart chosenPart;
     public int money;
-    public TextMeshProUGUI moneyLabel;
 
-    public RobotPart equippedHead;
-    public RobotPart equippedBody;
-    public RobotPart equippedLArm;
-    public RobotPart equippedRArm;
-    public RobotPart equippedLegs;
+    public Robot myRobot;
+    public bool IsFullyEquipped { get => myRobot.body != null && myRobot.head != null && myRobot.leftArm != null && myRobot.rightArm != null && myRobot.legs != null; }
 
-    void Awake()
+void Awake()
     {
-        Random.InitState((int)System.DateTime.Now.Ticks);
-        UpdateMoney();
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+            Destroy(gameObject);
+
+        myRobot = myRobot.Copy();
+        AddToInventory(myRobot.head);
+        AddToInventory(myRobot.body);
+        AddToInventory(myRobot.leftArm);
+        AddToInventory(myRobot.rightArm);
+        AddToInventory(myRobot.legs);
+
+        UnityEngine.Random.InitState((int)System.DateTime.Now.Ticks);
     }
 
     public void AddToInventory()
@@ -32,11 +48,12 @@ public class InventoryManager : MonoBehaviour
         //Instantiates an item into the inventory
         GameObject myInventoryItem = Instantiate(inventoryItemPrefab);
         itemDragDrop = myInventoryItem.GetComponentInChildren<DragDrop>();
-        myInventoryItem.transform.SetParent(inventoryParent.transform, false);
+        if (inventoryParent != null)
+            myInventoryItem.transform.SetParent(inventoryParent.transform, false);
         itemDragDrop.canvas = FindAnyObjectByType<Canvas>().GetComponent<Canvas>();
 
         //Randomly creates a RobotPart from a list of RobotPart Prefabs formed in the inspector, and sets the DragDrop's tag accordingly
-        chosenPart = itemParts[Random.Range(0, 12)];
+        chosenPart = itemParts[UnityEngine.Random.Range(0, 12)];
         if (chosenPart is RobotPartHead)
         {
             itemDragDrop.gameObject.tag = "Head";
@@ -65,7 +82,6 @@ public class InventoryManager : MonoBehaviour
         //Instantiates given item into the inventory
         GameObject myInventoryItem = Instantiate(inventoryItemPrefab);
         itemDragDrop = myInventoryItem.GetComponentInChildren<DragDrop>();
-        myInventoryItem.transform.SetParent(inventoryParent.transform, false);
         itemDragDrop.canvas = FindAnyObjectByType<Canvas>().GetComponent<Canvas>();
 
         //Sets the DragDrop's tag according to the robotPart's type
@@ -93,16 +109,12 @@ public class InventoryManager : MonoBehaviour
 
         //Update player money
         money -= itemDragDrop.botPart.Price;
-        UpdateMoney();
-    }
-
-    public void UpdateMoney()
-    {
-        moneyLabel.text = "$" + money.ToString();
+        MoneyChanged?.Invoke(money);
     }
 
     public void GiveMoney(int moneyToAdd)
     {
         money += moneyToAdd;
+        MoneyChanged?.Invoke(money);
     }
 }

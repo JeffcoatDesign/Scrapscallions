@@ -74,19 +74,19 @@ public class ItemSlot : MonoBehaviour, IDropHandler
                 switch(gameObject.name)
                 {
                     case "Head":
-                        inventoryManager.equippedHead = itemOccupiedBy.botPart;
+                        inventoryManager.myRobot.head = (RobotPartHead) itemOccupiedBy.botPart;
                         break;
                     case "Body":
-                        inventoryManager.equippedBody = itemOccupiedBy.botPart;
+                        inventoryManager.myRobot.body = (RobotPartBody) itemOccupiedBy.botPart;
                         break;
                     case "Left Arm":
-                        inventoryManager.equippedLArm = itemOccupiedBy.botPart;
+                        inventoryManager.myRobot.leftArm = (RobotPartArm) itemOccupiedBy.botPart;
                         break;
                     case "Right Arm":
-                        inventoryManager.equippedRArm = itemOccupiedBy.botPart;
+                        inventoryManager.myRobot.rightArm = (RobotPartArm) itemOccupiedBy.botPart;
                         break;
                     case "Legs":
-                        inventoryManager.equippedLegs = itemOccupiedBy.botPart;
+                        inventoryManager.myRobot.legs = (RobotPartLegs) itemOccupiedBy.botPart;
                         break;
                 }
             }
@@ -108,19 +108,19 @@ public class ItemSlot : MonoBehaviour, IDropHandler
         switch (dragDropInQuestion.slotOccupying.gameObject.name)
         {
             case "Head":
-                inventoryManager.equippedHead = null;
+                inventoryManager.myRobot.head = null;
                 break;
             case "Body":
-                inventoryManager.equippedBody = null;
+                inventoryManager.myRobot.body = null;
                 break;
             case "Left Arm":
-                inventoryManager.equippedLArm = null;
+                inventoryManager.myRobot.leftArm = null;
                 break;
             case "Right Arm":
-                inventoryManager.equippedRArm = null;
+                inventoryManager.myRobot.rightArm = null;
                 break;
             case "Legs":
-                inventoryManager.equippedLegs = null;
+                inventoryManager.myRobot.legs = null;
                 break;
         }
         dragDropInQuestion.slotOccupying.itemOccupiedBy = null;

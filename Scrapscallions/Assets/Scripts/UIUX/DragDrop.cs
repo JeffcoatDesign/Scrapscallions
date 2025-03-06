@@ -135,19 +135,19 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
             switch (GetComponentInParent<ItemSlot>().gameObject.name)
             {
                 case "Head":
-                    inventoryManager.equippedHead = null;
+                    inventoryManager.myRobot.head = null;
                     break;
                 case "Body":
-                    inventoryManager.equippedBody = null;
+                    inventoryManager.myRobot.body = null;
                     break;
                 case "Left Arm":
-                    inventoryManager.equippedLArm = null;
+                    inventoryManager.myRobot.leftArm = null;
                     break;
                 case "Right Arm":
-                    inventoryManager.equippedRArm = null;
+                    inventoryManager.myRobot.rightArm = null;
                     break;
                 case "Legs":
-                    inventoryManager.equippedLegs = null;
+                    inventoryManager.myRobot.legs = null;
                     break;
             }
         }

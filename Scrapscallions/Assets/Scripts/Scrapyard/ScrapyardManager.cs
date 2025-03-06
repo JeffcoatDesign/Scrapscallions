@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Scraps.Gameplay
 {
@@ -12,7 +13,7 @@ namespace Scraps.Gameplay
     {
         public static ScrapyardManager Instance;
         public Robot playerRobot;
-        public Robot opponentRobot;
+        [HideInInspector] public Robot opponentRobot;
         public GoapAgent goapAgent;
         public Transform playerSpawnPoint;
         public Transform opponentSpawnPoint;
@@ -37,6 +38,9 @@ namespace Scraps.Gameplay
         private void OnEnable()
         {
             Instance = this;
+
+            if (InventoryManager.Instance == null)
+                SceneManager.LoadScene("UI");
         }
 
         private void Reset()
@@ -45,7 +49,7 @@ namespace Scraps.Gameplay
         }
         private void Start()
         {
-            playerRobot = m_lootTable.GetRandomRobot();
+            playerRobot = InventoryManager.Instance.myRobot;
             opponentRobot = m_lootTable.GetRandomRobot(true);
             SpawnRobot(playerRobot, playerSpawnPoint, opponentRobot, true);
             SpawnRobot(opponentRobot, opponentSpawnPoint, playerRobot, false);
@@ -103,6 +107,17 @@ namespace Scraps.Gameplay
 
             CinematicManager.instance.RemoveTarget(opponentRobot.AgentObject().transform);
             CinematicManager.instance.RemoveTarget(opponentRobot.headController.transform.parent);
+        }
+
+        public void LeaveWithLoot()
+        {
+            collection.AddLoot();
+            LoadMenu();
+        }
+
+        public void LoadMenu()
+        {
+            SceneManager.LoadScene("UI");
         }
     }
 }

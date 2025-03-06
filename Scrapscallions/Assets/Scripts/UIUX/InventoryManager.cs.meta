@@ -1,2 +1,14 @@
 fileFormatVersion: 2
 guid: 7c183536c8df4f9418a300b190a660ba
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - inventoryItemPrefab: {instanceID: 0}
+  - inventoryParent: {instanceID: 0}
+  - myRobot: {fileID: 11400000, guid: 9846428320aedb54a860a94f2671c248, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

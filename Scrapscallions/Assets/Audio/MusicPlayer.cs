@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class MusicPlayer : MonoBehaviour
 {
+    public static MusicPlayer Instance;
     public AudioSource musicPlayer;
     [SerializeField, Header("Music Tracks")] private AudioClip mainMenu;
     [SerializeField] private AudioClip battle;
@@ -11,6 +12,19 @@ public class MusicPlayer : MonoBehaviour
     [SerializeField] private AudioClip shop;
     [SerializeField] private AudioClip heap;
     [SerializeField] private AudioClip heapBattle;
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     void Start()
     {

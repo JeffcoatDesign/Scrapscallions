@@ -13,6 +13,6 @@ public class BattleIcons : MonoBehaviour
     {
         Debug.Log(playerIcon);
         Debug.Log(inventoryManager);
-        playerIcon.sprite = inventoryManager.equippedHead.Sprite;
+        playerIcon.sprite = inventoryManager.myRobot.head.Sprite;
     }
 }

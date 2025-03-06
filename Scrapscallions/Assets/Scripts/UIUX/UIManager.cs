@@ -1,13 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
     public Texture2D cursor;
     public bool isMainMenuOpen;
-    public MusicPlayer musicPlayer;
     public SFXPlayer sfxPlayer;
     public Button battleButton;
 
@@ -15,15 +15,15 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject mainMenu;
     [SerializeField] private GameObject optionsMenu;
     [SerializeField] private GameObject debugMenu;
-    [SerializeField] private GameObject battleUI;
     [SerializeField] private GameObject workshopUI;
-    [SerializeField] private GameObject heapUI;
     [SerializeField] private GameObject shopUI;
 
+    private MusicPlayer musicPlayer;
     void Start()
     {
         Cursor.SetCursor(cursor, Vector2.zero, CursorMode.ForceSoftware);
         isMainMenuOpen = true;
+        musicPlayer = MusicPlayer.Instance;
     }
 
     public void OpenOptions()
@@ -49,8 +49,7 @@ public class UIManager : MonoBehaviour
         mainMenu.SetActive(false);
         isMainMenuOpen = false;
         debugMenu.SetActive(true);
-        InventoryManager invMan = FindAnyObjectByType<InventoryManager>();
-        if (invMan.equippedBody != null && invMan.equippedHead != null && invMan.equippedLArm != null && invMan.equippedRArm != null && invMan.equippedLegs != null)
+        if (InventoryManager.Instance.IsFullyEquipped)
             battleButton.interactable = true;
         else
             battleButton.interactable = false;
@@ -68,16 +67,16 @@ public class UIManager : MonoBehaviour
     {
         sfxPlayer.ButtonClick();
         debugMenu.SetActive(false);
-        battleUI.SetActive(true);
-        battleUI.GetComponent<BattleUI>().ResetBattle();
+        //battleUI.SetActive(true);
+        //battleUI.GetComponent<BattleUI>().ResetBattle();
         musicPlayer.Battle();
+        SceneManager.LoadScene("Arena");
     }
 
     public void CloseBattle()
     {
         sfxPlayer.ButtonClick();
         debugMenu.SetActive(true);
-        battleUI.SetActive(false);
         musicPlayer.MainMenu();
     }
 
@@ -95,8 +94,7 @@ public class UIManager : MonoBehaviour
         debugMenu.SetActive(true);
         workshopUI.SetActive(false);
         musicPlayer.MainMenu();
-        InventoryManager invMan = FindAnyObjectByType<InventoryManager>();
-        if (invMan.equippedBody != null && invMan.equippedHead != null && invMan.equippedLArm != null && invMan.equippedRArm != null && invMan.equippedLegs != null)
+        if (InventoryManager.Instance.IsFullyEquipped)
             battleButton.interactable = true;
         else
             battleButton.interactable = false;
@@ -107,18 +105,16 @@ public class UIManager : MonoBehaviour
     {
         sfxPlayer.ButtonClick();
         debugMenu.SetActive(false);
-        heapUI.SetActive(true);
         musicPlayer.Heap();
+        SceneManager.LoadScene("Heap");
     }
 
     public void CloseHeap()
     {
         sfxPlayer.ButtonClick();
         debugMenu.SetActive(true);
-        heapUI.SetActive(false);
         musicPlayer.MainMenu();
-        InventoryManager invMan = FindAnyObjectByType<InventoryManager>();
-        if (invMan.equippedBody != null && invMan.equippedHead != null && invMan.equippedLArm != null && invMan.equippedRArm != null && invMan.equippedLegs != null)
+        if (InventoryManager.Instance.IsFullyEquipped)
             battleButton.interactable = true;
         else
             battleButton.interactable = false;
@@ -138,8 +134,7 @@ public class UIManager : MonoBehaviour
         debugMenu.SetActive(true);
         shopUI.SetActive(false);
         musicPlayer.MainMenu();
-        InventoryManager invMan = FindAnyObjectByType<InventoryManager>();
-        if (invMan.equippedBody != null && invMan.equippedHead != null && invMan.equippedLArm != null && invMan.equippedRArm != null && invMan.equippedLegs != null)
+        if (InventoryManager.Instance.IsFullyEquipped)
             battleButton.interactable = true;
         else
             battleButton.interactable = false;

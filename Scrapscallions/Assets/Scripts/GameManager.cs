@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using Scraps.Gameplay;
+using UnityEngine.SceneManagement;
 
 namespace Scraps.Gameplay
 {
@@ -23,13 +24,20 @@ namespace Scraps.Gameplay
         private GoapAgent m_opponentAgent;
         [SerializeField] private LootTable m_lootTable;
         [SerializeField] private GameObject m_playerIndicator;
+        [SerializeField] private int m_prizeMoney = 15;
         private void OnEnable()
         {
             Instance = this;
         }
         private void Start()
         {
-            playerRobot = m_lootTable.GetRandomRobot();
+            if (InventoryManager.Instance == null)
+            {
+                LoadMenu();
+                return;
+            }
+
+            playerRobot = InventoryManager.Instance.myRobot;
             opponentRobot = m_lootTable.GetRandomRobot();
             SpawnRobot(playerRobot, playerSpawnPoint, opponentRobot, true);
             SpawnRobot(opponentRobot, opponentSpawnPoint, playerRobot, false);
@@ -72,17 +80,26 @@ namespace Scraps.Gameplay
 
             CinematicManager.instance.SetSingleTarget(opponentRobot.bodyController.transform);
             CinematicManager.instance.SetCamera(CinematicManager.CameraType.SingleTarget);
+
+            Invoke("LoadMenu", 3f);
         }
 
         private void OnPlayerWon()
         {
             Debug.Log("Scrapscallions Won!");
             AnnounceWinner?.Invoke("The Scrapscallions");
-
+            InventoryManager.Instance.money += m_prizeMoney;
             m_playerAgent.kinematic.DisableMovement();
 
             CinematicManager.instance.SetSingleTarget(playerRobot.bodyController.transform);
             CinematicManager.instance.SetCamera(CinematicManager.CameraType.SingleTarget);
+
+            Invoke("LoadMenu", 3f);
+        }
+
+        private void LoadMenu()
+        {
+            SceneManager.LoadScene("UI");
         }
     }
 }

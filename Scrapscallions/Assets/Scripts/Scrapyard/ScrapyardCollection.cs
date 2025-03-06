@@ -6,6 +6,14 @@ using UnityEngine;
 public class ScrapyardCollection : MonoBehaviour
 {
     public List<RobotPart> collectedParts = new();
+
+    internal void AddLoot()
+    {
+        if (collectedParts.Count < 1) return;
+        foreach (RobotPart part in collectedParts)
+            InventoryManager.Instance.AddToInventory(part);
+    }
+
     public void GetPartFromRobot(Robot robot)
     {
         int index = Random.Range(1, 6);
