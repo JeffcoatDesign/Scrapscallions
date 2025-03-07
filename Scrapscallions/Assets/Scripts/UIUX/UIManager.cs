@@ -11,6 +11,8 @@ public class UIManager : MonoBehaviour
     public SFXPlayer sfxPlayer;
     public Button battleButton;
 
+    private static bool _hasStartedGame = false;
+
     [Header("Menus")]
     [SerializeField] private GameObject mainMenu;
     [SerializeField] private GameObject optionsMenu;
@@ -19,6 +21,12 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject shopUI;
 
     private MusicPlayer musicPlayer;
+
+    private void Awake()
+    {
+        if (_hasStartedGame)
+            OpenDebug();
+    }
     void Start()
     {
         Cursor.SetCursor(cursor, Vector2.zero, CursorMode.ForceSoftware);
@@ -45,6 +53,8 @@ public class UIManager : MonoBehaviour
 
     public void OpenDebug()
     {
+        _hasStartedGame = true;
+
         sfxPlayer.ButtonClick();
         mainMenu.SetActive(false);
         isMainMenuOpen = false;

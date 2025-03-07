@@ -19,9 +19,9 @@ namespace Scraps.Parts
         public override bool IsReady { get; set; } = true;
         public override bool IsCooledDown { get; set; } = true;
         [field: SerializeField] public override float ActionLength { get; set; } = 1f;
-        public override float CooldownTime { get; set; } = 3f;
+        [field: SerializeField] public override float CooldownTime { get; set; } = 3f;
         public override Action ActionCompleted { get; set; }
-        public override string ActionName { get; set; }
+        [field: SerializeField] public override string ActionName { get; set; } = "Ranged Attack";
 
         protected override void Update()
         {

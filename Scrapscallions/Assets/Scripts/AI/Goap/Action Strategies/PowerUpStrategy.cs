@@ -1,4 +1,5 @@
 ﻿using Scraps.Parts;
+using System;
 using UnityEngine;
 
 namespace Scraps.AI.GOAP
@@ -8,37 +9,35 @@ namespace Scraps.AI.GOAP
     {
         [SerializeField] float powerUpTime = 2;
         private PowerUpController powerUpController;
-        private CountdownTimer timer;
 
-        public bool CanPerform => true;
-        public bool IsComplete { get; private set; }
+        public bool CanPerform => powerUpController != null ? powerUpController.IsReady : false;
+        public bool IsComplete { get; private set; } = false;
 
         public PowerUpStrategy Initialize(PowerUpController powerUpController)
         {
             this.powerUpController = powerUpController;
+            IsComplete = false;
 
-            powerUpTime = powerUpController.PowerTime;
-
-            timer = new CountdownTimer(this.powerUpTime);
-            timer.OnTimerStart += () => IsComplete = false;
-            timer.OnTimerStop += () =>
-            { 
-                IsComplete = true;
-            };
+            powerUpController.ActionCompleted += OnPowerUpFinished;
             return this;
+        }
+
+        private void OnPowerUpFinished()
+        {
+            IsComplete = true;
         }
 
         public void Begin()
         {
-            timer.Time = powerUpTime;
-            timer.Start();
-            powerUpController.ActivatePowerUp();
+            powerUpController.Activate();
         }
 
         public void Stop() {
 
         }
 
-        public void Tick(float deltaTime) => timer.Tick(deltaTime);
+        public void Tick(float deltaTime) {
+            //NOOP
+        }
     }
 }

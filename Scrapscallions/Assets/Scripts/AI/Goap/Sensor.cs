@@ -18,10 +18,18 @@ public class Sensor : MonoBehaviour
 
     public event Action OnTargetChanged = delegate { };
 
-    public Vector3 TargetPosition => target ? target.transform.position : Vector3.zero;
-    public bool IsTargetInRange => target != null;
+    public Vector3 TargetPosition => Target ? Target.transform.position : Vector3.zero;
+    public bool IsTargetInRange => Target != null;
 
-    GameObject target;
+    GameObject Target { get
+        {
+            if (m_collidingParts != null && m_collidingParts.Count > 0)
+            {
+                return m_collidingParts.First().OrNull()?.gameObject;
+            }
+            return null;
+        } 
+    }
     Vector3 lastKnownPosition;
     CountdownTimer timer;
     private List<PartController> m_collidingParts;
@@ -38,7 +46,7 @@ public class Sensor : MonoBehaviour
     {
         timer = new CountdownTimer(timerInterval);
         timer.OnTimerStop += () => { 
-            UpdateTargetPosition(target.OrNull()); 
+            UpdateTargetPosition(); 
             timer.Start();
         };
         timer.Start();
@@ -49,9 +57,8 @@ public class Sensor : MonoBehaviour
         timer.Tick(Time.deltaTime);
     }
 
-    void UpdateTargetPosition(GameObject target = null)
+    void UpdateTargetPosition()
     {
-        this.target = target;
         if(IsTargetInRange && (lastKnownPosition != TargetPosition || lastKnownPosition != Vector3.zero))
         {
             lastKnownPosition = TargetPosition;
@@ -79,7 +86,7 @@ public class Sensor : MonoBehaviour
             }
         }
         m_collidingParts.Add(otherPart);
-        UpdateTargetPosition(other.gameObject);
+        UpdateTargetPosition();
     }
 
     private void OnTriggerExit(Collider other)
@@ -99,7 +106,7 @@ public class Sensor : MonoBehaviour
                         firstPart = m_collidingParts.First();
                 }
                 if (firstPart != null)
-                    UpdateTargetPosition(firstPart.gameObject);
+                    UpdateTargetPosition();
             }
             else
                 UpdateTargetPosition();
