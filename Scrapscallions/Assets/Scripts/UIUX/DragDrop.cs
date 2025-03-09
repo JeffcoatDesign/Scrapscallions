@@ -43,6 +43,24 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
         draggable = true;
     }
 
+    private void OnEnable()
+    {
+        rectTransform = GetComponent<RectTransform>();
+        canvas = GetComponentInParent<Canvas>();
+        canvasGroup = GetComponent<CanvasGroup>();
+        homeSlot = GetComponentInParent<ItemSlot>();
+        itemImage = GetComponent<Image>();
+        inventoryManager = FindAnyObjectByType<InventoryManager>();
+        if (toolTip != null)
+        {
+            itemDescription = toolTip.GetComponentsInChildren<TextMeshProUGUI>();
+            toolTipPos = toolTip.GetComponent<RectTransform>();
+        }
+        draggable = true;
+        ResetDragDrop();
+
+    }
+
     public void OnBeginDrag(PointerEventData eventData)
     {
         if (draggable)
@@ -89,6 +107,7 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
             itemDescription[3].gameObject.SetActive(true);
             itemDescription[4].gameObject.SetActive(true);
             itemDescription[3].text = "Attack Speed: " + botPartToArm.AttackSpeed;
+            itemDescription[3].text = "Attack Speed: " + botPartToArm.AttackSpeed;
             itemDescription[4].text = "Damage: " + botPartToArm.AttackDamage;
         }
         else if (tag == "Head")
@@ -96,12 +115,16 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
             botPartToHead = (RobotPartHead)botPart;
             itemDescription[3].gameObject.SetActive(true);
             itemDescription[3].text = "Quirks: "; //Need quirks done for quirk description
-            itemDescription[4].gameObject.SetActive(false);
+            if (itemDescription.Length > 4)
+                itemDescription[4].gameObject.SetActive(false);
         }
         else
         {
-            itemDescription[3].gameObject.SetActive(false);
-            itemDescription[4].gameObject.SetActive(false);
+            if (itemDescription.Length > 3)
+            {
+                itemDescription[3].gameObject.SetActive(false);
+                itemDescription[4].gameObject.SetActive(false);
+            }
         }
         itemDescription[0].text = tag + ": \"" + botPart.PartName + "\"";
         itemDescription[1].text = "Maximum HP: " + botPart.MaxHP.ToString();
@@ -130,7 +153,7 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
         itemImage.maskable = true;
         homePosition = homeSlot.GetComponent<RectTransform>().position;
         GetComponent<RectTransform>().position = homePosition;
-        if(GetComponentInParent<ItemSlot>().gameObject.layer != 3)
+        if (homeSlot.gameObject.layer != 3)
         {
             switch (GetComponentInParent<ItemSlot>().gameObject.name)
             {

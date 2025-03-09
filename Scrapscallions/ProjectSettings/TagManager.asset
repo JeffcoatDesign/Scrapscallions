@@ -6,14 +6,18 @@ TagManager:
   tags:
   - Robot
   - Head
+  - Body
+  - Arm
+  - Trash
+  - Leg
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Inventory
   - Water
   - UI
-  - 
+  - Shop
   - Environment
   - Broken Parts
   - 

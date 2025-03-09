@@ -25,9 +25,11 @@ namespace Scraps.Gameplay
         [SerializeField] private LootTable m_lootTable;
         [SerializeField] private GameObject m_playerIndicator;
         [SerializeField] private int m_prizeMoney = 15;
+        private MusicPlayer musicPlayer;
         private void OnEnable()
         {
             Instance = this;
+            musicPlayer = MusicPlayer.Instance;
         }
         private void Start()
         {
@@ -100,6 +102,7 @@ namespace Scraps.Gameplay
         private void LoadMenu()
         {
             SceneManager.LoadScene("UI");
+            musicPlayer.MainMenu();
         }
     }
 }

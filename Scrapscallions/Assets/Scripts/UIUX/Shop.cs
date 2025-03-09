@@ -10,7 +10,7 @@ public class Shop : MonoBehaviour, IDropHandler
     //The DragDrop dropped into the ItemSlot
     private DragDrop dragDropInQuestion;
     [SerializeField] private InventoryManager inventoryManager;
-    [SerializeField] private ShopInventoryReset shopInventory;
+    [SerializeField] private InventoryReload shopInventory;
     [SerializeField] private GameObject tooExpensiveAlert;
 
     public SFXPlayer sfxPlayer;
@@ -30,6 +30,7 @@ public class Shop : MonoBehaviour, IDropHandler
                 sfxPlayer.Buy();
                 dragDropInQuestion.dropped = true;
                 inventoryManager.AddToInventory(dragDropInQuestion.botPart);
+                inventoryManager.money -= dragDropInQuestion.botPart.Price;
                 Destroy(dragDropInQuestion.GetComponentInParent<ItemSlot>().gameObject);
                 shopInventory.ResetInventory();
             }
