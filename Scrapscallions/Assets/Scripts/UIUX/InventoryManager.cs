@@ -57,8 +57,10 @@ public class InventoryManager : MonoBehaviour
     {
         if (robotPart != null)
         {
+            Debug.Log("Adding " + robotPart);
             overallItemID++;
-            InstantiateInventoryItem(robotPart, inventoryParent);
+            if(inventoryParent != null && inventoryParent.GetComponentInParent<Shop>() == null)
+                InstantiateInventoryItem(robotPart, inventoryParent);
 
             //Update player money
             MoneyChanged?.Invoke(money);

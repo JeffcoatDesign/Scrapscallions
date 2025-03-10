@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f53028a4deee3cc419ea2ae668ea3d5d, type: 3}
   m_Name: Regular
   m_EditorClassIdentifier: 
-  <PartName>k__BackingField: Regular
+  <PartName>k__BackingField: Ol' Reliable
   <MaxHP>k__BackingField: 5
   <CurrentHP>k__BackingField: 5
   <Price>k__BackingField: 5
   <Prefab>k__BackingField: {fileID: 1139219294892635153, guid: ef6d7499fb06cf14e81c71d5cd04c2f0, type: 3}
+  <ItemID>k__BackingField: 6
   <Sprite>k__BackingField: {fileID: 21300000, guid: 019e80f679c859d4d93a2b27935e579d, type: 3}
   <IsBroken>k__BackingField: 0

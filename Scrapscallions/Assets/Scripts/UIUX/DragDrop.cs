@@ -173,7 +173,6 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
 
     public void DisableDragDrop()
     {
-        Debug.Log("DISABLE!");
         canvasGroup.alpha = .5f;
         canvasGroup.blocksRaycasts = false;
         itemImage.maskable = true;

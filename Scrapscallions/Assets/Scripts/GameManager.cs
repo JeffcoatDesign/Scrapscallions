@@ -104,5 +104,14 @@ namespace Scraps.Gameplay
             SceneManager.LoadScene("UI");
             musicPlayer.MainMenu();
         }
+
+        private void Update()
+        {
+            //Go back to menu if softlocked
+            if(Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.L))
+            { 
+                LoadMenu();
+            }
+        }
     }
 }

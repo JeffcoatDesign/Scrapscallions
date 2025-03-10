@@ -14,7 +14,7 @@ public class UIManager : MonoBehaviour
     [Header("Menus")]
     [SerializeField] private GameObject mainMenu;
     [SerializeField] private GameObject optionsMenu;
-    [SerializeField] private GameObject debugMenu;
+    [SerializeField] private GameObject hubMenu;
     [SerializeField] private GameObject workshopUI;
     [SerializeField] private GameObject shopUI;
 
@@ -22,8 +22,15 @@ public class UIManager : MonoBehaviour
     void Start()
     {
         Cursor.SetCursor(cursor, Vector2.zero, CursorMode.ForceSoftware);
-        isMainMenuOpen = true;
+        if (InventoryManager.Instance.isFirstTime)
+            isMainMenuOpen = true;
+        else
+        {
+            isMainMenuOpen = false;
+            OpenHub();
+        }
         musicPlayer = MusicPlayer.Instance;
+        sfxPlayer = SFXPlayer.Instance;
     }
 
     public void OpenOptions()
@@ -43,30 +50,30 @@ public class UIManager : MonoBehaviour
         optionsMenu.SetActive(false);
     }
 
-    public void OpenDebug()
+    public void OpenHub()
     {
         sfxPlayer.ButtonClick();
         mainMenu.SetActive(false);
         isMainMenuOpen = false;
-        debugMenu.SetActive(true);
+        hubMenu.SetActive(true);
         if (InventoryManager.Instance.IsFullyEquipped)
             battleButton.interactable = true;
         else
             battleButton.interactable = false;
     }
 
-    public void CloseDebug()
+    public void CloseHub()
     {
         sfxPlayer.ButtonClick();
         mainMenu.SetActive(true);
         isMainMenuOpen = true;
-        debugMenu.SetActive(false);
+        hubMenu.SetActive(false);
     }
 
     public void OpenBattle()
     {
         sfxPlayer.ButtonClick();
-        debugMenu.SetActive(false);
+        hubMenu.SetActive(false);
         //battleUI.SetActive(true);
         //battleUI.GetComponent<BattleUI>().ResetBattle();
         musicPlayer.Battle();
@@ -77,14 +84,14 @@ public class UIManager : MonoBehaviour
     public void CloseBattle()
     {
         sfxPlayer.ButtonClick();
-        debugMenu.SetActive(true);
+        hubMenu.SetActive(true);
         musicPlayer.MainMenu();
     }
 
     public void OpenWorkshop()
     {
         sfxPlayer.ButtonClick();
-        debugMenu.SetActive(false);
+        hubMenu.SetActive(false);
         workshopUI.SetActive(true);
         musicPlayer.Workshop();
     }
@@ -92,7 +99,7 @@ public class UIManager : MonoBehaviour
     public void CloseWorkshop()
     {
         sfxPlayer.ButtonClick();
-        debugMenu.SetActive(true);
+        hubMenu.SetActive(true);
         workshopUI.SetActive(false);
         musicPlayer.MainMenu();
         if (InventoryManager.Instance.IsFullyEquipped)
@@ -105,8 +112,8 @@ public class UIManager : MonoBehaviour
     public void OpenHeap()
     {
         sfxPlayer.ButtonClick();
-        debugMenu.SetActive(false);
-        musicPlayer.Heap();
+        hubMenu.SetActive(false);
+        musicPlayer.HeapBattle();
         SceneManager.LoadScene("Heap");
         InventoryManager.Instance.isFirstTime = false;
     }
@@ -114,7 +121,7 @@ public class UIManager : MonoBehaviour
     public void CloseHeap()
     {
         sfxPlayer.ButtonClick();
-        debugMenu.SetActive(true);
+        hubMenu.SetActive(true);
         musicPlayer.MainMenu();
         if (InventoryManager.Instance.IsFullyEquipped)
             battleButton.interactable = true;
@@ -125,7 +132,7 @@ public class UIManager : MonoBehaviour
     public void OpenShop()
     {
         sfxPlayer.ButtonClick();
-        debugMenu.SetActive(false);
+        hubMenu.SetActive(false);
         shopUI.SetActive(true);
         musicPlayer.Shop();
     }
@@ -133,7 +140,7 @@ public class UIManager : MonoBehaviour
     public void CloseShop()
     {
         sfxPlayer.ButtonClick();
-        debugMenu.SetActive(true);
+        hubMenu.SetActive(true);
         shopUI.SetActive(false);
         musicPlayer.MainMenu();
         if (InventoryManager.Instance.IsFullyEquipped)
