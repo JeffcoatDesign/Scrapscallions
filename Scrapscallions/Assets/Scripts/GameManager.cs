@@ -39,6 +39,7 @@ namespace Scraps.Gameplay
                 return;
             }
 
+            //Copy the robots
             playerRobot = InventoryManager.Instance.myRobot.Copy();
             opponentRobot = opponentRobot.Copy();
 

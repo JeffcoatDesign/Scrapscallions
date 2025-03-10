@@ -110,4 +110,4 @@ MonoBehaviour:
     collisionRadius: 0
     m_path: {fileID: 0}
   agent: {fileID: 848583480206608809}
-  m_steeringBehavior: {fileID: 11400000, guid: fb3682d57eaf66746b4101e4f6993962, type: 2}
+  m_steeringBehavior: {fileID: 11400000, guid: 82427cf59f5f3204d8e3db73f1c3ad72, type: 2}

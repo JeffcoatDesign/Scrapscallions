@@ -26,6 +26,8 @@ public class Robot : ScriptableObject
     public RobotState State { get; private set; }
     public Func<GameObject> AgentObject;
 
+    public float TotalHealth { get; private set; }
+
     internal void Spawn(GoapAgent agent, Robot target, bool isPlayer)
     {
         this.agent = agent;
