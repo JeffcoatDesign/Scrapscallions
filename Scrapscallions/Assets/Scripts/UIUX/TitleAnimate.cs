@@ -13,6 +13,14 @@ public class TitleAnimate : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         animator = GetComponentInChildren<Animator>();
     }
 
+    void OnEnable()
+    {
+        if (animator != null)
+        {
+            animator.Play("Idle");
+        }
+    }
+
     public void OnPointerEnter(PointerEventData eventData)
     {
         animator.Play("Appear");
