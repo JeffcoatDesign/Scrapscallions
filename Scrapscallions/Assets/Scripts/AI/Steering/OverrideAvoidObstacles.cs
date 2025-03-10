@@ -25,11 +25,11 @@ namespace Scraps.AI
             Debug.DrawRay(robotState.character.transform.position, robotState.character.transform.position + robotState.character.linearVelocity);
             if (Physics.Raycast(ray, out RaycastHit hit, rayLength, layermask))
             {
-                Debug.Log("Hit");
+                //Debug.Log("Hit");
                 targetPos = new Vector2(hit.point.x, hit.point.z) + new Vector2(hit.normal.x, hit.normal.z) * avoidanceRadius;
                 return base.GetSteering(robotState);
             }
-            Debug.Log("Hi");
+            //Debug.Log("Hi");
             return baseBehavior.GetSteering(robotState);
         }
         protected override Vector3 GetTargetPosition(GameObject target)
