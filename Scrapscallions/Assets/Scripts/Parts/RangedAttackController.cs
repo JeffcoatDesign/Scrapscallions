@@ -1,4 +1,4 @@
-using Scraps.SFX;
+using Scraps.Audio;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -105,8 +105,6 @@ namespace Scraps.Parts
                 //m_rangedArmController.transform.localRotation = Quaternion.Euler(rotation);
                 yield return new WaitForEndOfFrame();
             }
-
-            Debug.Log($"Finished: {ActionName}");
 
             m_rangedArmController.transform.localRotation = Quaternion.identity;
             //Action Finished

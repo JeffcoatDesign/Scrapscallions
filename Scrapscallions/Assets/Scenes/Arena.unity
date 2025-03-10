@@ -4262,7 +4262,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerRobot: {fileID: 11400000, guid: 9846428320aedb54a860a94f2671c248, type: 2}
-  opponentRobot: {fileID: 11400000, guid: f3fd5acdffe359148b67ebd9dacfde5f, type: 2}
+  opponentRobot: {fileID: 11400000, guid: 9d02afdc27af20341acb8345691de438, type: 2}
   goapAgent: {fileID: 848583480206608809, guid: f540ac7ac6edc704997bca9629021aa0, type: 3}
   playerSpawnPoint: {fileID: 1893569230}
   opponentSpawnPoint: {fileID: 1323768033}

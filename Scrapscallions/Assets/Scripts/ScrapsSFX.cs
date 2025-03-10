@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Scraps.SFX
+namespace Scraps.Audio
 {
     [RequireComponent(typeof(AudioSource))]
     public class ScrapsSFX : MonoBehaviour

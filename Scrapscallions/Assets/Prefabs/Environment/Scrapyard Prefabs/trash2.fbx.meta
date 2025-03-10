@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 1ee8251ce7993874591c0f5f5cb55f44
+guid: 44d2e8b5ef7a34844873c365c86dea4e
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -7,18 +7,8 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: building
-    second: {fileID: 2100000, guid: 472521aa355d0074486b77cf7ed07fe3, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: trim
-    second: {fileID: 2100000, guid: d312d0594516e654ca7d63ee22bf7375, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: windowsills
-    second: {fileID: 2100000, guid: 79028297492d10846824e77d8a9a14f3, type: 2}
+      name: trash3
+    second: {fileID: 2100000, guid: 38ffc674916efea4980112617473651a, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -29,7 +19,7 @@ ModelImporter:
     bakeSimulation: 0
     resampleCurves: 1
     optimizeGameObjects: 0
-    removeConstantScaleCurves: 0
+    removeConstantScaleCurves: 1
     motionNodeName: 
     rigImportErrors: 
     rigImportWarnings: 
@@ -56,10 +46,10 @@ ModelImporter:
     useSRGBMaterialColor: 1
     sortHierarchyByName: 1
     importPhysicalCameras: 1
-    importVisibility: 1
-    importBlendShapes: 1
-    importCameras: 1
-    importLights: 1
+    importVisibility: 0
+    importBlendShapes: 0
+    importCameras: 0
+    importLights: 0
     nodeNameCollisionStrategy: 1
     fileIdsGeneration: 2
     swapUVChannels: 0
@@ -82,7 +72,7 @@ ModelImporter:
     secondaryUVMinLightmapResolution: 40
     secondaryUVMinObjectScale: 1
     secondaryUVPackMargin: 4
-    useFileScale: 0
+    useFileScale: 1
     strictVertexDataChecks: 0
   tangentSpace:
     normalSmoothAngle: 60
@@ -116,7 +106,7 @@ ModelImporter:
   humanoidOversampling: 1
   avatarSetup: 0
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
-  importBlendShapeDeformPercent: 1
+  importBlendShapeDeformPercent: 0
   remapMaterialsIfMaterialImportModeIsNone: 0
   additionalBone: 0
   userData: 

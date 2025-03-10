@@ -13,7 +13,7 @@ namespace Scraps.Gameplay
     public class GameManager : MonoBehaviour
     {
         public static GameManager Instance;
-        public Robot playerRobot;
+        [HideInInspector] public Robot playerRobot;
         public Robot opponentRobot;
         public GoapAgent goapAgent;
         public Transform playerSpawnPoint;
@@ -38,7 +38,8 @@ namespace Scraps.Gameplay
             }
 
             playerRobot = InventoryManager.Instance.myRobot.Copy();
-            opponentRobot = m_lootTable.GetRandomRobot();
+            opponentRobot = opponentRobot.Copy();
+
             SpawnRobot(playerRobot, playerSpawnPoint, opponentRobot, true);
             SpawnRobot(opponentRobot, opponentSpawnPoint, playerRobot, false);
             CinematicManager.instance.SetCamera(CinematicManager.CameraType.Group);

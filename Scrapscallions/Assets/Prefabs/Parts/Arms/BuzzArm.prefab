@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 2670281014046804487}
   - component: {fileID: 3059123749334698887}
   - component: {fileID: 1496959869281083520}
+  - component: {fileID: 973154794806023280}
   m_Layer: 0
   m_Name: BuzzArm
   m_TagString: Robot
@@ -251,6 +252,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_audioSource: {fileID: 3059123749334698887}
   m_randomPitch: {x: 0.8, y: 1.2}
+--- !u!114 &973154794806023280
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4377433661880628463}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e806f5af2a3ae4498fe27214b7ec36c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_hitSounds:
+  - {fileID: 8300000, guid: eed3d1928c24b034aae89e0d2bb1fd52, type: 3}
+  - {fileID: 8300000, guid: 55a69a34da806c241957796bf58fd68e, type: 3}
+  - {fileID: 8300000, guid: 06b0a0a18d6a7134d891a39b811ffbee, type: 3}
+  - {fileID: 8300000, guid: 5261fffd6ab83a04c8ccabc5f95732ee, type: 3}
+  - {fileID: 8300000, guid: 848ed0ffbb1e59b43aa2b02aa4655893, type: 3}
+  - {fileID: 8300000, guid: 9819b065cb6dd8740bea2bbbc339b825, type: 3}
 --- !u!1 &8042143786797686147
 GameObject:
   m_ObjectHideFlags: 0
@@ -320,7 +340,6 @@ MonoBehaviour:
   detectionRadius: 1.75
   timerInterval: 1
   m_part: {fileID: 4876686782989000796}
-  m_goapAgent: {fileID: 0}
 --- !u!1 &8725267562278395909
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,4 +1,4 @@
-using Scraps.SFX;
+using Scraps.Audio;
 using System;
 using System.Collections;
 using System.Collections.Generic;
