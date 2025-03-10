@@ -10,6 +10,7 @@ TagManager:
   - Arm
   - Trash
   - Leg
+  - InventoryParent
   layers:
   - Default
   - TransparentFX
@@ -23,7 +24,7 @@ TagManager:
   - 
   - 
   - 
-  - 
+  - EquipRegion
   - 
   - 
   - 

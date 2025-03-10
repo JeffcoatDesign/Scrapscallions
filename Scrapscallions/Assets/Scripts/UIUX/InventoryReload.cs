@@ -8,6 +8,14 @@ public class InventoryReload : MonoBehaviour
 {
     public InventoryManager inventoryManager;
     [SerializeField] private bool isShop;
+    [SerializeField] private bool inventoryPopulated;
+    int inventoryItemID;
+
+    private void Start()
+    {
+        if(isShop)
+            inventoryManager = GameObject.FindWithTag("InventoryParent").GetComponent<InventoryManager>();
+    }
     void OnEnable()
     {
         ResetInventory();
@@ -15,36 +23,46 @@ public class InventoryReload : MonoBehaviour
 
     public void ResetInventory()
     {
-        int inventoryItemID;
-        foreach (ItemSlot inventoryItem in GetComponentsInChildren<ItemSlot>())
+        if (!isShop)
         {
-            if (!isShop)
+            if (!inventoryManager.isFirstTime && !inventoryPopulated)
+            {
+                foreach (RobotPart inventoryItem in inventoryManager.itemParts)
+                {
+                    inventoryItemID = inventoryItem.ItemID;
+                    inventoryManager.InstantiateInventoryItem(inventoryItem, gameObject);
+                }
+                inventoryPopulated = true;
+            }
+            foreach (ItemSlot inventoryItem in GetComponentsInChildren<ItemSlot>())
             {
                 inventoryItemID = inventoryItem.GetComponentInChildren<DragDrop>().botPart.ItemID;
-                if (   (inventoryManager.myRobot.head != null && inventoryItemID != inventoryManager.myRobot.head.ItemID)
+                if ((inventoryManager.myRobot.head != null && inventoryItemID != inventoryManager.myRobot.head.ItemID)
                     && (inventoryManager.myRobot.rightArm != null && inventoryItemID != inventoryManager.myRobot.rightArm.ItemID)
                     && (inventoryManager.myRobot.leftArm != null && inventoryItemID != inventoryManager.myRobot.leftArm.ItemID)
                     && (inventoryManager.myRobot.body != null && inventoryItemID != inventoryManager.myRobot.body.ItemID)
                     && (inventoryManager.myRobot.legs != null && inventoryItemID != inventoryManager.myRobot.legs.ItemID))
-                    Destroy(inventoryItem.gameObject);
+                {
+                    Debug.Log("Item " + inventoryItemID + " was not equipped");
+                }
+                else
+                {
+                    Debug.Log("Item " + inventoryItemID + " was equipped");
+                    inventoryItem.GetComponentInChildren<DragDrop>().DisableDragDrop();
+                }
+
             }
-            else
-                Destroy(inventoryItem.gameObject);
         }
-        foreach (RobotPart inventoryItem in inventoryManager.itemParts)
+        else
         {
-            if (!isShop)
+            foreach (ItemSlot inventoryItem in GetComponentsInChildren<ItemSlot>())
             {
-                inventoryItemID = inventoryItem.ItemID;
-                if (   (inventoryManager.myRobot.head != null && inventoryItemID != inventoryManager.myRobot.head.ItemID)
-                    && (inventoryManager.myRobot.rightArm != null && inventoryItemID != inventoryManager.myRobot.rightArm.ItemID)
-                    && (inventoryManager.myRobot.leftArm != null && inventoryItemID != inventoryManager.myRobot.leftArm.ItemID)
-                    && (inventoryManager.myRobot.body != null && inventoryItemID != inventoryManager.myRobot.body.ItemID)
-                    && (inventoryManager.myRobot.legs != null && inventoryItemID != inventoryManager.myRobot.legs.ItemID))
-                    inventoryManager.ReloadToInventory(inventoryItem, gameObject);
+                Destroy(inventoryItem.gameObject);
             }
-            else
-                inventoryManager.ReloadToInventory(inventoryItem, gameObject);
+            foreach (RobotPart inventoryItem in inventoryManager.itemParts)
+            {
+                inventoryManager.InstantiateInventoryItem(inventoryItem, gameObject);
+            }
         }
     }
 }

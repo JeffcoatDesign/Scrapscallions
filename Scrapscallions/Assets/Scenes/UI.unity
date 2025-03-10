@@ -601,6 +601,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1635810068}
+        m_TargetAssemblyTypeName: InventoryManager, Assembly-CSharp
+        m_MethodName: DebugEquippedParts
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &27992915
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2162,7 +2174,7 @@ GameObject:
   - component: {fileID: 257866647}
   - component: {fileID: 257866646}
   - component: {fileID: 257866645}
-  m_Layer: 5
+  m_Layer: 12
   m_Name: TestLeftArmSlot
   m_TagString: Arm
   m_Icon: {fileID: 0}
@@ -4393,7 +4405,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 191ed061ffc391a4cb0118b1be5b9ad4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoryManager: {fileID: 1635810068}
+  inventoryManager: {fileID: 0}
   isShop: 0
 --- !u!1 &505885222
 GameObject:
@@ -10617,6 +10629,52 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1157284955
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1157284957}
+  - component: {fileID: 1157284956}
+  m_Layer: 0
+  m_Name: InventoryParentFinder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1157284956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1157284955}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0795775b66d83a4abe978743a83e02d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventoryParent: {fileID: 485503807}
+  im: {fileID: 0}
+--- !u!4 &1157284957
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1157284955}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 960, y: 540, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1189145302 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 294509373728617856, guid: 9e1758bd0e156c54ca5f6cfc9b72ccf7, type: 3}
@@ -10723,7 +10781,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 191ed061ffc391a4cb0118b1be5b9ad4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoryManager: {fileID: 1635810068}
+  inventoryManager: {fileID: 0}
   isShop: 1
 --- !u!4 &1200017575 stripped
 Transform:
@@ -14577,7 +14635,7 @@ GameObject:
   - component: {fileID: 1635810068}
   m_Layer: 0
   m_Name: InventoryManager
-  m_TagString: Untagged
+  m_TagString: InventoryParent
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14595,11 +14653,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventoryItemPrefab: {fileID: 8961743957900049942, guid: 73adec40591c1304f9aae8af09369179, type: 3}
-  inventoryParent: {fileID: 485503807}
+  inventoryParent: {fileID: 0}
   itemParts: []
   money: 100
   overallItemID: 0
-  myRobot: {fileID: 11400000, guid: 618e1a04cea7fbb4fb52308d8da127d5, type: 2}
+  myRobot: {fileID: 11400000, guid: 9846428320aedb54a860a94f2671c248, type: 2}
+  isFirstTime: 1
 --- !u!4 &1635810069
 Transform:
   m_ObjectHideFlags: 0
@@ -15148,7 +15207,7 @@ GameObject:
   - component: {fileID: 1705467241}
   - component: {fileID: 1705467240}
   - component: {fileID: 1705467239}
-  m_Layer: 5
+  m_Layer: 12
   m_Name: TestHeadSlot
   m_TagString: Head
   m_Icon: {fileID: 0}
@@ -15506,7 +15565,7 @@ GameObject:
   - component: {fileID: 1723301010}
   - component: {fileID: 1723301009}
   - component: {fileID: 1723301008}
-  m_Layer: 5
+  m_Layer: 12
   m_Name: TestRightArmSlot
   m_TagString: Arm
   m_Icon: {fileID: 0}
@@ -16146,6 +16205,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1749409165}
+  - component: {fileID: 1749409166}
   m_Layer: 5
   m_Name: Bot Parts Equip
   m_TagString: Untagged
@@ -16178,6 +16238,24 @@ RectTransform:
   m_AnchoredPosition: {x: 108, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1749409166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1749409164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2af411384f0f1bd4fab2f94b7ccb81fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  allItems: []
+  headSlot: {fileID: 1828688343}
+  bodySlot: {fileID: 157454779}
+  leftArmSlot: {fileID: 1400599556}
+  rightArmSlot: {fileID: 478353331}
+  legsSlot: {fileID: 1257628069}
 --- !u!1 &1758320576
 GameObject:
   m_ObjectHideFlags: 0
@@ -17671,7 +17749,7 @@ GameObject:
   - component: {fileID: 1951688821}
   - component: {fileID: 1951688820}
   - component: {fileID: 1951688819}
-  m_Layer: 5
+  m_Layer: 12
   m_Name: TestBodySlot
   m_TagString: Body
   m_Icon: {fileID: 0}
@@ -17784,7 +17862,7 @@ GameObject:
   - component: {fileID: 1958146921}
   - component: {fileID: 1958146920}
   - component: {fileID: 1958146919}
-  m_Layer: 5
+  m_Layer: 12
   m_Name: TestLegsSlot
   m_TagString: Leg
   m_Icon: {fileID: 0}
@@ -19393,6 +19471,7 @@ SceneRoots:
   - {fileID: 1154300365}
   - {fileID: 1758320578}
   - {fileID: 1446510063}
+  - {fileID: 1157284957}
   - {fileID: 1635810069}
   - {fileID: 1653886987}
   - {fileID: 736427745}

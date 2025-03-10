@@ -43,24 +43,6 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
         draggable = true;
     }
 
-    private void OnEnable()
-    {
-        rectTransform = GetComponent<RectTransform>();
-        canvas = GetComponentInParent<Canvas>();
-        canvasGroup = GetComponent<CanvasGroup>();
-        homeSlot = GetComponentInParent<ItemSlot>();
-        itemImage = GetComponent<Image>();
-        inventoryManager = FindAnyObjectByType<InventoryManager>();
-        if (toolTip != null)
-        {
-            itemDescription = toolTip.GetComponentsInChildren<TextMeshProUGUI>();
-            toolTipPos = toolTip.GetComponent<RectTransform>();
-        }
-        draggable = true;
-        ResetDragDrop();
-
-    }
-
     public void OnBeginDrag(PointerEventData eventData)
     {
         if (draggable)
@@ -84,7 +66,7 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
         if (!dropped)
             ResetDragDrop();
         else
-            itemImage.maskable = true;
+            DisableDragDrop();
     }
 
     public void OnPointerDown(PointerEventData eventData)
@@ -187,5 +169,13 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
         GetComponent<RectTransform>().position = homePosition;
         dragDropOrigin = null;
         gameObject.SetActive(false);
+    }
+
+    public void DisableDragDrop()
+    {
+        Debug.Log("DISABLE!");
+        canvasGroup.alpha = .5f;
+        canvasGroup.blocksRaycasts = false;
+        itemImage.maskable = true;
     }
 }

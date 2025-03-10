@@ -71,6 +71,7 @@ public class UIManager : MonoBehaviour
         //battleUI.GetComponent<BattleUI>().ResetBattle();
         musicPlayer.Battle();
         SceneManager.LoadScene("Arena");
+        InventoryManager.Instance.isFirstTime = false;
     }
 
     public void CloseBattle()
@@ -107,6 +108,7 @@ public class UIManager : MonoBehaviour
         debugMenu.SetActive(false);
         musicPlayer.Heap();
         SceneManager.LoadScene("Heap");
+        InventoryManager.Instance.isFirstTime = false;
     }
 
     public void CloseHeap()
