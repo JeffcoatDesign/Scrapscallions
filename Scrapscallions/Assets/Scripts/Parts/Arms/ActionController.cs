@@ -26,7 +26,8 @@ namespace Scraps.Parts
                 IsReady = true;
             };
 
-            m_cooldownTimer.Start();
+            if(!IsReady)
+                m_cooldownTimer.Start();
         }
 
         abstract public void Activate();

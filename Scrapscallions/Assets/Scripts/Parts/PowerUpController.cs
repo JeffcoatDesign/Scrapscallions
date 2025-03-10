@@ -5,62 +5,65 @@ using UnityEngine;
 
 namespace Scraps.Parts
 {
-    public class PowerUpController : MonoBehaviour
+    public class PowerUpController : ActionController
     {
-        public bool isCharged = false;
         public bool isUsingPowerUp = false;
         [SerializeField] private KeyCode powerUpKey;
         [SerializeField] private float m_rechargeTime = 10f;
         [SerializeField] private float m_powerTime = 3f;
         [SerializeField] private GameObject m_readyUI;
-        public bool IsPowerUpReady { get => isCharged && !isUsingPowerUp; }
         public float PowerTime { get => m_powerTime; }
         private PartController m_controller;
         //TODO Make a progress bar
 
-        public float RechargeProgress { get => m_rechargeTimer.Progress; }
+        public float CooldownProgress { get => m_cooldownTimer.Progress; }
         public float PowerUpProgress { get => m_powerUpTimer.Progress; }
-        public event Action Activate, Stop;
+        public override bool IsTakingAction { get; set; } = false;
+        public override bool IsReady { get { return IsTakingAction && IsCooledDown; } set { } }
+        public override bool IsCooledDown { get; set; } = false;
+        [field: SerializeField] public override float ActionLength { get; set; } = 2f;
+        [field: SerializeField] public override float CooldownTime { get; set; } = 4f;
+        public override Action ActionCompleted { get; set; }
+        [field: SerializeField] public override string ActionName { get; set; } = "Power Up";
 
-        private CountdownTimer m_rechargeTimer, m_powerUpTimer;
+        public event Action Activated;
 
-        private void Awake()
+        private CountdownTimer m_powerUpTimer;
+
+        protected override void Awake()
         {
+            base.Awake();
+
             m_controller = GetComponent<PartController>();
 
-            m_rechargeTimer = new(m_rechargeTime);
             m_powerUpTimer = new(m_powerTime);
 
-            m_rechargeTimer.OnTimerStop += OnRecharged;
             m_powerUpTimer.OnTimerStop += OnFinished;
-
-            m_rechargeTimer.Start();
         }
 
         private void OnFinished()
         {
             isUsingPowerUp = false;
-            m_rechargeTimer.Start();
-            Stop?.Invoke();
+            IsTakingAction = false;
+            ActionCompleted?.Invoke();
         }
 
         private void OnRecharged()
         {
-            isCharged = true;
+            IsReady = true;
         }
 
-        private void Update()
+        protected override void Update()
         {
-            m_readyUI.SetActive(isCharged);
+            base.Update();
 
-            if (!isCharged && !isUsingPowerUp)
-            {
-                m_rechargeTimer.Tick(Time.deltaTime);
-            } else if (isCharged && !isUsingPowerUp)
+            m_readyUI.SetActive(IsReady);
+
+            if (IsReady && !isUsingPowerUp)
             {
                 if (m_controller != null && m_controller.GetRobot().State.isPlayer && Input.GetKeyDown(powerUpKey))
                 {
-                    ActivatePowerUp();
+                    Activate();
                 }
             }
             if (isUsingPowerUp)
@@ -69,12 +72,13 @@ namespace Scraps.Parts
             }
         }
 
-        public void ActivatePowerUp()
+        public override void Activate()
         {
             isUsingPowerUp = true;
-            isCharged = false;
+            IsReady = false;
             m_powerUpTimer.Start();
-            Activate?.Invoke();
+            IsTakingAction = true;
+            Activated?.Invoke();
         }
     }
 }

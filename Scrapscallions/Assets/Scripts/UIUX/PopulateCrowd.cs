@@ -16,12 +16,13 @@ public class PopulateCrowd : MonoBehaviour
     {
         for (int i = 0; i < spawnPoints.Length; i++)
         {
-            currentCrowdMember = Instantiate(crowdMemberPrefab);
+            currentCrowdMember = Instantiate(crowdMemberPrefab, transform);
             currentCrowdMember.transform.position = spawnPoints[i].position;
             do
             {
                 randomCrowdSelect = Random.Range(0, crowdMembers.Length + 3);
             } while (randomCrowdSelect == previousCrowdSelect);
+            
             if (randomCrowdSelect >= crowdMembers.Length)
                 currentCrowdMember.GetComponent<SpriteRenderer>().sprite = null;
             else

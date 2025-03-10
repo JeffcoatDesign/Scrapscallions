@@ -1,3 +1,4 @@
+using Scraps.Audio;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -14,14 +15,20 @@ namespace Scraps.Parts
         [SerializeField] private float m_maxRange;
         [SerializeField] private LayerMask m_layerMask;
         private bool m_wasFiring;
+        private ScrapsSFX m_sfx;
 
         public override bool IsTakingAction { get; set; } = false;
         public override bool IsReady { get; set; } = true;
         public override bool IsCooledDown { get; set; } = true;
         [field: SerializeField] public override float ActionLength { get; set; } = 1f;
-        public override float CooldownTime { get; set; } = 3f;
+        [field: SerializeField] public override float CooldownTime { get; set; } = 3f;
         public override Action ActionCompleted { get; set; }
-        public override string ActionName { get; set; }
+        [field: SerializeField] public override string ActionName { get; set; } = "Ranged Attack";
+
+        private void OnEnable()
+        {
+            m_sfx = GetComponent<ScrapsSFX>();
+        }
 
         protected override void Update()
         {
@@ -36,7 +43,7 @@ namespace Scraps.Parts
 
         public override void Activate()
         {
-            BlastAttack();
+            StartCoroutine(BlastAttack());
         }
 
         public void Fire()
@@ -67,6 +74,7 @@ namespace Scraps.Parts
             IsTakingAction = true;
             bool hasFired = false;
             m_particleSystem.Play();
+            m_sfx.Play();
 
             float startTime = Time.time;
             Vector3 rotation = Vector3.zero;

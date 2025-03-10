@@ -1,5 +1,6 @@
 using Scraps.AI.GOAP;
 using Scraps.Cinematic;
+using Scraps.Utilities;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -54,8 +55,9 @@ namespace Scraps.Gameplay
         }
         private void Start()
         {
-            playerRobot = InventoryManager.Instance.myRobot;
+            playerRobot = InventoryManager.Instance.myRobot.Copy();
             opponentRobot = m_lootTable.GetRandomRobot(true);
+
             SpawnRobot(playerRobot, playerSpawnPoint, opponentRobot, true);
             SpawnRobot(opponentRobot, opponentSpawnPoint, playerRobot, false);
             CinematicManager.instance.SetCamera(CinematicManager.CameraType.Group);
