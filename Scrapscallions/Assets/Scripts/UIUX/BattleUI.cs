@@ -10,7 +10,6 @@ public class BattleUI : MonoBehaviour
     public float timePassed = 99;
     public bool isTimerGoing = true;
     public bool isBattleOpen = true;
-    public PanoramaCamera panoramaCamera;
 
     [SerializeField]
     private Slider playerHP, enemyHP;

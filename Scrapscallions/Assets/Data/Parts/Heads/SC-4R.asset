@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89af47727ae13de458562d69f0cbafc0, type: 3}
   m_Name: SC-4R
   m_EditorClassIdentifier: 
-  <PartName>k__BackingField: SC-4R
+  <PartName>k__BackingField: GT SC-4R
   <MaxHP>k__BackingField: 5
   <CurrentHP>k__BackingField: 5
   <Price>k__BackingField: 5
   <Prefab>k__BackingField: {fileID: 1642695058093926673, guid: ac251b2ed3853c1438e7d73b079bd52d, type: 3}
+  <ItemID>k__BackingField: 0
   <Sprite>k__BackingField: {fileID: 21300000, guid: 43b8204f8744a414482cc2cbf8a0f6c3, type: 3}
   <IsBroken>k__BackingField: 0
   <Quirks>k__BackingField:

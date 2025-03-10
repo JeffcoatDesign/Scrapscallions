@@ -66,7 +66,7 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
         if (!dropped)
             ResetDragDrop();
         else
-            itemImage.maskable = true;
+            DisableDragDrop();
     }
 
     public void OnPointerDown(PointerEventData eventData)
@@ -89,6 +89,7 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
             itemDescription[3].gameObject.SetActive(true);
             itemDescription[4].gameObject.SetActive(true);
             itemDescription[3].text = "Attack Speed: " + botPartToArm.AttackSpeed;
+            itemDescription[3].text = "Attack Speed: " + botPartToArm.AttackSpeed;
             itemDescription[4].text = "Damage: " + botPartToArm.AttackDamage;
         }
         else if (tag == "Head")
@@ -96,12 +97,16 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
             botPartToHead = (RobotPartHead)botPart;
             itemDescription[3].gameObject.SetActive(true);
             itemDescription[3].text = "Quirks: "; //Need quirks done for quirk description
-            itemDescription[4].gameObject.SetActive(false);
+            if (itemDescription.Length > 4)
+                itemDescription[4].gameObject.SetActive(false);
         }
         else
         {
-            itemDescription[3].gameObject.SetActive(false);
-            itemDescription[4].gameObject.SetActive(false);
+            if (itemDescription.Length > 3)
+            {
+                itemDescription[3].gameObject.SetActive(false);
+                itemDescription[4].gameObject.SetActive(false);
+            }
         }
         itemDescription[0].text = tag + ": \"" + botPart.PartName + "\"";
         itemDescription[1].text = "Maximum HP: " + botPart.MaxHP.ToString();
@@ -130,7 +135,7 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
         itemImage.maskable = true;
         homePosition = homeSlot.GetComponent<RectTransform>().position;
         GetComponent<RectTransform>().position = homePosition;
-        if(GetComponentInParent<ItemSlot>().gameObject.layer != 3)
+        if (homeSlot.gameObject.layer != 3)
         {
             switch (GetComponentInParent<ItemSlot>().gameObject.name)
             {
@@ -164,5 +169,12 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
         GetComponent<RectTransform>().position = homePosition;
         dragDropOrigin = null;
         gameObject.SetActive(false);
+    }
+
+    public void DisableDragDrop()
+    {
+        canvasGroup.alpha = .5f;
+        canvasGroup.blocksRaycasts = false;
+        itemImage.maskable = true;
     }
 }

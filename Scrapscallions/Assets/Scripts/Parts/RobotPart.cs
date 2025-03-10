@@ -13,6 +13,7 @@ namespace Scraps.Parts
         public abstract int Price { get; set; }
         public abstract bool IsBroken { get; set; }
         protected abstract GameObject Prefab { get; set; }
+        public abstract int ItemID { get; set; }
         public abstract Sprite Sprite { get; set; }
         public Action Break;
 

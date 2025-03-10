@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 using Scraps.Utilities;
+using Unity.VisualScripting;
 
 public class InventoryManager : MonoBehaviour
 {
@@ -14,24 +15,33 @@ public class InventoryManager : MonoBehaviour
     internal event Action InventoryChanged;
 
     [SerializeField] private GameObject inventoryItemPrefab;
-    [SerializeField] private GameObject inventoryParent;
+    public GameObject inventoryParent;
     private DragDrop itemDragDrop;
-    [SerializeField] private RobotPart[] itemParts;
+    public List<RobotPart> itemParts;
     private RobotPart chosenPart;
     public int money;
+    public int overallItemID = 0;
 
     public Robot myRobot;
     public bool IsFullyEquipped { get => myRobot.body != null && myRobot.head != null && myRobot.leftArm != null && myRobot.rightArm != null && myRobot.legs != null; }
+    public bool isFirstTime = true;
 
-void Awake()
+    private void OnEnable()
     {
         if (Instance == null)
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
+            tag = "InventoryParent";
         }
         else
             Destroy(gameObject);
+    }
+
+    void Start()
+    {
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
 
         myRobot = myRobot.Copy();
         AddToInventory(myRobot.head);
@@ -43,73 +53,56 @@ void Awake()
         UnityEngine.Random.InitState((int)System.DateTime.Now.Ticks);
     }
 
-    public void AddToInventory()
-    {
-        //Instantiates an item into the inventory
-        GameObject myInventoryItem = Instantiate(inventoryItemPrefab);
-        itemDragDrop = myInventoryItem.GetComponentInChildren<DragDrop>();
-        if (inventoryParent != null)
-            myInventoryItem.transform.SetParent(inventoryParent.transform, false);
-        itemDragDrop.canvas = FindAnyObjectByType<Canvas>().GetComponent<Canvas>();
-
-        //Randomly creates a RobotPart from a list of RobotPart Prefabs formed in the inspector, and sets the DragDrop's tag accordingly
-        chosenPart = itemParts[UnityEngine.Random.Range(0, 12)];
-        if (chosenPart is RobotPartHead)
-        {
-            itemDragDrop.gameObject.tag = "Head";
-        }
-        else if (chosenPart is RobotPartBody)
-        {
-            itemDragDrop.gameObject.tag = "Body";
-        }
-        else if (chosenPart is RobotPartArm)
-        {
-            itemDragDrop.gameObject.tag = "Arm";
-        }
-        else if (chosenPart is RobotPartLegs)
-        {
-            itemDragDrop.gameObject.tag = "Leg";
-        }
-
-        //Set up the DragDrop's variables based on the created RobotPart
-        itemDragDrop.botPart = chosenPart;
-        itemDragDrop.gameObject.name = itemDragDrop.botPart.PartName;
-        itemDragDrop.GetComponent<Image>().sprite = itemDragDrop.botPart.Sprite;
-    }
-
     public void AddToInventory(RobotPart robotPart)
     {
-        //Instantiates given item into the inventory
-        GameObject myInventoryItem = Instantiate(inventoryItemPrefab);
-        itemDragDrop = myInventoryItem.GetComponentInChildren<DragDrop>();
-        itemDragDrop.canvas = FindAnyObjectByType<Canvas>().GetComponent<Canvas>();
+        if (robotPart != null)
+        {
+            Debug.Log("Adding " + robotPart);
+            overallItemID++;
+            if(inventoryParent != null && inventoryParent.GetComponentInParent<Shop>() == null)
+                InstantiateInventoryItem(robotPart, inventoryParent);
 
-        //Sets the DragDrop's tag according to the robotPart's type
-        if (robotPart is RobotPartHead)
-        {
-            itemDragDrop.gameObject.tag = "Head";
-        }
-        else if (robotPart is RobotPartBody)
-        {
-            itemDragDrop.gameObject.tag = "Body";
-        }
-        else if (robotPart is RobotPartArm)
-        {
-            itemDragDrop.gameObject.tag = "Arm";
-        }
-        else if (robotPart is RobotPartLegs)
-        {
-            itemDragDrop.gameObject.tag = "Leg";
-        }
+            //Update player money
+            MoneyChanged?.Invoke(money);
 
-        //Set up the DragDrop's variables based on the created RobotPart
-        itemDragDrop.botPart = robotPart;
-        itemDragDrop.gameObject.name = itemDragDrop.botPart.PartName;
-        itemDragDrop.GetComponent<Image>().sprite = itemDragDrop.botPart.Sprite;
+            robotPart.ItemID = overallItemID;
+            itemParts.Add(robotPart);
+        }
+    }
 
-        //Update player money
-        money -= itemDragDrop.botPart.Price;
-        MoneyChanged?.Invoke(money);
+    public void InstantiateInventoryItem(RobotPart robotPart, GameObject inventoryParentToReload)
+    {
+        if (inventoryParentToReload != null)
+        {
+            //Instantiates given item into the inventory
+            GameObject myInventoryItem = Instantiate(inventoryItemPrefab);
+            itemDragDrop = myInventoryItem.GetComponentInChildren<DragDrop>();
+            myInventoryItem.transform.SetParent(inventoryParentToReload.transform, false);
+            itemDragDrop.canvas = FindAnyObjectByType<Canvas>().GetComponent<Canvas>();
+
+            //Sets the DragDrop's tag according to the robotPart's type
+            if (robotPart is RobotPartHead)
+            {
+                itemDragDrop.gameObject.tag = "Head";
+            }
+            else if (robotPart is RobotPartBody)
+            {
+                itemDragDrop.gameObject.tag = "Body";
+            }
+            else if (robotPart is RobotPartArm)
+            {
+                itemDragDrop.gameObject.tag = "Arm";
+            }
+            else if (robotPart is RobotPartLegs)
+            {
+                itemDragDrop.gameObject.tag = "Leg";
+            }
+
+            //Set up the DragDrop's variables based on the created RobotPart
+            itemDragDrop.botPart = robotPart;
+            itemDragDrop.gameObject.name = itemDragDrop.botPart.PartName;
+            itemDragDrop.GetComponent<Image>().sprite = itemDragDrop.botPart.Sprite;
+        }
     }
 
     public void GiveMoney(int moneyToAdd)

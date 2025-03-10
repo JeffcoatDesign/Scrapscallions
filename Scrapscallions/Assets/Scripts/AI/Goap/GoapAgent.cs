@@ -56,6 +56,7 @@ namespace Scraps.AI.GOAP
             robot.State.isAlive = false;
             Died?.Invoke();
             kinematic.DisableMovement();
+            SFXPlayer.Instance.Death();
         }
 
         private void OnDestroy()

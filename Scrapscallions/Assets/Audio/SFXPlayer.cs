@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SFXPlayer : MonoBehaviour
 {
+    public static SFXPlayer Instance;
     public AudioSource sfxPlayer;
     [SerializeField, Header("SFX")] private AudioClip blaster;
     [SerializeField] private AudioClip buy;
@@ -16,9 +17,17 @@ public class SFXPlayer : MonoBehaviour
     [SerializeField] private AudioClip trash;
     [SerializeField, Header("Hit Sounds")] private AudioClip[] hitSounds;
 
-    void Start()
+    void Awake()
     {
-        sfxPlayer = GetComponent<AudioSource>();
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     public void Blaster()

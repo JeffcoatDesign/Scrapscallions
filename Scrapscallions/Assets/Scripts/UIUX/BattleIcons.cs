@@ -1,5 +1,7 @@
+using Scraps.Gameplay;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,12 +9,10 @@ public class BattleIcons : MonoBehaviour
 {
     [SerializeField] private Image playerIcon;
     [SerializeField] private Image enemyIcon;
-    public InventoryManager inventoryManager;
 
-    void OnEnable()
+    void Start()
     {
-        Debug.Log(playerIcon);
-        Debug.Log(inventoryManager);
-        playerIcon.sprite = inventoryManager.myRobot.head.Sprite;
+        playerIcon.sprite = GameManager.Instance.playerRobot.head.Sprite;
+        enemyIcon.sprite = GameManager.Instance.opponentRobot.head.Sprite;
     }
 }

@@ -25,9 +25,11 @@ namespace Scraps.Gameplay
         [SerializeField] private LootTable m_lootTable;
         [SerializeField] private GameObject m_playerIndicator;
         [SerializeField] private int m_prizeMoney = 15;
+        private MusicPlayer musicPlayer;
         private void OnEnable()
         {
             Instance = this;
+            musicPlayer = MusicPlayer.Instance;
         }
         private void Start()
         {
@@ -101,6 +103,16 @@ namespace Scraps.Gameplay
         private void LoadMenu()
         {
             SceneManager.LoadScene("UI");
+            musicPlayer.MainMenu();
+        }
+
+        private void Update()
+        {
+            //Go back to menu if softlocked
+            if(Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.L))
+            { 
+                LoadMenu();
+            }
         }
     }
 }

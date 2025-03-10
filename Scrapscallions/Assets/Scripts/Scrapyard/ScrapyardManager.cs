@@ -26,6 +26,7 @@ namespace Scraps.Gameplay
         [SerializeField] private GameObject m_winScreen;
         [SerializeField] private GameObject m_loseScreen;
         private bool m_gameOver = false;
+        private MusicPlayer musicPlayer;
         public void KeepGoing()
         {
             m_winScreen.SetActive(false);
@@ -39,9 +40,13 @@ namespace Scraps.Gameplay
         private void OnEnable()
         {
             Instance = this;
+            musicPlayer = MusicPlayer.Instance;
 
             if (InventoryManager.Instance == null)
+            {
                 SceneManager.LoadScene("UI");
+                musicPlayer.MainMenu();
+            }
         }
 
         private void Reset()
@@ -120,6 +125,7 @@ namespace Scraps.Gameplay
         public void LoadMenu()
         {
             SceneManager.LoadScene("UI");
+            musicPlayer.MainMenu();
         }
     }
 }

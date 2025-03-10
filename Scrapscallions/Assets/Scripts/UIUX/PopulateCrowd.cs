@@ -22,7 +22,7 @@ public class PopulateCrowd : MonoBehaviour
             {
                 randomCrowdSelect = Random.Range(0, crowdMembers.Length + 3);
             } while (randomCrowdSelect == previousCrowdSelect);
-            //Debug.Log(randomCrowdSelect);
+            
             if (randomCrowdSelect >= crowdMembers.Length)
                 currentCrowdMember.GetComponent<SpriteRenderer>().sprite = null;
             else
