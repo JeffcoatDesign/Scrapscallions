@@ -11,7 +11,10 @@ public class ScrapyardCollection : MonoBehaviour
     {
         if (collectedParts.Count < 1) return;
         foreach (RobotPart part in collectedParts)
+        {
+            part.CurrentHP = part.MaxHP;
             InventoryManager.Instance.AddToInventory(part);
+        }
     }
 
     public void GetPartFromRobot(Robot robot)
