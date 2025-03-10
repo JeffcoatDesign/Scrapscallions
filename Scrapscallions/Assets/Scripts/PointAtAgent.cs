@@ -11,10 +11,16 @@ namespace Scraps.Gameplay
         [SerializeField] private float m_rotateSpeed = 0.2f;
         GoapAgent m_playerAgent;
         GoapAgent m_opponentAgent;
-        private void Start()
+        private void Awake()
         {
-            GameManager.Instance.OpponentSpawned += OnOpponentSpawned;
-            GameManager.Instance.PlayerSpawned += OnPlayerSpawned;
+            GameManager.OpponentSpawned += OnOpponentSpawned;
+            GameManager.PlayerSpawned += OnPlayerSpawned;
+        }
+
+        private void OnDisable()
+        {
+            GameManager.OpponentSpawned -= OnOpponentSpawned;
+            GameManager.PlayerSpawned -= OnPlayerSpawned;
         }
 
         private void OnPlayerSpawned(GoapAgent agent)

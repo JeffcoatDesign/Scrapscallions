@@ -1,3 +1,4 @@
+using Scraps.SFX;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -19,6 +20,12 @@ namespace Scraps.Parts
         [SerializeField] Sensor m_meleeSensor;
         [SerializeField] Vector3 m_attackRotation;
         [SerializeField] float m_peakSwing = 0.5f;
+        private ScrapsSFX m_sfx;
+
+        private void OnEnable()
+        {
+            m_sfx = GetComponent<ScrapsSFX>();
+        }
 
         public override void Activate()
         {
@@ -29,6 +36,8 @@ namespace Scraps.Parts
         {
             IsTakingAction = true;
 
+            if (m_sfx != null)
+                m_sfx.Play();
             m_attackCollider.canHit = true;
             float startTime = Time.time;
             Vector3 rotation = Vector3.zero;

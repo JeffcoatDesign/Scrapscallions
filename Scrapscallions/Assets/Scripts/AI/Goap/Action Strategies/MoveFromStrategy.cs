@@ -10,17 +10,20 @@ namespace Scraps.AI.GOAP
         [SerializeField] Func<Vector3> destination;
         [SerializeField] float minDistance;
         Func<Vector3> moveFromPoint;
+        private CountdownTimer m_maxTimer;
         public bool CanPerform => !IsComplete;
         public bool IsComplete
         {
             get
             {
-                return Vector3.Distance(moveFromPoint(), m_state.Position) >= minDistance;
+                return Vector3.Distance(moveFromPoint(), m_state.Position) >= minDistance || m_maxTimer.IsFinished;
             }
         }
 
-        public MoveFromStrategy Initialize(RobotState state, Func<Vector3> moveFromPoint, float minDistance = 2f)
+        public MoveFromStrategy Initialize(RobotState state, Func<Vector3> moveFromPoint, float minDistance = 2f, float maxTime = 10f)
         {
+            m_maxTimer = new(maxTime);
+            m_maxTimer.Start();
             m_state = state;
             this.moveFromPoint = moveFromPoint;
             destination = () => GetPoint(state);
@@ -40,5 +43,11 @@ namespace Scraps.AI.GOAP
         }
 
         public void Stop() => m_state.ResetPath();
+
+        public void Tick(float deltaTime)
+        {
+            if (m_maxTimer != null)
+                m_maxTimer.Tick(deltaTime);
+        }
     }
 }

@@ -45,7 +45,17 @@ public class CustomKinematic : Kinematic
 
     protected override void Update()
     {
-        if (!m_canMove) return;
+        if (!m_canMove)
+        {
+            SteeringOutput stationary = new()
+            {
+                linear = Vector3.zero,
+                angular = 0
+            };
+            steeringUpdate = stationary;
+            base.Update();
+            return;
+        }
 
         if (m_steeringInstance != null)
             steeringUpdate = m_steeringInstance.GetSteering(robotState);

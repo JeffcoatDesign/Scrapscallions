@@ -25,6 +25,7 @@ namespace Scraps.Parts
         override public void GetActions(GoapAgent agent, SerializableHashSet<AgentAction> actions, Dictionary<string, AgentBelief> agentBeliefs)
         {
             //NOOP
+            actions.Add(new AgentAction.Builder("Idle Wander").AddEffect(agentBeliefs["Nothing"]).WithStrategy(ScriptableObject.CreateInstance<WanderStrategy>().Initialize(m_robot.State, 5f)).Build());
         }
 
         override public void GetBeliefs(GoapAgent agent, Dictionary<string, AgentBelief> agentBeliefs)

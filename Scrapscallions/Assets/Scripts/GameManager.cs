@@ -18,7 +18,7 @@ namespace Scraps.Gameplay
         public GoapAgent goapAgent;
         public Transform playerSpawnPoint;
         public Transform opponentSpawnPoint;
-        public event Action<GoapAgent> PlayerSpawned, OpponentSpawned;
+        public static event Action<GoapAgent> PlayerSpawned, OpponentSpawned;
         public event Action<string> AnnounceWinner;
         private GoapAgent m_playerAgent;
         private GoapAgent m_opponentAgent;
@@ -37,7 +37,7 @@ namespace Scraps.Gameplay
                 return;
             }
 
-            playerRobot = InventoryManager.Instance.myRobot;
+            playerRobot = InventoryManager.Instance.myRobot.Copy();
             opponentRobot = m_lootTable.GetRandomRobot();
             SpawnRobot(playerRobot, playerSpawnPoint, opponentRobot, true);
             SpawnRobot(opponentRobot, opponentSpawnPoint, playerRobot, false);

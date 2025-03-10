@@ -27,6 +27,12 @@ namespace Assets.Scripts.Parts
         {
             transform.parent = null;
 
+            if (part is LegsController)
+            {
+                LegsController legs = part as LegsController;
+                legs.BodyAttachPoint.transform.parent = transform.parent;
+            }
+
             if (part != null && part.GetRobot() != null && part.GetRobot().agent != null)
             {
                 if (!gameObject.TryGetComponent(out Rigidbody rb))

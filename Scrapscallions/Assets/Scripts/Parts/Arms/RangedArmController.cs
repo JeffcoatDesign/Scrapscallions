@@ -21,7 +21,7 @@ namespace Scraps.Parts
             beliefFactory.AddBelief(side.ToString() + "ArmAttacking", () => m_actionController.IsTakingAction);
             beliefFactory.AddBelief(side.ToString() + "ArmReady", () => m_actionController.IsReady);
             beliefFactory.AddBelief(side.ToString() + "ArmNotBroken", () => !isBroken);
-            beliefFactory.AddSensorBelief(side.ToString() + "ArmInAttackRange", m_attackRangeSensor);
+            beliefFactory.AddBelief(side.ToString() + "ArmInAttackRange", () => m_attackRangeSensor.IsTargetInRange && !m_opponentCloseSensor.IsTargetInRange);
             beliefFactory.AddSensorBelief(side.ToString() + "ArmTooClose", m_opponentCloseSensor);
             beliefFactory.AddBelief(side.ToString() + "ArmFacingOpponent", () => m_facingOpponent);
         }
@@ -53,9 +53,10 @@ namespace Scraps.Parts
             );
             actions.Add(
                 new AgentAction.Builder("MoveAwayFrom" + side.ToString() + "ArmCloseRange")
-                .WithStrategy(ScriptableObject.CreateInstance<MoveFromStrategy>().Initialize(agent.robot.State, 
+                .WithStrategy(ScriptableObject.CreateInstance<MoveFromStrategy>().Initialize(agent.robot.State,
                 () => agent.robot.State.target().transform.position, m_opponentCloseSensor.detectionRadius))
                 .AddEffect(agentBeliefs[side.ToString() + "ArmNotTooClose"])
+                .AddEffect(agentBeliefs[side.ToString() + "ArmInAttackRange"])
                 .WithPrecondition(agentBeliefs["Alive"])
                 .WithPrecondition(agentBeliefs[side.ToString() + "ArmTooClose"])
                 .WithPrecondition(agentBeliefs[side.ToString() + "ArmNotBroken"])

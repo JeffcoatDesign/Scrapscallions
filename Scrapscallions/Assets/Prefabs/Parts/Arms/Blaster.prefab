@@ -125,6 +125,8 @@ GameObject:
   m_Component:
   - component: {fileID: 332069902974016662}
   - component: {fileID: 8090471820772861281}
+  - component: {fileID: 4407326812630895833}
+  - component: {fileID: 6994134468640397805}
   m_Layer: 0
   m_Name: Laser Launcher
   m_TagString: Untagged
@@ -167,6 +169,119 @@ MonoBehaviour:
   m_layerMask:
     serializedVersion: 2
     m_Bits: 1
+  <ActionLength>k__BackingField: 1
+  <CooldownTime>k__BackingField: 3
+  <ActionName>k__BackingField: Laser Attack
+--- !u!82 &4407326812630895833
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1064976325593523777}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: -3875110700063986886, guid: 7bb0b0a0eb9b1694c8a51c73e7613844, type: 2}
+  m_audioClip: {fileID: 8300000, guid: fdf993f2a8306e044a2b45e1667790c8, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 0.788
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.498
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &6994134468640397805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1064976325593523777}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a846bba391332c64c837d9183c8cd9fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_audioSource: {fileID: 4407326812630895833}
+  m_randomPitch: {x: 0.8, y: 1.2}
 --- !u!1 &1382222209578428222
 GameObject:
   m_ObjectHideFlags: 0
@@ -5271,7 +5386,6 @@ MonoBehaviour:
   detectionRadius: 3
   timerInterval: 1
   m_part: {fileID: 4629759434897314636}
-  m_goapAgent: {fileID: 0}
 --- !u!1 &4377433661880628463
 GameObject:
   m_ObjectHideFlags: 0
@@ -5346,12 +5460,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d09a79af1ba614542a455773cf5768da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isCharged: 0
   isUsingPowerUp: 0
   powerUpKey: 13
   m_rechargeTime: 10
   m_powerTime: 3
   m_readyUI: {fileID: 682503904127165532}
+  <ActionLength>k__BackingField: 2
+  <CooldownTime>k__BackingField: 4
+  <ActionName>k__BackingField: Power Up
 --- !u!136 &8821782590107926959
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -5533,7 +5649,6 @@ MonoBehaviour:
   detectionRadius: 10
   timerInterval: 1
   m_part: {fileID: 4629759434897314636}
-  m_goapAgent: {fileID: 0}
 --- !u!1001 &2175520775219444285
 PrefabInstance:
   m_ObjectHideFlags: 0

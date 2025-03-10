@@ -15,6 +15,7 @@ namespace Scraps.Parts
         [SerializeField] private RangedArmController m_rangedArmController;
         [SerializeField] private Sensor m_sensor;
         [SerializeField] private float m_fireTickTime = 1f;
+        private AudioSource m_audioSource;
         private CountdownTimer m_fireTickTimer;
         private bool m_fireTickReady;
 
@@ -35,6 +36,7 @@ namespace Scraps.Parts
         {
             m_visualEffect.enabled = false;
             m_attackCollider.enabled = false;
+            m_audioSource = GetComponent<AudioSource>();
 
             m_fireTickTimer = new(m_fireTickTime);
 
@@ -55,6 +57,7 @@ namespace Scraps.Parts
         {
             IsTakingAction = true;
 
+            m_audioSource.Play();
             m_visualEffect.enabled = true;
             m_attackCollider.enabled = true;
             m_fireTickReady = true;
@@ -86,7 +89,7 @@ namespace Scraps.Parts
             m_rangedArmController.transform.localRotation = Quaternion.identity;
             //Action Finished
             ActionCompleted?.Invoke();
-
+            m_audioSource.Stop();
             m_attackCollider.enabled = false;
             m_visualEffect.enabled = false;
             IsTakingAction = false;
