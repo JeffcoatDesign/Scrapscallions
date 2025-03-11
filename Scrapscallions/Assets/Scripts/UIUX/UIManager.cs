@@ -10,6 +10,7 @@ public class UIManager : MonoBehaviour
     public bool isMainMenuOpen;
     public SFXPlayer sfxPlayer;
     public Button battleButton;
+    public Button heapButton;
 
     [Header("Menus")]
     [SerializeField] private GameObject mainMenu;
@@ -58,9 +59,15 @@ public class UIManager : MonoBehaviour
         isMainMenuOpen = false;
         hubMenu.SetActive(true);
         if (InventoryManager.Instance.IsFullyEquipped)
+        {
             battleButton.interactable = true;
+            heapButton.interactable = true;
+        }
         else
+        {
             battleButton.interactable = false;
+            heapButton.interactable = false;
+        }
     }
 
     public void CloseHub()
@@ -104,9 +111,15 @@ public class UIManager : MonoBehaviour
         workshopUI.SetActive(false);
         musicPlayer.MainMenu();
         if (InventoryManager.Instance.IsFullyEquipped)
+        {
             battleButton.interactable = true;
+            heapButton.interactable = true;
+        }
         else
+        {
             battleButton.interactable = false;
+            heapButton.interactable = false;
+        }
 
     }
 
@@ -125,9 +138,15 @@ public class UIManager : MonoBehaviour
         hubMenu.SetActive(true);
         musicPlayer.MainMenu();
         if (InventoryManager.Instance.IsFullyEquipped)
+        {
             battleButton.interactable = true;
+            heapButton.interactable = true;
+        }
         else
+        {
             battleButton.interactable = false;
+            heapButton.interactable = false;
+        }
     }
 
     public void OpenShop()
@@ -145,9 +164,15 @@ public class UIManager : MonoBehaviour
         shopUI.SetActive(false);
         musicPlayer.MainMenu();
         if (InventoryManager.Instance.IsFullyEquipped)
+        {
             battleButton.interactable = true;
+            heapButton.interactable = true;
+        }
         else
+        {
             battleButton.interactable = false;
+            heapButton.interactable = false;
+        }
     }
 
     public void QuitGame()

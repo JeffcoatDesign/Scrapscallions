@@ -23,10 +23,12 @@ public class TitleAnimate : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        animator.Play("Appear");
+        if (GetComponent<Button>().interactable)
+            animator.Play("Appear");
     }
     public void OnPointerExit(PointerEventData eventData)
     {
-        animator.Play("Disappear");
+        if (GetComponent<Button>().interactable)
+            animator.Play("Disappear");
     }
 }

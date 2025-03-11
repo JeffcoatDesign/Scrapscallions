@@ -57,7 +57,6 @@ public class InventoryManager : MonoBehaviour
     {
         if (robotPart != null)
         {
-            Debug.Log("Adding " + robotPart);
             overallItemID++;
             if(inventoryParent != null && inventoryParent.GetComponentInParent<Shop>() == null)
                 InstantiateInventoryItem(robotPart, inventoryParent);

@@ -31,8 +31,12 @@ public class ItemSlot : MonoBehaviour, IDropHandler
             {
                 dragDropInQuestion.dropped = true;
                 itemTag = eventData.pointerDrag.tag;
+                if(this == dragDropInQuestion.homeSlot)
+                {
+                    dragDropInQuestion.ResetDragDrop();
+                }
                 //Check if DragDrop is put in the trash
-                if (tag == "Trash")
+                else if (tag == "Trash")
                 {
                     //Check if DragDrop is dragged from Equip Region or Inventory and react accordingly
                     if (dragDropInQuestion.dragDropOrigin != null)
