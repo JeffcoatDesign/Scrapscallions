@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: Oil Drum
   m_EditorClassIdentifier: 
   <PartName>k__BackingField: Oil Drum
-  <MaxHP>k__BackingField: 10
-  <CurrentHP>k__BackingField: 10
+  <MaxHP>k__BackingField: 15
+  <CurrentHP>k__BackingField: 15
   <Price>k__BackingField: 5
   <Prefab>k__BackingField: {fileID: 4797223487188948200, guid: 8677604158d635447b0575d05941dea5, type: 3}
+  <ItemID>k__BackingField: 0
   <Sprite>k__BackingField: {fileID: 21300000, guid: 9c13b31ae97179b4095ae2d8b21609b7, type: 3}
   <IsBroken>k__BackingField: 0

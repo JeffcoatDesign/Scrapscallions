@@ -20,6 +20,17 @@ namespace Scraps
         public bool isAlive = true;
         internal bool isPursuing = true;
         public bool isPlayer;
+        public bool CanMove
+        {
+            get
+            {
+                if(LegsController != null)
+                {
+                    return !LegsController.isBroken;
+                }
+                return false;
+            }
+        }
 
         public float maxSpeed = 1f;
         public float maxAngularAcceleration = 45f;

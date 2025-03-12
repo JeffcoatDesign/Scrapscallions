@@ -78,6 +78,7 @@ namespace Scraps.Parts
                 .WithStrategy(ScriptableObject.CreateInstance<MoveToStrategy>().Initialize(agent.robot.State, () => agent.robot.State.target().transform.position, 9))
                 .AddEffect(agentBeliefs[side.ToString() + "ArmInAttackRange"])
                 .WithPrecondition(agentBeliefs["Alive"])
+                .WithPrecondition(agentBeliefs["CanMove"])
                 .Build()
             );
             actions.Add(
@@ -86,6 +87,7 @@ namespace Scraps.Parts
                 () => agent.robot.State.target().transform.position, 5))
                 .AddEffect(agentBeliefs[side.ToString() + "ArmNotTooClose"])
                 .WithPrecondition(agentBeliefs["Alive"])
+                .WithPrecondition(agentBeliefs["CanMove"])
                 .Build()
             );
 

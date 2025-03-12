@@ -75,6 +75,7 @@ namespace Scraps.Parts
                 new AgentAction.Builder("MoveInto" + side.ToString() + "ArmAttackRange")
                 .WithStrategy(ScriptableObject.CreateInstance<MoveToStrategy>().Initialize(agent.robot.State, () => agent.robot.State.target().transform.position, 2))
                 .WithPrecondition(agentBeliefs[side.ToString() + "ArmWorking"])
+                .WithPrecondition(agentBeliefs["CanMove"])
                 .WithPrecondition(agentBeliefs["Alive"])
                 .AddEffect(agentBeliefs[side.ToString() + "ArmInAttackRange"])
                 .AddEffect(agentBeliefs["IsPursuing"])

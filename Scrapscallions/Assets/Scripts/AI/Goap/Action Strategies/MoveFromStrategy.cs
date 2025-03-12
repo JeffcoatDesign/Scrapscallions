@@ -11,7 +11,7 @@ namespace Scraps.AI.GOAP
         [SerializeField] float minDistance;
         Func<Vector3> moveFromPoint;
         private CountdownTimer m_maxTimer;
-        public bool CanPerform => !IsComplete;
+        public bool CanPerform => !IsComplete && m_state.CanMove;
         public bool IsComplete
         {
             get

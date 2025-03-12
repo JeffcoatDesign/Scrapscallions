@@ -8,7 +8,7 @@ namespace Scraps.Gameplay
 {
     public class PointAtAgent : MonoBehaviour
     {
-        [SerializeField] private float m_rotateSpeed = 0.2f;
+        [SerializeField] private float m_rotateSpeed = 0.05f;
         GoapAgent m_playerAgent;
         GoapAgent m_opponentAgent;
         private void Awake()
@@ -50,7 +50,7 @@ namespace Scraps.Gameplay
 
             Quaternion targetRotation = Quaternion.LookRotation(forward); 
 
-            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, m_rotateSpeed);
+            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, m_rotateSpeed * Time.deltaTime);
         }
     }
 }

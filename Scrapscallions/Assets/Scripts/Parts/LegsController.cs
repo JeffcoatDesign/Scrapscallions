@@ -22,9 +22,7 @@ namespace Scraps.Parts
 
         override public void GetBeliefs(GoapAgent agent, Dictionary<string, AgentBelief> agentBeliefs)
         {
-            BeliefFactory beliefFactory = new(agent, agentBeliefs);
-
-            beliefFactory.AddBelief("Legs Working", () => !isBroken);
+            //NOOP
         }
 
         override public void GetGoals(GoapAgent agent, SerializableHashSet<AgentGoal> goals, Dictionary<string, AgentBelief> agentBeliefs)

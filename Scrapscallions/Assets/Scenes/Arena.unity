@@ -2034,7 +2034,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecfdc5d57b34b694b881af35b6180eee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_rotateSpeed: 0.1
+  m_rotateSpeed: 2
 --- !u!114 &369574850
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2076,7 +2076,7 @@ Light:
   m_InnerSpotAngle: 26.615696
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 1
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -3088,7 +3088,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecfdc5d57b34b694b881af35b6180eee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_rotateSpeed: 0.1
+  m_rotateSpeed: 2
 --- !u!114 &556273623
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3130,7 +3130,7 @@ Light:
   m_InnerSpotAngle: 26.615696
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 1
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -5567,7 +5567,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecfdc5d57b34b694b881af35b6180eee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_rotateSpeed: 0.1
+  m_rotateSpeed: 2
 --- !u!114 &1111495118
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5609,7 +5609,7 @@ Light:
   m_InnerSpotAngle: 26.615696
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 1
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -8162,7 +8162,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecfdc5d57b34b694b881af35b6180eee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_rotateSpeed: 0.1
+  m_rotateSpeed: 2
 --- !u!114 &1903171694
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8204,7 +8204,7 @@ Light:
   m_InnerSpotAngle: 26.615696
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 1
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1

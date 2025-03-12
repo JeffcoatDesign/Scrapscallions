@@ -16,8 +16,8 @@ namespace Scraps.Gameplay
         public Robot playerRobot;
         [HideInInspector] public Robot opponentRobot;
         public GoapAgent goapAgent;
-        public Transform playerSpawnPoint;
-        public Transform opponentSpawnPoint;
+        [SerializeField] private List<Transform> m_spawnPoints = new();
+
         public ScrapyardCollection collection;
         private GoapAgent m_playerAgent;
         private GoapAgent m_opponentAgent;
@@ -26,26 +26,30 @@ namespace Scraps.Gameplay
         [SerializeField] private GameObject m_winScreen;
         [SerializeField] private GameObject m_loseScreen;
         private bool m_gameOver = false;
-        private MusicPlayer musicPlayer;
+        private MusicPlayer m_musicPlayer;
         public void KeepGoing()
         {
             m_winScreen.SetActive(false);
 
             opponentRobot = m_lootTable.GetRandomRobot();
-            SpawnRobot(opponentRobot, opponentSpawnPoint, playerRobot, false);
+
+            int index = UnityEngine.Random.Range(0, m_spawnPoints.Count);
+            SpawnRobot(opponentRobot, m_spawnPoints[index], playerRobot, false);
             m_playerAgent.kinematic.EnableMovement();
+            Time.timeScale = 1f;
 
             playerRobot.State.target = opponentRobot.AgentObject;
         }
         private void OnEnable()
         {
             Instance = this;
-            musicPlayer = MusicPlayer.Instance;
+            m_musicPlayer = MusicPlayer.Instance;
 
             if (InventoryManager.Instance == null)
             {
                 SceneManager.LoadScene("UI");
-                musicPlayer.MainMenu();
+                if (m_musicPlayer != null)
+                    m_musicPlayer.MainMenu();
             }
         }
 
@@ -58,8 +62,15 @@ namespace Scraps.Gameplay
             playerRobot = InventoryManager.Instance.myRobot.Copy();
             opponentRobot = m_lootTable.GetRandomRobot(true);
 
-            SpawnRobot(playerRobot, playerSpawnPoint, opponentRobot, true);
-            SpawnRobot(opponentRobot, opponentSpawnPoint, playerRobot, false);
+            List<Transform> spawnPoints = m_spawnPoints;
+            
+            int index = UnityEngine.Random.Range(0, spawnPoints.Count);
+            SpawnRobot(playerRobot, spawnPoints[index], opponentRobot, true);
+            spawnPoints.RemoveAt(index);
+
+            index = UnityEngine.Random.Range(0, spawnPoints.Count);
+            SpawnRobot(opponentRobot, spawnPoints[index], playerRobot, false);
+
             CinematicManager.instance.SetCamera(CinematicManager.CameraType.Group);
         }
         private void SpawnRobot(Robot robot, Transform spawnPoint, Robot target, bool isPlayer)
@@ -86,6 +97,14 @@ namespace Scraps.Gameplay
             {
                 Instantiate(m_playerIndicator, robot.headController.tagTransform);
             }
+
+            Invoke(nameof(StartFight), 3f);
+        }
+
+        private void StartFight()
+        {
+            m_playerAgent.EnableAI();
+            m_opponentAgent.EnableAI();
         }
 
         private void OnPlayerLost()
@@ -95,6 +114,7 @@ namespace Scraps.Gameplay
             m_gameOver = true;
             Debug.Log("The Heap Won!");
             m_loseScreen.SetActive(true);
+            Time.timeScale = 0.5f;
 
             m_opponentAgent.kinematic.DisableMovement();
 
@@ -110,6 +130,8 @@ namespace Scraps.Gameplay
             opponentRobot.agent.Died -= OnOpponentLost;
             collection.GetPartFromRobot(opponentRobot);
 
+            Time.timeScale = 0.5f;
+
             m_winScreen.SetActive(true);
 
             CinematicManager.instance.RemoveTarget(opponentRobot.AgentObject().transform);
@@ -118,14 +140,16 @@ namespace Scraps.Gameplay
 
         public void LeaveWithLoot()
         {
+            Time.timeScale = 1f;
             collection.AddLoot();
             LoadMenu();
         }
 
         public void LoadMenu()
         {
+            Time.timeScale = 1f;
             SceneManager.LoadScene("UI");
-            musicPlayer.MainMenu();
+            m_musicPlayer.MainMenu();
         }
 
         private void Update()

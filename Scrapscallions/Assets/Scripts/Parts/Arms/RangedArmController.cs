@@ -48,6 +48,7 @@ namespace Scraps.Parts
                 .AddEffect(agentBeliefs[side.ToString() + "ArmInAttackRange"])
                 .WithPrecondition(agentBeliefs[side.ToString() + "ArmNotBroken"])
                 .WithPrecondition(agentBeliefs["Alive"])
+                .WithPrecondition(agentBeliefs["CanMove"])
                 .WithPrecondition(agentBeliefs[side.ToString() + "ArmNotInRange"])
                 .Build()
             );
@@ -59,6 +60,7 @@ namespace Scraps.Parts
                 .AddEffect(agentBeliefs[side.ToString() + "ArmInAttackRange"])
                 .WithPrecondition(agentBeliefs["Alive"])
                 .WithPrecondition(agentBeliefs[side.ToString() + "ArmTooClose"])
+                .WithPrecondition(agentBeliefs["CanMove"])
                 .WithPrecondition(agentBeliefs[side.ToString() + "ArmNotBroken"])
                 .Build()
             );

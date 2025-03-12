@@ -25,11 +25,11 @@ namespace Scraps.Gameplay
         [SerializeField] private LootTable m_lootTable;
         [SerializeField] private GameObject m_playerIndicator;
         [SerializeField] private int m_prizeMoney = 15;
-        private MusicPlayer musicPlayer;
+        private MusicPlayer m_musicPlayer;
         private void OnEnable()
         {
             Instance = this;
-            musicPlayer = MusicPlayer.Instance;
+            m_musicPlayer = MusicPlayer.Instance;
         }
         private void Start()
         {
@@ -46,6 +46,8 @@ namespace Scraps.Gameplay
             SpawnRobot(playerRobot, playerSpawnPoint, opponentRobot, true);
             SpawnRobot(opponentRobot, opponentSpawnPoint, playerRobot, false);
             CinematicManager.instance.SetCamera(CinematicManager.CameraType.Group);
+
+            Invoke(nameof(StartFight), 3f);
         }
         private void SpawnRobot(Robot robot, Transform spawnPoint, Robot target, bool isPlayer)
         {
@@ -75,10 +77,18 @@ namespace Scraps.Gameplay
             }
         }
 
+        private void StartFight()
+        {
+            m_playerAgent.EnableAI();
+            m_opponentAgent.EnableAI();
+        }
+
         private void OnPlayerLost()
         {
             Debug.Log("Chassi Won!");
             AnnounceWinner?.Invoke("Chassi");
+
+            Time.timeScale = 0.5f;
 
             m_opponentAgent.kinematic.DisableMovement();
 
@@ -95,6 +105,8 @@ namespace Scraps.Gameplay
             InventoryManager.Instance.money += m_prizeMoney;
             m_playerAgent.kinematic.DisableMovement();
 
+            Time.timeScale = 0.5f;
+
             CinematicManager.instance.SetSingleTarget(playerRobot.bodyController.transform);
             CinematicManager.instance.SetCamera(CinematicManager.CameraType.SingleTarget);
 
@@ -103,8 +115,10 @@ namespace Scraps.Gameplay
 
         private void LoadMenu()
         {
+            Time.timeScale = 1f;
             SceneManager.LoadScene("UI");
-            musicPlayer.MainMenu();
+            if(m_musicPlayer != null)
+                m_musicPlayer.MainMenu();
         }
 
         private void Update()

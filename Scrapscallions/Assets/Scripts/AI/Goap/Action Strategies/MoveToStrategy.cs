@@ -9,7 +9,7 @@ namespace Scraps.AI.GOAP
         [SerializeField] private RobotState m_state;
         [SerializeField] Func<Vector3> destination;
         [SerializeField] float minDistance;
-        public bool CanPerform => !IsComplete;
+        public bool CanPerform => !IsComplete && m_state.CanMove;
         public bool IsComplete
         {
             get

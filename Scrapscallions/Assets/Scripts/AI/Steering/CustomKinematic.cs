@@ -45,7 +45,7 @@ public class CustomKinematic : Kinematic
 
     protected override void Update()
     {
-        if (!m_canMove)
+        if (!m_canMove || !robotState.CanMove)
         {
             SteeringOutput stationary = new()
             {

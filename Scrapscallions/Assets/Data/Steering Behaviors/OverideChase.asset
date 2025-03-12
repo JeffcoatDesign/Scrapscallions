@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: OverideChase
   m_EditorClassIdentifier: 
   behaviorName: 
-  flee: 0
+  flee: 1
   baseBehavior: {fileID: 11400000, guid: fb3682d57eaf66746b4101e4f6993962, type: 2}
   rayLength: 1
   avoidanceRadius: 3

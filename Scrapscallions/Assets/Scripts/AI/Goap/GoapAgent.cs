@@ -28,6 +28,7 @@ namespace Scraps.AI.GOAP
         IGoapPlanner gPlanner;
 
         private bool m_isInitialized = false;
+        private bool m_isAIEnabled = false;
 
         public event Action Died;
 
@@ -50,6 +51,8 @@ namespace Scraps.AI.GOAP
 
             m_isInitialized = true;
         }
+
+        internal void EnableAI() => m_isAIEnabled = true;
 
         private void OnDie()
         {
@@ -77,6 +80,7 @@ namespace Scraps.AI.GOAP
             factory.AddBelief("AttackingOpponent", () => false);
             factory.AddBelief("Alive", () => robot.State.isAlive);
             factory.AddBelief("IsPursuing", () => robot.State.isPursuing);
+            factory.AddBelief("CanMove", () => robot.State.CanMove);
 
             /*      PART BELIEFS        */
             robot.State.LeftArmController.GetBeliefs(this, beliefs);
@@ -126,7 +130,7 @@ namespace Scraps.AI.GOAP
 
         private void Update()
         {
-            if (!m_isInitialized) return;
+            if (!m_isInitialized || !m_isAIEnabled) return;
 
             if (currentAction == null)
             {

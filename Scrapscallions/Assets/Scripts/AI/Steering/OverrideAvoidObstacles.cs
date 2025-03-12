@@ -22,11 +22,12 @@ namespace Scraps.AI
                 direction = robotState.character.linearVelocity,
                 origin = robotState.character.transform.position
             };
-            Debug.DrawRay(robotState.character.transform.position, robotState.character.transform.position + robotState.character.linearVelocity);
+            Debug.DrawLine(robotState.character.transform.position, robotState.character.transform.position + robotState.character.linearVelocity, Color.green);
             if (Physics.Raycast(ray, out RaycastHit hit, rayLength, layermask))
             {
+                Debug.DrawLine(robotState.character.transform.position, robotState.character.transform.position + robotState.character.linearVelocity, Color.red);
                 //Debug.Log("Hit");
-                targetPos = new Vector2(hit.point.x, hit.point.z) + new Vector2(hit.normal.x, hit.normal.z) * avoidanceRadius;
+                targetPos = hit.point + hit.normal * avoidanceRadius;
                 return base.GetSteering(robotState);
             }
             //Debug.Log("Hi");
