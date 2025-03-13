@@ -7,6 +7,9 @@ using UnityEngine;
 using System;
 using Scraps.Gameplay;
 using UnityEngine.SceneManagement;
+using Scraps.UI;
+using Unity.VisualScripting;
+using TMPro;
 
 namespace Scraps.Gameplay
 {
@@ -20,12 +23,17 @@ namespace Scraps.Gameplay
         public Transform opponentSpawnPoint;
         public static event Action<GoapAgent> PlayerSpawned, OpponentSpawned;
         public event Action<string> AnnounceWinner;
-        private GoapAgent m_playerAgent;
-        private GoapAgent m_opponentAgent;
+        public GoapAgent m_playerAgent;
+        public GoapAgent m_opponentAgent;
         [SerializeField] private LootTable m_lootTable;
         [SerializeField] private GameObject m_playerIndicator;
         [SerializeField] private int m_prizeMoney = 15;
         private MusicPlayer m_musicPlayer;
+
+        public Animator countdownAnim;
+        protected int countdownAmt = 3;
+        public TextMeshProUGUI countdownText;
+
         private void OnEnable()
         {
             Instance = this;
@@ -45,9 +53,10 @@ namespace Scraps.Gameplay
 
             SpawnRobot(playerRobot, playerSpawnPoint, opponentRobot, true);
             SpawnRobot(opponentRobot, opponentSpawnPoint, playerRobot, false);
+
             CinematicManager.instance.SetCamera(CinematicManager.CameraType.Group);
 
-            Invoke(nameof(StartFight), 3f);
+            Countdown();
         }
         private void SpawnRobot(Robot robot, Transform spawnPoint, Robot target, bool isPlayer)
         {
@@ -59,12 +68,14 @@ namespace Scraps.Gameplay
                 agent.Died += OnPlayerLost;
                 m_playerAgent = agent;
                 PlayerSpawned?.Invoke(m_playerAgent);
+                BattleUI.Instance.playerGOAP = m_playerAgent;
             }
             else
             {
                 agent.Died += OnPlayerWon;
                 m_opponentAgent = agent;
                 OpponentSpawned?.Invoke(m_opponentAgent);
+                BattleUI.Instance.enemyGOAP = m_opponentAgent;
             }
 
 
@@ -77,10 +88,29 @@ namespace Scraps.Gameplay
             }
         }
 
+        void Countdown()
+        {
+            countdownAnim.Play("Countdown");
+            CountdownTimer();
+            Invoke("StartFight", 3.2f);
+        }
+
+        void CountdownTimer()
+        {
+            if (countdownAmt > 0)
+                countdownText.text = countdownAmt.ToString();
+            else
+                countdownText.text = "GO!";
+            countdownAmt--;
+            if (countdownAmt >= 0)
+                Invoke("CountdownTimer", 0.95f);
+        }
+
         private void StartFight()
         {
             m_playerAgent.EnableAI();
             m_opponentAgent.EnableAI();
+            BattleUI.Instance.isTimerGoing = true;
         }
 
         private void OnPlayerLost()

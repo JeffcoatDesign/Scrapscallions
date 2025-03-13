@@ -37,6 +37,7 @@ namespace Scraps.Parts
 
         override public void Hit(int damage)
         {
+            
             PartHit?.Invoke(damage);
         }
 

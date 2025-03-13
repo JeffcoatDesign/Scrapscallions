@@ -33,7 +33,7 @@ namespace Scraps.AI.GOAP
 
         public void Stop()
         {
-            Debug.Log($"Stopping + {IsComplete} Remaining Distance = {m_state.RemainingDistance} + Min Distance = {minDistance}");
+            //Debug.Log($"Stopping + {IsComplete} Remaining Distance = {m_state.RemainingDistance} + Min Distance = {minDistance}");
             m_state.ResetPath();
         }
     }

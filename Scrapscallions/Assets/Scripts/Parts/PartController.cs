@@ -1,5 +1,7 @@
 using Assets.Scripts.Parts;
 using Scraps.AI.GOAP;
+using Scraps.Gameplay;
+using Scraps.UI;
 using Scraps.Utilities;
 using System;
 using System.Collections;

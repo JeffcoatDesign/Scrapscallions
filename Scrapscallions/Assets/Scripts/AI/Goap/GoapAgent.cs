@@ -123,7 +123,7 @@ namespace Scraps.AI.GOAP
         //TODO Reapply this
         private void HandleTargetChanged()
         {
-            Debug.Log("Target changed, clearing current action and goal");
+            //Debug.Log("Target changed, clearing current action and goal");
             currentAction = null;
             currentGoal = null;
         }
@@ -134,7 +134,7 @@ namespace Scraps.AI.GOAP
 
             if (currentAction == null)
             {
-                Debug.Log("Calculating any potential new plan");
+                //Debug.Log("Calculating any potential new plan");
                 CalculatePlan();
 
                 if (actionPlan != null && actionPlan.Actions.Count > 0)
@@ -142,9 +142,9 @@ namespace Scraps.AI.GOAP
                     robot.State.ResetPath();
 
                     currentGoal = actionPlan.AgentGoal;
-                    Debug.Log($"Goal: {currentGoal.Name} with {actionPlan.Actions.Count} actions in plan.");
+                    //Debug.Log($"Goal: {currentGoal.Name} with {actionPlan.Actions.Count} actions in plan.");
                     currentAction = actionPlan.Actions.Pop();
-                    Debug.Log($"Popped action: {currentAction.Name}\n");
+                    //Debug.Log($"Popped action: {currentAction.Name}\n");
                     //Verify all precondition effects are true
                     //string debug = "";
                     //foreach(var pre in currentAction.Preconditions)
@@ -158,9 +158,9 @@ namespace Scraps.AI.GOAP
                     {
                         foreach (var precon in currentAction.Preconditions)
                         {
-                            if (!precon.Evaluate()) Debug.Log("Precon not met: " + precon.Name);
+                            //if (!precon.Evaluate()) Debug.Log("Precon not met: " + precon.Name);
                         }
-                        Debug.Log("Preconditions not met, clearing current action and goal");
+                        //Debug.Log("Preconditions not met, clearing current action and goal");
                         currentAction = null;
                         currentGoal = null;
                     }
@@ -173,13 +173,13 @@ namespace Scraps.AI.GOAP
 
                 if (currentAction.IsComplete)
                 {
-                    Debug.Log($"{currentAction.Name} complete");
+                    //Debug.Log($"{currentAction.Name} complete");
                     currentAction.Stop();
                     currentAction = null;
 
                     if (actionPlan.Actions.Count == 0)
                     {
-                        Debug.Log("Plan complete");
+                        //Debug.Log("Plan complete");
                         lastGoal = currentGoal;
                         currentGoal = null;
                     }
@@ -195,7 +195,7 @@ namespace Scraps.AI.GOAP
 
             if (currentGoal != null)
             {
-                Debug.Log("Current goal exists, checking goals with higher priority");
+                //Debug.Log("Current goal exists, checking goals with higher priority");
                 goalsToCheck = new SerializableHashSet<AgentGoal>(goals.Where(g => g.Priority > priorityLevel).ToHashSet());
             }
 

@@ -1,4 +1,6 @@
 using Scraps.AI.GOAP;
+using Scraps.Gameplay;
+using Scraps.UI;
 using Scraps.Utilities;
 using System;
 using System.Collections;
@@ -48,7 +50,7 @@ namespace Scraps.Parts
         {
             PartHit?.Invoke(damage);
 
-            if(body.IsBroken) return;
+            if (body.IsBroken) return;
 
             int currentHP = body.CurrentHP - damage;
             if (currentHP <= 0)

@@ -66,7 +66,7 @@ namespace Scraps.Parts
                 transform.localRotation = Quaternion.Euler(rotation);
                 yield return new WaitForEndOfFrame();
             }
-            Debug.Log("Melee Attack Finished");
+            //Debug.Log("Melee Attack Finished");
 
             transform.localRotation = Quaternion.identity;
             //Action Finished
