@@ -53,6 +53,7 @@ namespace Scraps.AI.GOAP
         }
 
         internal void EnableAI() => m_isAIEnabled = true;
+        internal void DisableAI() => m_isAIEnabled = false;
 
         private void OnDie()
         {

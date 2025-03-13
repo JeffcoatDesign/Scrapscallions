@@ -18,6 +18,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject hubMenu;
     [SerializeField] private GameObject workshopUI;
     [SerializeField] private GameObject shopUI;
+    [SerializeField] private GameObject shopIntroUI;
+    [SerializeField] private GameObject shopInteriorUI;
 
     private MusicPlayer musicPlayer;
 
@@ -154,14 +156,25 @@ public class UIManager : MonoBehaviour
         sfxPlayer.ButtonClick();
         hubMenu.SetActive(false);
         shopUI.SetActive(true);
+        shopIntroUI.SetActive(true);
+        NPCIdle.Instance.time = 0.5f;
         musicPlayer.Shop();
+    }
+
+    public void OpenShopInterior()
+    {
+        sfxPlayer.ButtonClick();
+        shopInteriorUI.SetActive(true);
+        shopIntroUI.SetActive(false);
     }
 
     public void CloseShop()
     {
         sfxPlayer.ButtonClick();
         hubMenu.SetActive(true);
+        shopInteriorUI.SetActive(false);
         shopUI.SetActive(false);
+        shopIntroUI.SetActive(true);
         musicPlayer.MainMenu();
         if (InventoryManager.Instance.IsFullyEquipped)
         {

@@ -1,9 +1,11 @@
 using Scraps.AI.GOAP;
 using Scraps.Cinematic;
+using Scraps.UI;
 using Scraps.Utilities;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -27,6 +29,11 @@ namespace Scraps.Gameplay
         [SerializeField] private GameObject m_loseScreen;
         private bool m_gameOver = false;
         private MusicPlayer m_musicPlayer;
+
+        public Animator countdownAnim;
+        protected int countdownAmt = 3;
+        public TextMeshProUGUI countdownText;
+
         public void KeepGoing()
         {
             m_winScreen.SetActive(false);
@@ -39,6 +46,13 @@ namespace Scraps.Gameplay
             Time.timeScale = 1f;
 
             playerRobot.State.target = opponentRobot.AgentObject;
+
+            m_playerAgent.DisableAI();
+            m_opponentAgent.DisableAI();
+            //BattleUI.Instance.isTimerGoing = false;
+            //BattleUI.Instance.timePassed = 60;
+            countdownAmt = 3;
+            Countdown();
         }
         private void OnEnable()
         {
@@ -63,7 +77,7 @@ namespace Scraps.Gameplay
             opponentRobot = m_lootTable.GetRandomRobot(true);
 
             List<Transform> spawnPoints = m_spawnPoints;
-            
+
             int index = UnityEngine.Random.Range(0, spawnPoints.Count);
             SpawnRobot(playerRobot, spawnPoints[index], opponentRobot, true);
             spawnPoints.RemoveAt(index);
@@ -72,6 +86,8 @@ namespace Scraps.Gameplay
             SpawnRobot(opponentRobot, spawnPoints[index], playerRobot, false);
 
             CinematicManager.instance.SetCamera(CinematicManager.CameraType.Group);
+
+            Countdown();
         }
         private void SpawnRobot(Robot robot, Transform spawnPoint, Robot target, bool isPlayer)
         {
@@ -81,11 +97,13 @@ namespace Scraps.Gameplay
             {
                 agent.Died += OnPlayerLost;
                 m_playerAgent = agent;
+                //BattleUI.Instance.playerGOAP = m_playerAgent;
             }
             else
             {
                 agent.Died += OnOpponentLost;
                 m_opponentAgent = agent;
+                //BattleUI.Instance.enemyGOAP = m_opponentAgent;
             }
 
             robot.Spawn(agent, target, isPlayer);
@@ -97,14 +115,37 @@ namespace Scraps.Gameplay
             {
                 Instantiate(m_playerIndicator, robot.headController.tagTransform);
             }
+        }
 
-            Invoke(nameof(StartFight), 3f);
+        void Countdown()
+        {
+            countdownAnim.Play("Countdown");
+            CountdownTimer();
+            Invoke("StartFight", 3.2f);
+            Invoke("CountdownIdle", 4f);
+        }
+
+        void CountdownTimer()
+        {
+            if (countdownAmt > 0)
+                countdownText.text = countdownAmt.ToString();
+            else
+                countdownText.text = "GO!";
+            countdownAmt--;
+            if (countdownAmt >= 0)
+                Invoke("CountdownTimer", 0.95f);
         }
 
         private void StartFight()
         {
             m_playerAgent.EnableAI();
             m_opponentAgent.EnableAI();
+            //BattleUI.Instance.isTimerGoing = true;
+        }
+
+        private void CountdownIdle()
+        {
+            countdownAnim.Play("Idle");
         }
 
         private void OnPlayerLost()
@@ -154,7 +195,6 @@ namespace Scraps.Gameplay
 
         private void Update()
         {
-            //Go back to menu if softlocked
             if (Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.L))
             {
                 LoadMenu();
