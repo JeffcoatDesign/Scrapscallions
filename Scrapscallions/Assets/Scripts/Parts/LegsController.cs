@@ -9,6 +9,7 @@ namespace Scraps.Parts
     public class LegsController : PartController
     {
         [SerializeField] private Transform m_bodyAttachPoint;
+        public RobotPartLegs legs;
         public Transform BodyAttachPoint { get => m_bodyAttachPoint; }
         override public void Break()
         {
@@ -37,6 +38,16 @@ namespace Scraps.Parts
 
         override public void Hit(int damage)
         {
+            base.Hit(damage);
+
+            int currentHP = legs.CurrentHP - damage;
+            if (currentHP <= 0)
+            {
+                currentHP = 0;
+                Break();
+            }
+            legs.CurrentHP = currentHP;
+
             PartHit?.Invoke(damage);
         }
 

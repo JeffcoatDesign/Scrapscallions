@@ -26,6 +26,7 @@ namespace Scraps.Parts
 
         override public void Hit(int damage)
         {
+            base.Hit(damage);
             int currentHP = arm.CurrentHP - damage;
             if (currentHP <= 0)
             {

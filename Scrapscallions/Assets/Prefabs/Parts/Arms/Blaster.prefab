@@ -5464,7 +5464,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isUsingPowerUp: 0
   powerUpKey: 13
-  m_rechargeTime: 10
   m_powerTime: 3
   m_readyUI: {fileID: 682503904127165532}
   <ActionLength>k__BackingField: 2
@@ -5641,7 +5640,7 @@ GameObject:
   - component: {fileID: 1102931909188237697}
   - component: {fileID: 726197134679392061}
   m_Layer: 0
-  m_Name: Sphere
+  m_Name: Attack Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5695,7 +5694,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff0ce8a44358e9d47b4a8a7079c0c25a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_armController: {fileID: 4629759434897314636}
+  m_partController: {fileID: 4629759434897314636}
   canHit: 0
 --- !u!1 &8042143786797686147
 GameObject:

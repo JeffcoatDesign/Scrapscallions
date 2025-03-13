@@ -81,7 +81,7 @@ namespace Scraps.Gameplay
             EnableAI();
         }
 
-        private void EnableAI()
+        protected void EnableAI()
         {
             m_playerAgent.EnableAI();
             m_opponentAgent.EnableAI();

@@ -406,7 +406,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff0ce8a44358e9d47b4a8a7079c0c25a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_armController: {fileID: 4876686782989000796}
+  m_partController: {fileID: 4876686782989000796}
   canHit: 0
 --- !u!1001 &296626761118895377
 PrefabInstance:

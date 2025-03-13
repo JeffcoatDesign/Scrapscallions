@@ -18,6 +18,7 @@ public class AttackCollider : MonoBehaviour
         
         if (other.TryGetComponent(out PartController otherPart))
         {
+            if (otherPart.GetRobot() == null) return;
             if (otherPart.GetRobot() == m_partController.GetRobot()) return;
             if (otherPart.isBroken) return;
             if (!m_hitParts.Contains(otherPart))

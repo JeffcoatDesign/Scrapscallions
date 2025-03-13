@@ -54,6 +54,7 @@ namespace Scraps.Parts
 
         override public void Hit(int damage)
         {
+            base.Hit(damage);
             PartHit?.Invoke(damage);
 
             if(body.IsBroken) return;

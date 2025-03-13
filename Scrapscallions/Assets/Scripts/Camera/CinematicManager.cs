@@ -1,4 +1,5 @@
 using Cinemachine;
+using Scraps.Parts;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +10,7 @@ namespace Scraps.Cinematic
     {
         public static CinematicManager instance;
         [SerializeField] float m_timeToChangeAngles = 10f;
+        [SerializeField] float m_timeToShakeCamera = 1f;
         [Header("Cameras")]
         [SerializeField] private CinemachineVirtualCamera m_singleTargetVCam;
         [SerializeField] private CinemachineVirtualCamera m_targetGroupVCam;
@@ -16,6 +18,16 @@ namespace Scraps.Cinematic
         [SerializeField] private Vector3 m_targetBody;
         private CameraType m_activeCamera;
         private CountdownTimer m_countdownTimer;
+
+        private void OnEnable()
+        {
+            PartController.AnyPartHit += OnAnyPartHit;
+        }
+
+        private void OnDisable()
+        {
+            PartController.AnyPartHit -= OnAnyPartHit;
+        }
 
         private void Awake()
         {
@@ -101,6 +113,28 @@ namespace Scraps.Cinematic
             None,
             SingleTarget,
             Group
+        }
+
+        private void OnAnyPartHit()
+        {
+            StartCoroutine(ShakeCamera(m_timeToShakeCamera));
+        }
+
+        private IEnumerator ShakeCamera (float time)
+        {
+            CinemachineVirtualCamera activeCamera = null;
+            if (m_activeCamera == CameraType.Group)
+                activeCamera = m_targetGroupVCam;
+            else
+                activeCamera = m_singleTargetVCam;
+
+            var noise = activeCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+            if (noise != null)
+            {
+                noise.m_AmplitudeGain = 1;
+                yield return new WaitForSeconds(time);
+                noise.m_AmplitudeGain = 0;
+            }
         }
     }
 }

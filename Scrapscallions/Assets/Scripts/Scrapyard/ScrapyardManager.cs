@@ -25,12 +25,15 @@ namespace Scraps.Gameplay
         public void KeepGoing()
         {
             m_winScreen.SetActive(false);
+            PostProcessingManager.Instance.HideVignette();
 
             opponentRobot = m_lootTable.GetRandomRobot();
 
             int index = UnityEngine.Random.Range(0, m_spawnPoints.Count);
             SpawnRobot(opponentRobot, m_spawnPoints[index], playerRobot, false);
             m_playerAgent.kinematic.EnableMovement();
+            m_opponentAgent.kinematic.EnableMovement();
+            EnableAI();
             Time.timeScale = 1f;
 
             playerRobot.State.target = opponentRobot.AgentObject;
@@ -80,6 +83,8 @@ namespace Scraps.Gameplay
             m_loseScreen.SetActive(true);
             Time.timeScale = 0.5f;
 
+            PostProcessingManager.Instance.ShowVignette();
+
             m_opponentAgent.kinematic.DisableMovement();
 
             CinematicManager.instance.SetSingleTarget(opponentRobot.bodyController.transform);
@@ -93,6 +98,8 @@ namespace Scraps.Gameplay
             m_playerAgent.kinematic.DisableMovement();
             opponentRobot.agent.Died -= OnPlayerWon;
             collection.GetPartFromRobot(opponentRobot);
+
+            PostProcessingManager.Instance.ShowVignette();
 
             Time.timeScale = 0.5f;
 

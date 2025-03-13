@@ -61,6 +61,7 @@ public class Robot : ScriptableObject
         bodyController.body = body;
         leftArmController.arm = leftArm;
         rightArmController.arm = rightArm;
+        legsController.legs = legs;
 
         legsController.Initialize(this);
         bodyController.Initialize(this);
