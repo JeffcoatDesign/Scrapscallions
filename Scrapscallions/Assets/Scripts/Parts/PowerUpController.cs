@@ -9,7 +9,6 @@ namespace Scraps.Parts
     {
         public bool isUsingPowerUp = false;
         [SerializeField] private KeyCode powerUpKey;
-        [SerializeField] private float m_rechargeTime = 10f;
         [SerializeField] private float m_powerTime = 3f;
         [SerializeField] private GameObject m_readyUI;
         public float PowerTime { get => m_powerTime; }

@@ -26,7 +26,26 @@ public class Robot : ScriptableObject
     public RobotState State { get; private set; }
     public Func<GameObject> AgentObject;
 
-    public float TotalHealth { get; private set; }
+    public float PercentHP
+    {
+        get => TotalCurrentHP / TotalMaxHP;
+    }
+
+    public int TotalCurrentHP
+    { 
+        get
+        {
+            return head.CurrentHP + body.CurrentHP + legs.CurrentHP + leftArm.CurrentHP + rightArm.CurrentHP;
+        }
+    }
+
+    public int TotalMaxHP
+    { 
+        get
+        {
+            return head.MaxHP + body.MaxHP + legs.MaxHP + leftArm.MaxHP + rightArm.MaxHP;
+        }
+    }
 
     internal void Spawn(GoapAgent agent, Robot target, bool isPlayer)
     {

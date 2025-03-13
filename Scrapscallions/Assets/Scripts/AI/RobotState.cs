@@ -31,6 +31,7 @@ namespace Scraps
                 return false;
             }
         }
+        public bool IsDisarmed { get => LeftArmController.isBroken && RightArmController.isBroken; }
 
         public float maxSpeed = 1f;
         public float maxAngularAcceleration = 45f;

@@ -7,7 +7,6 @@ namespace Scraps.AI.GOAP
     //[CreateAssetMenu(fileName = "New Power Up Strategy", menuName = "GOAP/Action Strategies/Power Up Strategy")]
     public class PowerUpStrategy : ScriptableObject, IActionStrategy
     {
-        [SerializeField] float powerUpTime = 2;
         private PowerUpController powerUpController;
 
         public bool CanPerform => powerUpController != null ? powerUpController.IsReady : false;

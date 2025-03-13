@@ -15,7 +15,7 @@ namespace Scraps.UI
 
         private void Awake()
         {
-            m_collection = ScrapyardManager.Instance.collection;
+            m_collection = (GameManager.Instance as ScrapyardManager).collection;
         }
 
         private void OnEnable()

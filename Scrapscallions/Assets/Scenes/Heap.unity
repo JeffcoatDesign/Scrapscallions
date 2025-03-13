@@ -679,8 +679,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 5.81, y: 2.67, z: 2.18}
-  m_Center: {x: 2.02, y: 0, z: -2.63}
+  m_Size: {x: 5.81, y: 3.91, z: 2.18}
+  m_Center: {x: 2.02, y: 0, z: -2.26}
 --- !u!1 &73575125
 GameObject:
   m_ObjectHideFlags: 0
@@ -941,8 +941,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 5.81, y: 2.67, z: 2.18}
-  m_Center: {x: 2.02, y: 0, z: -2.63}
+  m_Size: {x: 5.81, y: 3.91, z: 2.18}
+  m_Center: {x: 2.02, y: 0, z: -2.26}
 --- !u!1001 &83643112
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2106,8 +2106,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 5.81, y: 2.67, z: 2.18}
-  m_Center: {x: 2.02, y: 0, z: -2.63}
+  m_Size: {x: 5.81, y: 3.91, z: 2.18}
+  m_Center: {x: 2.02, y: 0, z: -2.26}
 --- !u!1001 &266824855
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2356,7 +2356,7 @@ Transform:
   m_GameObject: {fileID: 283400446}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -19.425201, y: -17.87, z: -5.3688335}
+  m_LocalPosition: {x: -19.425201, y: -17.55, z: -5.3688335}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -2787,8 +2787,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 5.81, y: 2.67, z: 2.18}
-  m_Center: {x: 2.02, y: 0, z: -2.63}
+  m_Size: {x: 5.81, y: 3.91, z: 2.18}
+  m_Center: {x: 2.02, y: 0, z: -2.26}
 --- !u!1001 &338222054
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3966,8 +3966,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 5.81, y: 2.67, z: 2.18}
-  m_Center: {x: 2.02, y: 0, z: -2.63}
+  m_Size: {x: 5.81, y: 3.91, z: 2.18}
+  m_Center: {x: 2.02, y: 0, z: -2.26}
 --- !u!1001 &495062698
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4602,8 +4602,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 5.81, y: 2.67, z: 2.18}
-  m_Center: {x: 2.02, y: 0, z: -2.63}
+  m_Size: {x: 5.81, y: 3.91, z: 2.18}
+  m_Center: {x: 2.02, y: 0, z: -2.26}
 --- !u!1001 &598908886
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5965,6 +5965,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerRobot: {fileID: 11400000, guid: 9846428320aedb54a860a94f2671c248, type: 2}
   opponentRobot: {fileID: 11400000, guid: f3fd5acdffe359148b67ebd9dacfde5f, type: 2}
+  timeUntilStart: 3
+  m_goapAgentPrefab: {fileID: 848583480206608809, guid: f540ac7ac6edc704997bca9629021aa0, type: 3}
+  m_playerIndicatorPrefab: {fileID: 1260779274983115851, guid: 1abad7be04c89634e844859770b46fd6, type: 3}
+  m_slowMoSpeed: 0.5
   goapAgent: {fileID: 848583480206608809, guid: f540ac7ac6edc704997bca9629021aa0, type: 3}
   m_spawnPoints:
   - {fileID: 731858258}
@@ -11234,8 +11238,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 5.81, y: 2.67, z: 2.18}
-  m_Center: {x: 2.02, y: 0, z: -2.63}
+  m_Size: {x: 5.81, y: 3.91, z: 2.18}
+  m_Center: {x: 2.02, y: 0, z: -2.26}
 --- !u!1 &1351592872
 GameObject:
   m_ObjectHideFlags: 0
@@ -12681,8 +12685,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 5.81, y: 2.67, z: 2.18}
-  m_Center: {x: 2.02, y: 0, z: -2.63}
+  m_Size: {x: 5.81, y: 3.91, z: 2.18}
+  m_Center: {x: 2.02, y: 0, z: -2.26}
 --- !u!1 &1499676582
 GameObject:
   m_ObjectHideFlags: 0

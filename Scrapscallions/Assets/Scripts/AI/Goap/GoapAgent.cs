@@ -81,6 +81,7 @@ namespace Scraps.AI.GOAP
             factory.AddBelief("Alive", () => robot.State.isAlive);
             factory.AddBelief("IsPursuing", () => robot.State.isPursuing);
             factory.AddBelief("CanMove", () => robot.State.CanMove);
+            factory.AddBelief("IsDisarmed", () => robot.State.IsDisarmed);
 
             /*      PART BELIEFS        */
             robot.State.LeftArmController.GetBeliefs(this, beliefs);

@@ -10,17 +10,12 @@ using UnityEngine.SceneManagement;
 namespace Scraps.Gameplay
 {
     [RequireComponent(typeof(ScrapyardCollection))]
-    public class ScrapyardManager : MonoBehaviour
+    public class ScrapyardManager : GameManager
     {
-        public static ScrapyardManager Instance;
-        public Robot playerRobot;
-        [HideInInspector] public Robot opponentRobot;
         public GoapAgent goapAgent;
         [SerializeField] private List<Transform> m_spawnPoints = new();
 
         public ScrapyardCollection collection;
-        private GoapAgent m_playerAgent;
-        private GoapAgent m_opponentAgent;
         [SerializeField] private LootTable m_lootTable;
         [SerializeField] private GameObject m_playerIndicator;
         [SerializeField] private GameObject m_winScreen;
@@ -72,42 +67,11 @@ namespace Scraps.Gameplay
             SpawnRobot(opponentRobot, spawnPoints[index], playerRobot, false);
 
             CinematicManager.instance.SetCamera(CinematicManager.CameraType.Group);
-        }
-        private void SpawnRobot(Robot robot, Transform spawnPoint, Robot target, bool isPlayer)
-        {
-            GoapAgent agent = Instantiate(goapAgent, spawnPoint.position, spawnPoint.rotation);
 
-            if (isPlayer)
-            {
-                agent.Died += OnPlayerLost;
-                m_playerAgent = agent;
-            }
-            else
-            {
-                agent.Died += OnOpponentLost;
-                m_opponentAgent = agent;
-            }
-
-            robot.Spawn(agent, target, isPlayer);
-
-            CinematicManager.instance.AddTarget(agent.transform);
-            CinematicManager.instance.AddTarget(robot.headController.transform.parent);
-
-            if (isPlayer && robot.headController.tagTransform)
-            {
-                Instantiate(m_playerIndicator, robot.headController.tagTransform);
-            }
-
-            Invoke(nameof(StartFight), 3f);
+            StartCoroutine(StartCountdown());
         }
 
-        private void StartFight()
-        {
-            m_playerAgent.EnableAI();
-            m_opponentAgent.EnableAI();
-        }
-
-        private void OnPlayerLost()
+        protected override void OnPlayerLost()
         {
             if (m_gameOver) return;
 
@@ -122,12 +86,12 @@ namespace Scraps.Gameplay
             CinematicManager.instance.SetCamera(CinematicManager.CameraType.SingleTarget);
         }
 
-        private void OnOpponentLost()
+        protected override void OnPlayerWon()
         {
             if (m_gameOver) return;
 
             m_playerAgent.kinematic.DisableMovement();
-            opponentRobot.agent.Died -= OnOpponentLost;
+            opponentRobot.agent.Died -= OnPlayerWon;
             collection.GetPartFromRobot(opponentRobot);
 
             Time.timeScale = 0.5f;

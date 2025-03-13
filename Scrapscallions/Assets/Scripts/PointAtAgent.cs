@@ -19,8 +19,8 @@ namespace Scraps.Gameplay
 
         private void OnDisable()
         {
-            GameManager.OpponentSpawned -= OnOpponentSpawned;
-            GameManager.PlayerSpawned -= OnPlayerSpawned;
+            ArenaManager.OpponentSpawned -= OnOpponentSpawned;
+            ArenaManager.PlayerSpawned -= OnPlayerSpawned;
         }
 
         private void OnPlayerSpawned(GoapAgent agent)

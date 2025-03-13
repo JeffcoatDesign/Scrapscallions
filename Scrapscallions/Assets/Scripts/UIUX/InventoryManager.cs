@@ -12,7 +12,6 @@ public class InventoryManager : MonoBehaviour
 {
     internal static InventoryManager Instance;
     internal event Action<int> MoneyChanged;
-    internal event Action InventoryChanged;
 
     [SerializeField] private GameObject inventoryItemPrefab;
     public GameObject inventoryParent;

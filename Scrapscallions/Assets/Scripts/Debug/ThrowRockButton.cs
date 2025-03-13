@@ -19,9 +19,9 @@ namespace Scraps.Testing
                 if (ScrapyardManager.Instance != null)
                 {
                     targetPos = ScrapyardManager.Instance.playerRobot.agent.transform.position.With(y:1);
-                } else if (GameManager.Instance != null)
+                } else if (ArenaManager.Instance != null)
                 {
-                    targetPos = GameManager.Instance.playerRobot.agent.transform.position;
+                    targetPos = ArenaManager.Instance.playerRobot.agent.transform.position;
                 }
                 Vector3 look = (targetPos - startPos).normalized;
 
