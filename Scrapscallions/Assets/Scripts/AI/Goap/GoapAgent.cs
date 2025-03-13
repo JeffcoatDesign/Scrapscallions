@@ -53,7 +53,15 @@ namespace Scraps.AI.GOAP
             m_isInitialized = true;
         }
 
+<<<<<<< Updated upstream
         private void SetUpTimers()
+=======
+        internal void EnableAI() => m_isAIEnabled = true;
+
+        internal void DisableAI() => m_isAIEnabled = false;
+
+        private void OnDie()
+>>>>>>> Stashed changes
         {
             statsTimer = new CountdownTimer(2f);
             statsTimer.OnTimerStop += () =>

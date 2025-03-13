@@ -12,6 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0598c3dc6154ac46924f3639ca447d5, type: 3}
   m_Name: Evader
   m_EditorClassIdentifier: 
+<<<<<<< Updated upstream:Scrapscallions/Assets/Data/Steering/Evader.asset
   behaviorName: Runnnn
   flee: 1
   maxPredictionTime: 2
+=======
+  customInterpolatorErrorThreshold: 32
+  customInterpolatorWarningThreshold: 16
+>>>>>>> Stashed changes:Scrapscallions/ProjectSettings/ShaderGraphSettings.asset

@@ -1,4 +1,9 @@
+<<<<<<< Updated upstream
 ﻿using UnityEngine;
+=======
+﻿//using Unity.Burst.CompilerServices;
+using UnityEngine;
+>>>>>>> Stashed changes
 
 namespace Scraps.AI.GOAP
 {
