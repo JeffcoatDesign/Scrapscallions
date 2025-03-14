@@ -19,7 +19,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1538035499216921760
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5246,19 +5246,17 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'ready
-
-'
+  m_text: '[1]'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 142bd3dbbba63c24781dbfe929d788bc, type: 2}
+  m_sharedMaterial: {fileID: -8694941575342524414, guid: 142bd3dbbba63c24781dbfe929d788bc, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 3674199808
+  m_fontColor: {r: 0, g: 0.84343386, b: 1, a: 0.85490197}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -5275,7 +5273,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 580.25
+  m_fontSize: 1374
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -5462,13 +5460,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d09a79af1ba614542a455773cf5768da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isUsingPowerUp: 0
-  powerUpKey: 13
-  m_powerTime: 3
-  m_readyUI: {fileID: 682503904127165532}
+  m_mainPowerUpKey: 1
+  m_altPowerUpKey: 2
+  m_readyUI: {fileID: 8222080962573044425}
+  m_keyText: {fileID: 6346914395673515720}
   <ActionLength>k__BackingField: 2
   <CooldownTime>k__BackingField: 4
-  <ActionName>k__BackingField: Power Up
+  <ActionName>k__BackingField: Laser Beam
 --- !u!136 &8821782590107926959
 CapsuleCollider:
   m_ObjectHideFlags: 0
