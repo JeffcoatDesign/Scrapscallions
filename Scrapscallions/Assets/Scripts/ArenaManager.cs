@@ -44,7 +44,7 @@ namespace Scraps.Gameplay
 
             SlowTime();
 
-            m_opponentAgent.kinematic.DisableMovement();
+            opponentAgent.kinematic.DisableMovement();
             PostProcessingManager.Instance.ShowVignette();
 
             CinematicManager.instance.SetSingleTarget(opponentRobot.bodyController.transform);
@@ -59,7 +59,7 @@ namespace Scraps.Gameplay
             AnnounceWinner?.Invoke("The Scrapscallions");
             InventoryManager.Instance.money += m_prizeMoney;
             PostProcessingManager.Instance.ShowVignette();
-            m_playerAgent.kinematic.DisableMovement();
+            playerAgent.kinematic.DisableMovement();
 
             SlowTime();
 

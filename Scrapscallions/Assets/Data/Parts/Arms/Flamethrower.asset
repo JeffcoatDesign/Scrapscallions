@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <PartName>k__BackingField: Flameblaster Mk.II
   <MaxHP>k__BackingField: 5
-  <CurrentHP>k__BackingField: 0
+  <CurrentHP>k__BackingField: 5
   <Price>k__BackingField: 5
   <Prefab>k__BackingField: {fileID: 4377433661880628463, guid: 20e5876d8c782944e91a82dec1ab4d72, type: 3}
   <ItemID>k__BackingField: 7

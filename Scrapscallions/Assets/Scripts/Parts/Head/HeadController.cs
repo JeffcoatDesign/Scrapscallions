@@ -4,6 +4,7 @@ using Scraps.Utilities;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Scraps.Parts
@@ -57,6 +58,7 @@ namespace Scraps.Parts
         {
             tagTransform.parent = transform.parent;
 
+            head.CurrentHP = 0;
             base.Break();
         }
 

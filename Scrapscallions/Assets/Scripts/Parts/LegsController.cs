@@ -14,6 +14,7 @@ namespace Scraps.Parts
         override public void Break()
         {
             isBroken = true;
+            legs.CurrentHP = 0;
         }
 
         override public void GetActions(GoapAgent agent, SerializableHashSet<AgentAction> actions, Dictionary<string, AgentBelief> agentBeliefs)

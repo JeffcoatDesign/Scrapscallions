@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <PartName>k__BackingField: Pinhead
   <MaxHP>k__BackingField: 5
-  <CurrentHP>k__BackingField: 0
+  <CurrentHP>k__BackingField: 5
   <Price>k__BackingField: 5
   <Prefab>k__BackingField: {fileID: 1642695058093926673, guid: d32785fcec48fd2409250f6dcfa35fb2, type: 3}
   <ItemID>k__BackingField: 8

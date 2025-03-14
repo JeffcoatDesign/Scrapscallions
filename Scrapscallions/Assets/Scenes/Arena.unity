@@ -5478,19 +5478,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerRobot: {fileID: 11400000, guid: 9846428320aedb54a860a94f2671c248, type: 2}
   opponentRobot: {fileID: 11400000, guid: 9d02afdc27af20341acb8345691de438, type: 2}
-  timeUntilStart: 3
+  timeUntilStart: 4
   m_goapAgentPrefab: {fileID: 848583480206608809, guid: f540ac7ac6edc704997bca9629021aa0, type: 3}
   m_playerIndicatorPrefab: {fileID: 1260779274983115851, guid: 1abad7be04c89634e844859770b46fd6, type: 3}
   m_slowMoSpeed: 0.5
+  m_countdownAnimator: {fileID: 750020460}
+  m_countdownText: {fileID: 1050395170}
+  m_battleUI: {fileID: 419300676}
   playerSpawnPoint: {fileID: 1893569230}
   opponentSpawnPoint: {fileID: 1323768033}
-  m_playerAgent: {fileID: 0}
-  m_opponentAgent: {fileID: 0}
   m_lootTable: {fileID: 11400000, guid: edf682b252241c848b3fc5d2426faccf, type: 2}
   m_playerIndicator: {fileID: 1260779274983115851, guid: 1abad7be04c89634e844859770b46fd6, type: 3}
   m_prizeMoney: 15
-  countdownAnim: {fileID: 750020460}
-  countdownText: {fileID: 1050395170}
 --- !u!4 &1017322877
 Transform:
   m_ObjectHideFlags: 0
@@ -8449,6 +8448,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_timeToChangeAngles: 10
+  m_timeToShakeCamera: 1
   m_singleTargetVCam: {fileID: 1821429453}
   m_targetGroupVCam: {fileID: 803059284}
   m_targetGroup: {fileID: 2010335305}

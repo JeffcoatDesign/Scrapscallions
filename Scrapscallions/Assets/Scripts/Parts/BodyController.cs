@@ -6,6 +6,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Dynamic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Scraps.Parts
@@ -28,6 +29,7 @@ namespace Scraps.Parts
             body.IsBroken = true;
             body.Break?.Invoke();
             Broke?.Invoke();
+            body.CurrentHP = 0;
         }
 
         override public void GetActions(GoapAgent agent, SerializableHashSet<AgentAction> actions, Dictionary<string, AgentBelief> agentBeliefs)

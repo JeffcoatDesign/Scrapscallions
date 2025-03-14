@@ -18,6 +18,11 @@ public class AttackCollider : MonoBehaviour
         
         if (other.TryGetComponent(out PartController otherPart))
         {
+            if (m_partController == null)
+            {
+                Debug.Log("No part controller found!");
+                return;
+            }
             if (otherPart.GetRobot() == null) return;
             if (otherPart.GetRobot() == m_partController.GetRobot()) return;
             if (otherPart.isBroken) return;

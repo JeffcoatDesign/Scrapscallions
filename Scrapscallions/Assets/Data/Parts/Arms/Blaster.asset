@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <PartName>k__BackingField: Lemon Cannon
   <MaxHP>k__BackingField: 5
-  <CurrentHP>k__BackingField: 0
+  <CurrentHP>k__BackingField: 5
   <Price>k__BackingField: 5
   <Prefab>k__BackingField: {fileID: 4377433661880628463, guid: 016e466aebded454cbcb0cf90f0ad67c, type: 3}
   <ItemID>k__BackingField: 0

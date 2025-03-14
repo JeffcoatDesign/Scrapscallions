@@ -31,8 +31,8 @@ namespace Scraps.Gameplay
 
             int index = UnityEngine.Random.Range(0, m_spawnPoints.Count);
             SpawnRobot(opponentRobot, m_spawnPoints[index], playerRobot, false);
-            m_playerAgent.kinematic.EnableMovement();
-            m_opponentAgent.kinematic.EnableMovement();
+            playerAgent.kinematic.EnableMovement();
+            opponentAgent.kinematic.EnableMovement();
             EnableAI();
             Time.timeScale = 1f;
 
@@ -85,7 +85,7 @@ namespace Scraps.Gameplay
 
             PostProcessingManager.Instance.ShowVignette();
 
-            m_opponentAgent.kinematic.DisableMovement();
+            opponentAgent.kinematic.DisableMovement();
 
             CinematicManager.instance.SetSingleTarget(opponentRobot.bodyController.transform);
             CinematicManager.instance.SetCamera(CinematicManager.CameraType.SingleTarget);
@@ -95,7 +95,7 @@ namespace Scraps.Gameplay
         {
             if (m_gameOver) return;
 
-            m_playerAgent.kinematic.DisableMovement();
+            playerAgent.kinematic.DisableMovement();
             opponentRobot.agent.Died -= OnPlayerWon;
             collection.GetPartFromRobot(opponentRobot);
 
@@ -114,13 +114,6 @@ namespace Scraps.Gameplay
             Time.timeScale = 1f;
             collection.AddLoot();
             LoadMenu();
-        }
-
-        public void LoadMenu()
-        {
-            Time.timeScale = 1f;
-            SceneManager.LoadScene("UI");
-            m_musicPlayer.MainMenu();
         }
 
         private void Update()

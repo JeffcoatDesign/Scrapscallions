@@ -1,8 +1,10 @@
 using Scraps.AI.GOAP;
 using Scraps.Cinematic;
+using Scraps.UI;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -14,13 +16,17 @@ namespace Scraps.Gameplay
 
         [HideInInspector] public Robot playerRobot;
         public Robot opponentRobot;
-        public float timeUntilStart = 3f;
+        public float timeUntilStart = 4f;
         [SerializeField] protected GoapAgent m_goapAgentPrefab;
         [SerializeField] protected GameObject m_playerIndicatorPrefab;
         [SerializeField] private float m_slowMoSpeed = 0.5f;
-        protected private GoapAgent m_playerAgent, m_opponentAgent;
+        internal GoapAgent playerAgent, opponentAgent;
 
         public static event Action<GoapAgent> PlayerSpawned, OpponentSpawned;
+
+        [SerializeField] protected Animator m_countdownAnimator;
+        [SerializeField] protected TextMeshProUGUI m_countdownText;
+        [SerializeField] protected BattleUI m_battleUI;
 
         protected abstract void OnPlayerWon();
         protected abstract void OnPlayerLost();
@@ -38,14 +44,14 @@ namespace Scraps.Gameplay
             if (isPlayer)
             {
                 agent.Died += OnPlayerLost;
-                m_playerAgent = agent;
-                PlayerSpawned?.Invoke(m_playerAgent);
+                playerAgent = agent;
+                PlayerSpawned?.Invoke(playerAgent);
             }
             else
             {
                 agent.Died += OnPlayerWon;
-                m_opponentAgent = agent;
-                OpponentSpawned?.Invoke(m_opponentAgent);
+                opponentAgent = agent;
+                OpponentSpawned?.Invoke(opponentAgent);
             }
 
 
@@ -73,18 +79,21 @@ namespace Scraps.Gameplay
 
         protected IEnumerator StartCountdown()
         {
+            m_countdownAnimator.Play("Countdown");
             while (timeUntilStart > 0)
             {
                 timeUntilStart -= Time.deltaTime;
+                m_countdownText.text = timeUntilStart.ToString("F0");
                 yield return new WaitForEndOfFrame();
             }
+            m_battleUI.isTimerGoing = true;
             EnableAI();
         }
 
         protected void EnableAI()
         {
-            m_playerAgent.EnableAI();
-            m_opponentAgent.EnableAI();
+            playerAgent.EnableAI();
+            opponentAgent.EnableAI();
         }
     }
 }
