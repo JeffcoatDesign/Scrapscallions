@@ -24,6 +24,7 @@ namespace Scraps.Parts
             m_cooldownTimer.OnTimerStop += () =>
             {
                 IsReady = true;
+                IsCooledDown = true;
             };
 
             if(!IsReady)

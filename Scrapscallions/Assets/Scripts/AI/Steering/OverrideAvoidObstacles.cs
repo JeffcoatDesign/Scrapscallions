@@ -20,15 +20,18 @@ namespace Scraps.AI
             Ray ray = new()
             {
                 direction = robotState.character.linearVelocity,
-                origin = robotState.character.transform.position
+                origin = robotState.character.transform.position.With(y: .1f)
             };
-            Debug.DrawLine(robotState.character.transform.position, robotState.character.transform.position + robotState.character.linearVelocity, Color.green);
+            Debug.DrawLine(robotState.character.transform.position, robotState.character.transform.position + robotState.character.linearVelocity, Color.cyan);
             if (Physics.Raycast(ray, out RaycastHit hit, rayLength, layermask))
             {
                 Debug.DrawLine(robotState.character.transform.position, robotState.character.transform.position + robotState.character.linearVelocity, Color.red);
                 //Debug.Log("Hit");
                 targetPos = hit.point + hit.normal * avoidanceRadius;
-                return base.GetSteering(robotState);
+                Debug.DrawLine(robotState.character.transform.position, targetPos, Color.white);
+
+                SteeringOutput seek = base.GetSteering(robotState);
+                return seek;
             }
             //Debug.Log("Hi");
             return baseBehavior.GetSteering(robotState);

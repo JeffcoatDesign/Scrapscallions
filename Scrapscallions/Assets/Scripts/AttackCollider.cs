@@ -3,11 +3,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [RequireComponent(typeof(Collider))]
 public class AttackCollider : MonoBehaviour
 {
-    [SerializeField] private ArmController m_armController;
+    [SerializeField] private PartController m_partController;
     private List<PartController> m_hitParts = new();
     public bool canHit = false;
 
@@ -17,12 +18,18 @@ public class AttackCollider : MonoBehaviour
         
         if (other.TryGetComponent(out PartController otherPart))
         {
-            if (otherPart.GetRobot() == m_armController.GetRobot()) return;
+            if (otherPart.GetRobot() == null) return;
+            if (otherPart.GetRobot() == m_partController.GetRobot()) return;
             if (otherPart.isBroken) return;
             if (!m_hitParts.Contains(otherPart))
             {
                 m_hitParts.Add(otherPart);
-                otherPart.Hit(m_armController.arm.AttackDamage);
+                if (m_partController is ArmController arm)
+                    otherPart.Hit(arm.arm.AttackDamage);
+                else
+                {
+                    otherPart.Hit(1);
+                }
             }
         }
     }

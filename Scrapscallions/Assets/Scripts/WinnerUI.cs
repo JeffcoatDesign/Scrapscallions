@@ -12,9 +12,13 @@ namespace Scraps.UI
     {
         [SerializeField] TextMeshProUGUI m_winnerText;
         [SerializeField] GameObject m_winnerBG;
-        private void Start()
+        private void OnEnable()
         {
-            GameManager.Instance.AnnounceWinner += OnAnnounceWinner;
+            ArenaManager.AnnounceWinner += OnAnnounceWinner;
+        }
+        private void OnDisable()
+        {
+            ArenaManager.AnnounceWinner -= OnAnnounceWinner;
         }
 
         private void OnAnnounceWinner(string winner)

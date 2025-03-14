@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d8ebab4ed50fa7e489078086c35f9c87, type: 3}
-  m_Name: OverideChase
+  m_Name: OverrideChase
   m_EditorClassIdentifier: 
   behaviorName: 
-  flee: 1
+  flee: 0
   baseBehavior: {fileID: 11400000, guid: fb3682d57eaf66746b4101e4f6993962, type: 2}
   rayLength: 1
   avoidanceRadius: 3

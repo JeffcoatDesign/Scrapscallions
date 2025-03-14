@@ -82,11 +82,13 @@ namespace Scraps.AI.GOAP
             factory.AddBelief("Alive", () => robot.State.isAlive);
             factory.AddBelief("IsPursuing", () => robot.State.isPursuing);
             factory.AddBelief("CanMove", () => robot.State.CanMove);
+            factory.AddBelief("IsDisarmed", () => robot.State.IsDisarmed);
 
             /*      PART BELIEFS        */
             robot.State.LeftArmController.GetBeliefs(this, beliefs);
             robot.State.RightArmController.GetBeliefs(this, beliefs);
             robot.State.HeadController.GetBeliefs(this, beliefs);
+            robot.State.BodyController.GetBeliefs(this, beliefs);
         }
 
         private void GetActions()
@@ -104,6 +106,7 @@ namespace Scraps.AI.GOAP
             robot.State.LeftArmController.GetActions(this, actions, beliefs);
             robot.State.RightArmController.GetActions(this, actions, beliefs);
             robot.State.HeadController.GetActions(this, actions, beliefs);
+            robot.State.BodyController.GetActions(this, actions, beliefs);
         }
 
         private void GetGoals()
@@ -119,6 +122,7 @@ namespace Scraps.AI.GOAP
             robot.State.LeftArmController.GetGoals(this, goals, beliefs);
             robot.State.RightArmController.GetGoals(this, goals, beliefs);
             robot.State.HeadController.GetGoals(this, goals, beliefs);
+            robot.State.BodyController.GetGoals(this, goals, beliefs);
         }
 
         //TODO Reapply this

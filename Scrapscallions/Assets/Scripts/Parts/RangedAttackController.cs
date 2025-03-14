@@ -43,7 +43,8 @@ namespace Scraps.Parts
 
         public override void Activate()
         {
-            StartCoroutine(BlastAttack());
+            if (!IsTakingAction)
+                StartCoroutine(BlastAttack());
         }
 
         public void Fire()

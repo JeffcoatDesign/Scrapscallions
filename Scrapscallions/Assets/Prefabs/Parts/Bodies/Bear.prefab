@@ -1,5 +1,144 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1712734407663547486
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 899226459292168665}
+  - component: {fileID: 8843942201796618937}
+  - component: {fileID: 2639812568072330684}
+  m_Layer: 0
+  m_Name: Bash Collider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &899226459292168665
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1712734407663547486}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.974, z: 0.402}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1250228512337649411}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &8843942201796618937
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1712734407663547486}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2639812568072330684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1712734407663547486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff0ce8a44358e9d47b4a8a7079c0c25a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_partController: {fileID: 7417824465601972654}
+  canHit: 0
+--- !u!1 &1923941807881072154
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6491932687549396641}
+  - component: {fileID: 2095115024207947212}
+  - component: {fileID: 8530481680492834755}
+  m_Layer: 0
+  m_Name: Bash Sensor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6491932687549396641
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1923941807881072154}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1250228512337649411}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &2095115024207947212
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1923941807881072154}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 3
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8530481680492834755
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1923941807881072154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ae61107f5b9c35468f94f5b794c6fef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  detectionRadius: 3
+  timerInterval: 1
+  m_part: {fileID: 7417824465601972654}
 --- !u!1 &2995236748615961186
 GameObject:
   m_ObjectHideFlags: 0
@@ -45,6 +184,7 @@ GameObject:
   - component: {fileID: 3291178560379837890}
   - component: {fileID: 2603364743854946318}
   - component: {fileID: 6063562388237067891}
+  - component: {fileID: 7233408331520085268}
   m_Layer: 0
   m_Name: Bear
   m_TagString: Robot
@@ -71,6 +211,8 @@ Transform:
   - {fileID: 1617990480684238549}
   - {fileID: 5911725768550899239}
   - {fileID: 3116795395034306231}
+  - {fileID: 899226459292168665}
+  - {fileID: 6491932687549396641}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7417824465601972654
@@ -89,6 +231,8 @@ MonoBehaviour:
   m_headAttachPoint: {fileID: 1617990480684238549}
   m_leftArmAttachPoint: {fileID: 7339772013797732631}
   m_rightArmAttachPoint: {fileID: 451392982645304795}
+  m_bashController: {fileID: 7233408331520085268}
+  m_bashSensor: {fileID: 8530481680492834755}
 --- !u!136 &2651462286546290906
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -248,6 +392,23 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 5261fffd6ab83a04c8ccabc5f95732ee, type: 3}
   - {fileID: 8300000, guid: 848ed0ffbb1e59b43aa2b02aa4655893, type: 3}
   - {fileID: 8300000, guid: 9819b065cb6dd8740bea2bbbc339b825, type: 3}
+--- !u!114 &7233408331520085268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4797223487188948200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4be564b06b5130f41a672b8eae5319a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_attackCollider: {fileID: 2639812568072330684}
+  m_bashForce: 10
+  <ActionLength>k__BackingField: 0.5
+  <CooldownTime>k__BackingField: 1
+  <ActionName>k__BackingField: Bash Attack
 --- !u!1 &5286033237210595332
 GameObject:
   m_ObjectHideFlags: 0

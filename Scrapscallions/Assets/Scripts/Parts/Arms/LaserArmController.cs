@@ -12,7 +12,6 @@ namespace Scraps.Parts
     {
         private PowerUpController m_powerUpController;
         private bool m_laserActive = false;
-        bool m_isAttacking = false;
 
         public override void Initialize(Robot robot)
         {
@@ -25,13 +24,11 @@ namespace Scraps.Parts
         private void OnLaserStopped()
         {
             m_laserActive = false;
-            m_isAttacking = false;
         }
 
         private void OnLaserActivated()
         {
             m_laserActive = true;
-            m_isAttacking = true;
         }
 
         private void Update()
@@ -51,7 +48,7 @@ namespace Scraps.Parts
             beliefFactory.AddBelief(side.ToString() + "ArmReady", () => m_actionController.IsReady);
             beliefFactory.AddBelief(side.ToString() + "ArmWorking", () => !isBroken);
             beliefFactory.AddBelief(side.ToString() + "ArmLaserNotFiring", () => !m_laserActive);
-            beliefFactory.AddBelief(side.ToString() + "ArmLaserFiring", () => m_powerUpController.isUsingPowerUp);
+            beliefFactory.AddBelief(side.ToString() + "ArmLaserFiring", () => m_powerUpController.IsTakingAction);
             beliefFactory.AddBelief(side.ToString() + "ArmLaserReady", () => m_powerUpController.IsReady);
             beliefFactory.AddSensorBelief(side.ToString() + "ArmInAttackRange", m_attackRangeSensor);
             beliefFactory.AddBelief(side.ToString() + "ArmFacingOpponent", () => m_facingOpponent);
@@ -121,6 +118,8 @@ namespace Scraps.Parts
                 .WithDesiredEffect(agentBeliefs[side.ToString() + "ArmLaserFiring"])
                 .WithPriority(4)
                 .Build());
+
+            isInitialized = true;
         }
     }
 }

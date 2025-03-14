@@ -45,6 +45,7 @@ GameObject:
   - component: {fileID: 4535564046232014985}
   - component: {fileID: 3358003892200834001}
   - component: {fileID: 4135548107305926516}
+  - component: {fileID: 7233408331520085268}
   m_Layer: 0
   m_Name: Box
   m_TagString: Robot
@@ -71,6 +72,8 @@ Transform:
   - {fileID: 1617990480684238549}
   - {fileID: 5911725768550899239}
   - {fileID: 5021808651121958705}
+  - {fileID: 3420991303019241867}
+  - {fileID: 5042633471562632772}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7417824465601972654
@@ -89,6 +92,8 @@ MonoBehaviour:
   m_headAttachPoint: {fileID: 1617990480684238549}
   m_leftArmAttachPoint: {fileID: 7339772013797732631}
   m_rightArmAttachPoint: {fileID: 451392982645304795}
+  m_bashController: {fileID: 7233408331520085268}
+  m_bashSensor: {fileID: 8925764287250199736}
 --- !u!114 &3291178560379837890
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -246,6 +251,23 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 5261fffd6ab83a04c8ccabc5f95732ee, type: 3}
   - {fileID: 8300000, guid: 848ed0ffbb1e59b43aa2b02aa4655893, type: 3}
   - {fileID: 8300000, guid: 9819b065cb6dd8740bea2bbbc339b825, type: 3}
+--- !u!114 &7233408331520085268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4797223487188948200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4be564b06b5130f41a672b8eae5319a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_attackCollider: {fileID: 6056476911652055898}
+  m_bashForce: 10
+  <ActionLength>k__BackingField: 0.5
+  <CooldownTime>k__BackingField: 1
+  <ActionName>k__BackingField: Bash Attack
 --- !u!1 &5286033237210595332
 GameObject:
   m_ObjectHideFlags: 0
@@ -277,6 +299,76 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1250228512337649411}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7308033941789841284
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3420991303019241867}
+  - component: {fileID: 4299936275558800388}
+  - component: {fileID: 6056476911652055898}
+  m_Layer: 0
+  m_Name: Bash Collider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3420991303019241867
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7308033941789841284}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.6, z: 0.471}
+  m_LocalScale: {x: 1.5731, y: 0.73323, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1250228512337649411}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &4299936275558800388
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7308033941789841284}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6056476911652055898
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7308033941789841284}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff0ce8a44358e9d47b4a8a7079c0c25a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_partController: {fileID: 7417824465601972654}
+  canHit: 0
 --- !u!1 &8102327303557818105
 GameObject:
   m_ObjectHideFlags: 0
@@ -308,6 +400,75 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1250228512337649411}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8764286825730505286
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5042633471562632772}
+  - component: {fileID: 2953046131381591035}
+  - component: {fileID: 8925764287250199736}
+  m_Layer: 0
+  m_Name: Sensor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5042633471562632772
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8764286825730505286}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.51, z: 0.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1250228512337649411}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &2953046131381591035
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8764286825730505286}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 3
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8925764287250199736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8764286825730505286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ae61107f5b9c35468f94f5b794c6fef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  detectionRadius: 3
+  timerInterval: 1
+  m_part: {fileID: 7417824465601972654}
 --- !u!1001 &2032377835066800100
 PrefabInstance:
   m_ObjectHideFlags: 0

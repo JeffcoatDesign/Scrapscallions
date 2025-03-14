@@ -12,7 +12,7 @@ public class BattleIcons : MonoBehaviour
 
     void Start()
     {
-        playerIcon.sprite = GameManager.Instance.playerRobot.head.Sprite;
-        enemyIcon.sprite = GameManager.Instance.opponentRobot.head.Sprite;
+        playerIcon.sprite = ArenaManager.Instance.playerRobot.head.Sprite;
+        enemyIcon.sprite = ArenaManager.Instance.opponentRobot.head.Sprite;
     }
 }

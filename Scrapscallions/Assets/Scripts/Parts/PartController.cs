@@ -13,6 +13,7 @@ namespace Scraps.Parts
     [RequireComponent(typeof(DetachOnBreak))]
     public abstract class PartController : MonoBehaviour, IPartController
     {
+        public static event Action AnyPartHit;
         protected Robot m_robot { get; private set; }
         internal bool isBroken;
         internal Action<int> PartHit;
@@ -44,8 +45,7 @@ namespace Scraps.Parts
 
         public virtual void Hit(int damage)
         {
-            PartHit?.Invoke(damage);
-            throw new System.NotImplementedException();
+            AnyPartHit?.Invoke();
         }
 
         public virtual void Initialize(Robot robot)

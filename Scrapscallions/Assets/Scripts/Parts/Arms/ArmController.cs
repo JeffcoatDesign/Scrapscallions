@@ -16,6 +16,7 @@ namespace Scraps.Parts
         [SerializeField] protected ActionController m_actionController;
 
         public RobotPartArm arm;
+        public bool isInitialized = false;
 
         protected bool m_facingOpponent = true;
 
@@ -26,6 +27,7 @@ namespace Scraps.Parts
 
         override public void Hit(int damage)
         {
+            base.Hit(damage);
             int currentHP = arm.CurrentHP - damage;
             if (currentHP <= 0)
             {
@@ -81,6 +83,8 @@ namespace Scraps.Parts
                 .AddEffect(agentBeliefs["IsPursuing"])
                 .Build()
             );
+
+            isInitialized = true;
         }
 
         override public void GetGoals(GoapAgent agent, SerializableHashSet<AgentGoal> goals, Dictionary<string, AgentBelief> agentBeliefs)
