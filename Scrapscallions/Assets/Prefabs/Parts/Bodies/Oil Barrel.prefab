@@ -101,6 +101,75 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_partController: {fileID: 7417824465601972654}
   canHit: 0
+--- !u!1 &3839466437340510579
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4116729491800511724}
+  - component: {fileID: 4251820423805365139}
+  - component: {fileID: 8270209546766263207}
+  m_Layer: 0
+  m_Name: Bash Sensor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4116729491800511724
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3839466437340510579}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 1.98}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1250228512337649411}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &4251820423805365139
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3839466437340510579}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 2
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8270209546766263207
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3839466437340510579}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ae61107f5b9c35468f94f5b794c6fef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  detectionRadius: 2
+  timerInterval: 1
+  m_part: {fileID: 7417824465601972654}
 --- !u!1 &4797223487188948200
 GameObject:
   m_ObjectHideFlags: 0
@@ -143,6 +212,7 @@ Transform:
   - {fileID: 1617990480684238549}
   - {fileID: 5911725768550899239}
   - {fileID: 1774610897614572078}
+  - {fileID: 4116729491800511724}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7417824465601972654
@@ -161,7 +231,8 @@ MonoBehaviour:
   m_headAttachPoint: {fileID: 1617990480684238549}
   m_leftArmAttachPoint: {fileID: 7339772013797732631}
   m_rightArmAttachPoint: {fileID: 451392982645304795}
-  m_bashController: {fileID: 0}
+  m_bashController: {fileID: 7233408331520085268}
+  m_bashSensor: {fileID: 8270209546766263207}
 --- !u!136 &2651462286546290906
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -334,7 +405,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_attackCollider: {fileID: 3346618218971723667}
-  m_bashForce: 2
+  m_bashForce: 10
   <ActionLength>k__BackingField: 0.5
   <CooldownTime>k__BackingField: 1
   <ActionName>k__BackingField: Bash Attack

@@ -16,6 +16,7 @@ namespace Scraps.Parts
         [SerializeField] private Transform m_leftArmAttachPoint;
         [SerializeField] private Transform m_rightArmAttachPoint;
         [SerializeField] private ActionController m_bashController;
+        [SerializeField] private Sensor m_bashSensor;
         public Transform HeadAttachPoint { get => m_headAttachPoint; }
         public Transform LeftArmAttachPoint { get => m_leftArmAttachPoint; }
         public Transform RightArmAttachPoint { get => m_rightArmAttachPoint; }
@@ -32,19 +33,31 @@ namespace Scraps.Parts
             actions.Add(new AgentAction.Builder("BodyBash")
                 .WithCost(3)
                 .WithPrecondition(agentBeliefs["IsDisarmed"])
+                .WithPrecondition(agentBeliefs["CanMove"])
+                .WithPrecondition(agentBeliefs["InBashRange"])
+                .AddEffect(agentBeliefs["AttackingOpponent"])
                 .WithStrategy(ScriptableObject.CreateInstance<TakeActionStrategy>().Initialize(m_bashController))
+                .Build()
+            );
+            actions.Add(new AgentAction.Builder("MoveToBashRange")
+                .WithCost(3)
+                .WithPrecondition(agentBeliefs["IsDisarmed"])
+                .WithPrecondition(agentBeliefs["CanMove"])
+                .AddEffect(agentBeliefs["InBashRange"])
+                .WithStrategy(ScriptableObject.CreateInstance<MoveToStrategy>().Initialize(m_robot.State, () => m_robot.State.target().transform.position, m_bashSensor.detectionRadius / 2))
                 .Build()
             );
         }
 
         override public void GetBeliefs(GoapAgent agent, Dictionary<string, AgentBelief> agentBeliefs)
         {
-            throw new System.NotImplementedException();
+            BeliefFactory beliefFactory = new(agent, agentBeliefs);
+            beliefFactory.AddSensorBelief("InBashRange", m_bashSensor);
         }
 
         override public void GetGoals(GoapAgent agent, SerializableHashSet<AgentGoal> goals, Dictionary<string, AgentBelief> agentBeliefs)
         {
-            throw new System.NotImplementedException();
+            //NOOP
         }
 
         override public Robot GetRobot()
