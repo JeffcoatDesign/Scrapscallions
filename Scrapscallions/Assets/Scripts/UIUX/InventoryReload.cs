@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InventoryReload : MonoBehaviour
 {
@@ -89,6 +90,10 @@ public class InventoryReload : MonoBehaviour
             foreach (RobotPart inventoryItem in inventoryManager.itemParts)
             {
                 inventoryManager.InstantiateInventoryItem(inventoryItem, gameObject);
+            }
+            foreach (DragDrop inventoryItem in GetComponentsInChildren<DragDrop>())
+            {
+                inventoryItem.GetComponent<Image>().raycastTarget = false;
             }
         }
     }

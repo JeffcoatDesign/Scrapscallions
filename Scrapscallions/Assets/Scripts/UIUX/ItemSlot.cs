@@ -92,6 +92,8 @@ public class ItemSlot : MonoBehaviour, IDropHandler
                             InventoryManager.Instance.myRobot.legs = (RobotPartLegs)itemOccupiedBy.botPart;
                             break;
                     }
+
+                    slotDragDrop.botPart = dragDropInQuestion.botPart;
                 }
             }
         }
@@ -156,6 +158,7 @@ public class ItemSlot : MonoBehaviour, IDropHandler
                     InventoryManager.Instance.myRobot.legs = (RobotPartLegs)itemOccupiedBy.botPart;
                     break;
             }
+            slotDragDrop.botPart = ddInQuestion.botPart;
         }
     }
     public void ItemSlotDragDropEnable()
