@@ -17,9 +17,14 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject optionsMenu;
     [SerializeField] private GameObject hubMenu;
     [SerializeField] private GameObject workshopUI;
+    [SerializeField] private GameObject workshopIntroUI;
+    [SerializeField] private GameObject workshopInteriorUI;
     [SerializeField] private GameObject shopUI;
     [SerializeField] private GameObject shopIntroUI;
     [SerializeField] private GameObject shopInteriorUI;
+    [Header("NPCs")]
+    [SerializeField] private NPCIdle cache;
+    [SerializeField] private NPCIdle mouse;
 
     private MusicPlayer musicPlayer;
 
@@ -103,14 +108,25 @@ public class UIManager : MonoBehaviour
         sfxPlayer.ButtonClick();
         hubMenu.SetActive(false);
         workshopUI.SetActive(true);
+        workshopIntroUI.SetActive(true);
+        mouse.time = 0.5f;
         musicPlayer.Workshop();
+    }
+
+    public void OpenWorkshopInterior()
+    {
+        sfxPlayer.ButtonClick();
+        workshopInteriorUI.SetActive(true);
+        workshopIntroUI.SetActive(false);
     }
 
     public void CloseWorkshop()
     {
         sfxPlayer.ButtonClick();
         hubMenu.SetActive(true);
+        workshopInteriorUI.SetActive(false);
         workshopUI.SetActive(false);
+        workshopIntroUI.SetActive(true);
         musicPlayer.MainMenu();
         if (InventoryManager.Instance.IsFullyEquipped)
         {
@@ -157,7 +173,7 @@ public class UIManager : MonoBehaviour
         hubMenu.SetActive(false);
         shopUI.SetActive(true);
         shopIntroUI.SetActive(true);
-        NPCIdle.Instance.time = 0.5f;
+        cache.time = 0.5f;
         musicPlayer.Shop();
     }
 
