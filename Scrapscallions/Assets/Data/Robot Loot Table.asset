@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Robot Loot Table
   m_EditorClassIdentifier: 
   m_entries:
-  - rarity: 3
+  - rarity: 2
     partType: 3
     part: {fileID: 11400000, guid: 1afed882b66c70946809441ac0b4df39, type: 2}
   - rarity: 2
@@ -49,8 +49,14 @@ MonoBehaviour:
   - rarity: 1
     partType: 4
     part: {fileID: 11400000, guid: 0ee43c51ecc1ae545837745ae7af5880, type: 2}
+  - rarity: 3
+    partType: 3
+    part: {fileID: 11400000, guid: 0f1541b366a894546810612d0139e716, type: 2}
+  - rarity: 3
+    partType: 3
+    part: {fileID: 11400000, guid: 88ec8a085c2444049b45f12e3049c1cf, type: 2}
   m_rareChance: 0.3
-  m_epicChance: 0.1
+  m_epicChance: 0.05
   m_healthCurve:
     serializedVersion: 2
     m_Curve:

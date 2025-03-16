@@ -22,7 +22,7 @@ namespace Scraps.Gameplay
         [SerializeField] private float m_slowMoSpeed = 0.5f;
         internal GoapAgent playerAgent, opponentAgent;
 
-        public static event Action<GoapAgent> PlayerSpawned, OpponentSpawned;
+        public static event Action<Robot> PlayerRobotSpawned, OpponentRobotSpawned;
 
         [SerializeField] protected Animator m_countdownAnimator;
         [SerializeField] protected TextMeshProUGUI m_countdownText;
@@ -45,13 +45,13 @@ namespace Scraps.Gameplay
             {
                 agent.Died += OnPlayerLost;
                 playerAgent = agent;
-                PlayerSpawned?.Invoke(playerAgent);
+                OpponentRobotSpawned?.Invoke(robot);
             }
             else
             {
                 agent.Died += OnPlayerWon;
                 opponentAgent = agent;
-                OpponentSpawned?.Invoke(opponentAgent);
+                OpponentRobotSpawned?.Invoke(robot);
             }
 
 

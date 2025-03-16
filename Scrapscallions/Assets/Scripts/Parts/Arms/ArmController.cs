@@ -47,6 +47,12 @@ namespace Scraps.Parts
             //NOOP
         }
 
+        public override void Break()
+        {
+            arm.CurrentHP = 0;
+            base.Break();
+        }
+
         override public void GetBeliefs(GoapAgent agent, Dictionary<string, AgentBelief> agentBeliefs)
         {
             BeliefFactory beliefFactory = new BeliefFactory(agent, agentBeliefs);
@@ -99,13 +105,10 @@ namespace Scraps.Parts
         }
         private void Update()
         {
-            if (isBroken)
+            if (isBroken || !isInitialized)
                 return;
 
-            if(m_attackReadyTimer != null)
-            {
-                m_attackReadyTimer.Tick(Time.deltaTime);
-            }
+            m_attackReadyTimer?.Tick(Time.deltaTime);
 
             CheckFacing();
         }

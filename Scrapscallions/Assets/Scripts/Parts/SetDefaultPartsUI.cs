@@ -1,3 +1,4 @@
+using Scraps;
 using Scraps.Parts;
 using System.Collections;
 using System.Collections.Generic;
@@ -12,11 +13,14 @@ public class SetDefaultPartsUI : MonoBehaviour
     [SerializeField] private ItemSlot leftArmSlot;
     [SerializeField] private ItemSlot rightArmSlot;
     [SerializeField] private ItemSlot legsSlot;
-
+    [SerializeField] private DisplayRobot m_displayRobot;
     private void Start()
     {
         inventoryManager = FindAnyObjectByType<InventoryManager>();
         allItems = FindObjectsOfType<DragDrop>();
+
+        m_displayRobot.gameObject.SetActive(true);
+
         foreach(DragDrop dd in allItems)
         {
             if (dd.gameObject.layer != 12)
@@ -35,6 +39,19 @@ public class SetDefaultPartsUI : MonoBehaviour
                 else if (dd.botPart is RobotPartLegs)
                     legsSlot.ForceEquip(dd);
             }
+
+            m_displayRobot.Display(InventoryManager.Instance.myRobot);
         }
+    }
+
+    private void OnEnable()
+    {
+        m_displayRobot.gameObject.SetActive(true);
+        m_displayRobot.Display(InventoryManager.Instance.myRobot);
+    }
+
+    private void OnDisable()
+    {
+        m_displayRobot.gameObject.SetActive(false);
     }
 }

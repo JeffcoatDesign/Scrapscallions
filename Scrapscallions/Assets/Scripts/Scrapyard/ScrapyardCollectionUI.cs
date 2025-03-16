@@ -2,6 +2,7 @@ using Scraps.Gameplay;
 using Scraps.Parts;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,9 +10,10 @@ namespace Scraps.UI
 {
     public class ScrapyardCollectionUI : MonoBehaviour
     {
-        ScrapyardCollection m_collection;
+        private ScrapyardCollection m_collection;
+        [SerializeField] private CollectionItem m_collectedItemPrefab;
 
-        List<Image> m_images = new();
+        List<GameObject> m_parts = new();
 
         private void Awake()
         {
@@ -20,20 +22,19 @@ namespace Scraps.UI
 
         private void OnEnable()
         {
-            if(m_images.Count > 0)
+            if(m_parts.Count > 0)
             {
-                foreach(var image in m_images)
+                foreach(var image in m_parts)
                 {
                     Destroy(image.gameObject);
                 }
-                m_images.Clear();
+                m_parts.Clear();
             }
             foreach(RobotPart part in m_collection.collectedParts)
             {
-                Image image = new GameObject().AddComponent<Image>();
-                image.transform.parent = transform;
-                image.sprite = part.Sprite;
-                m_images.Add(image);
+                var item = Instantiate(m_collectedItemPrefab, transform);
+                item.SetPart(part);
+                m_parts.Add(item.gameObject);
             }
         }
     }

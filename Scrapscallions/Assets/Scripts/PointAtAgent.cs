@@ -13,24 +13,24 @@ namespace Scraps.Gameplay
         GoapAgent m_opponentAgent;
         private void Awake()
         {
-            GameManager.OpponentSpawned += OnOpponentSpawned;
-            GameManager.PlayerSpawned += OnPlayerSpawned;
+            GameManager.OpponentRobotSpawned += OnOpponentSpawned;
+            GameManager.PlayerRobotSpawned += OnPlayerSpawned;
         }
 
         private void OnDisable()
         {
-            ArenaManager.OpponentSpawned -= OnOpponentSpawned;
-            ArenaManager.PlayerSpawned -= OnPlayerSpawned;
+            GameManager.OpponentRobotSpawned -= OnOpponentSpawned;
+            GameManager.PlayerRobotSpawned -= OnPlayerSpawned;
         }
 
-        private void OnPlayerSpawned(GoapAgent agent)
+        private void OnPlayerSpawned(Robot robot)
         {
-            m_playerAgent = agent;
+            m_playerAgent = robot.agent;
         }
 
-        private void OnOpponentSpawned(GoapAgent agent)
+        private void OnOpponentSpawned(Robot  robot)
         {
-            m_opponentAgent = agent;
+            m_opponentAgent = robot.agent;
         }
 
         private void Update()

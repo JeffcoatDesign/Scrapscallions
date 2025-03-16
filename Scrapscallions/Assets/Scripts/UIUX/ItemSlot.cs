@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using Scraps.Parts;
+using Scraps;
 
 public class ItemSlot : MonoBehaviour, IDropHandler
 {
@@ -14,7 +15,7 @@ public class ItemSlot : MonoBehaviour, IDropHandler
     public DragDrop itemOccupiedBy;
     //The DragDrop dropped into the ItemSlot
     private DragDrop dragDropInQuestion;
-
+    [SerializeField] private DisplayRobot m_displayRobot;
     public SFXPlayer sfxPlayer;
 
     void Start()
@@ -92,7 +93,7 @@ public class ItemSlot : MonoBehaviour, IDropHandler
                             InventoryManager.Instance.myRobot.legs = (RobotPartLegs)itemOccupiedBy.botPart;
                             break;
                     }
-
+                    m_displayRobot.Display(InventoryManager.Instance.myRobot);
                     slotDragDrop.botPart = dragDropInQuestion.botPart;
                 }
             }

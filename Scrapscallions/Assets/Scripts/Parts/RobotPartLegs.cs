@@ -16,6 +16,7 @@ namespace Scraps.Parts
         [field: SerializeField] public override int ItemID { get; set; }
         [field: SerializeField] public override Sprite Sprite { get; set; }
         [field: SerializeField] public override bool IsBroken { get; set; } = false;
+        [field: SerializeField] public float MaxSpeed { get; set; } = 10;
 
         /*  LEG PROPERTIES  */
         //[field: SerializeField, Header("Leg Properties")] public float AttackSpeed { get; set; }
@@ -23,6 +24,11 @@ namespace Scraps.Parts
         public LegsController Spawn(GoapAgent agent)
         {
             return Instantiate(Prefab, agent.transform).GetComponent<LegsController>();
+        }
+
+        public LegsController Spawn(Transform parent)
+        {
+            return Instantiate(Prefab, parent).GetComponent<LegsController>();
         }
     }
 }

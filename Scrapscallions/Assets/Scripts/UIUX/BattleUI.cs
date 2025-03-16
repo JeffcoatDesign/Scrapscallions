@@ -6,6 +6,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Scraps.AI.GOAP;
+using System;
 
 namespace Scraps.UI
 {
@@ -26,6 +27,33 @@ namespace Scraps.UI
         [SerializeField] TextMeshProUGUI m_winnerText;
         [SerializeField] GameObject m_winnerBG;
 
+        private void OnEnable()
+        {
+            ArenaManager.AnnounceWinner += OnAnnounceWinner;
+
+            GameManager.PlayerRobotSpawned += OnPlayerRobotSpawned;
+            GameManager.OpponentRobotSpawned += OnOpponentRobotSpawned;
+        }
+        private void OnDisable()
+        {
+            ArenaManager.AnnounceWinner -= OnAnnounceWinner;
+
+            GameManager.PlayerRobotSpawned -= OnPlayerRobotSpawned;
+            GameManager.OpponentRobotSpawned -= OnOpponentRobotSpawned;
+        }
+
+        private void OnOpponentRobotSpawned(Robot robot)
+        {
+            enemyHP.maxValue = robot.TotalMaxHP;
+            enemyHP.value = robot.TotalCurrentHP;
+        }
+
+        private void OnPlayerRobotSpawned(Robot robot)
+        {
+            playerHP.maxValue = robot.TotalMaxHP;
+            playerHP.value = robot.TotalCurrentHP;
+        }
+
         private void Awake()
         {
             Instance = this;
@@ -34,24 +62,27 @@ namespace Scraps.UI
 
         private void Start()
         {
-            ArenaManager.AnnounceWinner += OnAnnounceWinner;
             playerHP.maxValue = InventoryManager.Instance.myRobot.TotalMaxHP;
+            playerHP.value = InventoryManager.Instance.myRobot.TotalCurrentHP;
 
             enemyHP.maxValue = GameManager.Instance.opponentRobot.TotalMaxHP;
+            enemyHP.value = GameManager.Instance.opponentRobot.TotalCurrentHP;
         }
 
-        private void OnDestroy()
-        {
-            ArenaManager.AnnounceWinner -= OnAnnounceWinner;
-        }
         void FixedUpdate()
         {
             if (isTimerGoing)
             {
                 timePassed = timePassed - Time.deltaTime;
                 timerText.text = timePassed.ToString("F0");
-                playerHP.value = GameManager.Instance.playerRobot.TotalCurrentHP;
-                enemyHP.value = GameManager.Instance.opponentRobot.TotalCurrentHP;
+                if (GameManager.Instance.playerRobot.State.isAlive)
+                    playerHP.value = GameManager.Instance.playerRobot.TotalCurrentHP;
+                else
+                    playerHP.value = 0;
+                if (GameManager.Instance.opponentRobot.State.isAlive)
+                    enemyHP.value = GameManager.Instance.opponentRobot.TotalCurrentHP;
+                else
+                    enemyHP.value = 0;
             }
             if (timePassed <= 0)
             {

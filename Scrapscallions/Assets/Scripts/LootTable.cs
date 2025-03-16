@@ -46,7 +46,7 @@ namespace Scraps.Gameplay
             if (randomizeHealth)
             {
                 float randomValue = m_healthCurve.Evaluate(Random.Range(0f, 1f));
-                part.CurrentHP = (int)randomValue * part.MaxHP;
+                part.CurrentHP = Mathf.RoundToInt(randomValue * part.MaxHP);
             } 
             else
                 part.CurrentHP = part.MaxHP;

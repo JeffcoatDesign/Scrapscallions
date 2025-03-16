@@ -51,7 +51,7 @@ namespace Scraps
             {
                 while (m_vignetteIntensity > 0)
                 {
-                    m_vignetteIntensity = Mathf.Clamp01(m_vignetteIntensity - Time.deltaTime * m_fadeInSpeed);
+                    m_vignetteIntensity = Mathf.Clamp01(m_vignetteIntensity - Time.deltaTime * m_fadeOutSpeed);
                     vig.intensity.Override(m_vignetteIntensity * m_maxIntensity);
                     yield return new WaitForEndOfFrame();
                 }

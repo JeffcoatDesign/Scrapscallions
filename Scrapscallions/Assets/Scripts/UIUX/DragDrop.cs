@@ -89,7 +89,6 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
             itemDescription[3].gameObject.SetActive(true);
             itemDescription[4].gameObject.SetActive(true);
             itemDescription[3].text = "Attack Speed: " + botPartToArm.AttackSpeed;
-            itemDescription[3].text = "Attack Speed: " + botPartToArm.AttackSpeed;
             itemDescription[4].text = "Damage: " + botPartToArm.AttackDamage;
         }
         else if (tag == "Head")

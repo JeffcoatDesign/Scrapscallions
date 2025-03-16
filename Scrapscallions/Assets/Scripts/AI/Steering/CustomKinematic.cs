@@ -34,7 +34,7 @@ public class CustomKinematic : Kinematic
     private void Start()
     {
         robotState = agent.robot.State;
-        robotState.maxSpeed = maxSpeed;
+        maxSpeed = robotState.maxSpeed;
         robotState.maxAngularAcceleration = maxAngularVelocity;
 
         if (m_steeringBehavior != null)
@@ -45,6 +45,7 @@ public class CustomKinematic : Kinematic
 
     protected override void Update()
     {
+        maxSpeed = robotState.maxSpeed;
         if (!m_canMove || !robotState.CanMove)
         {
             SteeringOutput stationary = new()

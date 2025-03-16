@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f5b8edd017d9bd0478918ce27d394b1b, type: 3}
-  m_Name: Flamethrower
+  m_Name: Blaster MKII
   m_EditorClassIdentifier: 
-  <PartName>k__BackingField: Flameblaster Mk.I
-  <MaxHP>k__BackingField: 5
-  <CurrentHP>k__BackingField: 5
+  <PartName>k__BackingField: Lemon Cannon MK.II
+  <MaxHP>k__BackingField: 7
+  <CurrentHP>k__BackingField: 7
   <Price>k__BackingField: 5
-  <Prefab>k__BackingField: {fileID: 4377433661880628463, guid: 20e5876d8c782944e91a82dec1ab4d72, type: 3}
+  <Prefab>k__BackingField: {fileID: 4377433661880628463, guid: e91f14eba25e4744fac2fc0c58919fc8, type: 3}
   <ItemID>k__BackingField: 7
-  <Sprite>k__BackingField: {fileID: 21300000, guid: 7cbb02f4c93dab344965bf7d3341fd59, type: 3}
+  <Sprite>k__BackingField: {fileID: 21300000, guid: d007264057ad10a46804330d6450c783, type: 3}
   <IsBroken>k__BackingField: 0
-  <AttackSpeed>k__BackingField: 2
-  <AttackDamage>k__BackingField: 2
+  <AttackSpeed>k__BackingField: 7
+  <AttackDamage>k__BackingField: 7

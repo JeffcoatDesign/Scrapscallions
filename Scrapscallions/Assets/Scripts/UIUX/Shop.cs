@@ -29,8 +29,9 @@ public class Shop : MonoBehaviour, IDropHandler
                 sfxPlayer.Buy();
                 dragDropInQuestion.dropped = true;
                 Debug.Log("Buying " + dragDropInQuestion.botPart);
-                InventoryManager.Instance.AddToInventory(dragDropInQuestion.botPart);
+
                 InventoryManager.Instance.money -= dragDropInQuestion.botPart.Price;
+                InventoryManager.Instance.AddToInventory(dragDropInQuestion.botPart);
                 Destroy(dragDropInQuestion.GetComponentInParent<ItemSlot>().gameObject);
                 shopInventory.ResetInventory();
             }

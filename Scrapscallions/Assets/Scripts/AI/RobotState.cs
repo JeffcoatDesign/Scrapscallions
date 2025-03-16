@@ -95,14 +95,13 @@ namespace Scraps
             target = () => targetRobot.State.character.gameObject;
         }
 
-        public RobotState(CustomKinematic character, GameObject target = null, GameObject[] obstacles = null, Kinematic[] targets = null, Path path = null, float maxSpeed = 1f, float maxAngularAcceleration = 45f, float collisionRadius = 0.5f)
+        public RobotState(CustomKinematic character, GameObject target = null, GameObject[] obstacles = null, Kinematic[] targets = null, Path path = null, float maxAngularAcceleration = 45f, float collisionRadius = 0.5f)
         {
             this.character = character;
             this.target = () => target;
             this.obstacles = obstacles;
             this.targets = targets;
             m_path = path;
-            this.maxSpeed = maxSpeed;
             this.maxAngularAcceleration = maxAngularAcceleration;
             this.collisionRadius = collisionRadius;
         }
