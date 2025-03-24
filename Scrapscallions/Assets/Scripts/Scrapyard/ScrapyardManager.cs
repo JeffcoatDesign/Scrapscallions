@@ -35,6 +35,8 @@ namespace Scraps.Gameplay
             opponentAgent.kinematic.EnableMovement();
             EnableAI();
             Time.timeScale = 1f;
+            m_battleUI.isTimerGoing = true;
+            m_battleUI.timePassed = 60;
 
             playerRobot.State.target = opponentRobot.AgentObject;
         }
@@ -104,6 +106,7 @@ namespace Scraps.Gameplay
             Time.timeScale = 0.5f;
 
             m_winScreen.SetActive(true);
+            m_battleUI.isTimerGoing = false;
 
             CinematicManager.instance.RemoveTarget(opponentRobot.AgentObject().transform);
             CinematicManager.instance.RemoveTarget(opponentRobot.headController.transform.parent);
