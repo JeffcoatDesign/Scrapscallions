@@ -10,6 +10,8 @@ public class InventoryReload : MonoBehaviour
     public InventoryManager inventoryManager;
     [SerializeField] private bool isShop;
     [SerializeField] private bool inventoryPopulated;
+    [SerializeField] private GameObject tooExpensiveAlert;
+    private Shop itemShop;
     int inventoryItemID;
 
     private void Start()
@@ -91,9 +93,14 @@ public class InventoryReload : MonoBehaviour
             {
                 inventoryManager.InstantiateInventoryItem(inventoryItem, gameObject);
             }
-            foreach (DragDrop inventoryItem in GetComponentsInChildren<DragDrop>())
+            foreach (ItemSlot inventoryItem in GetComponentsInChildren<ItemSlot>())
             {
-                inventoryItem.GetComponent<Image>().raycastTarget = false;
+                if(inventoryItem.gameObject.layer != 6)
+                {
+                    itemShop = inventoryItem.GetComponentInChildren<DragDrop>().AddComponent<Shop>();
+                    itemShop.shopInventory = this;
+                    itemShop.tooExpensiveAlert = tooExpensiveAlert;
+                }
             }
         }
     }

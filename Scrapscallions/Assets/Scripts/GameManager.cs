@@ -83,7 +83,10 @@ namespace Scraps.Gameplay
             while (timeUntilStart > 0)
             {
                 timeUntilStart -= Time.deltaTime;
-                m_countdownText.text = timeUntilStart.ToString("F0");
+                if (timeUntilStart.ToString("F0") != "0")
+                    m_countdownText.text = timeUntilStart.ToString("F0");
+                else
+                    m_countdownText.text = "GO!";
                 yield return new WaitForEndOfFrame();
             }
             m_battleUI.isTimerGoing = true;

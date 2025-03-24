@@ -55,14 +55,15 @@ public class ItemSlot : MonoBehaviour, IDropHandler
                     //Check if part is specifically an Arm and being dragged from an Equip Region
                     if (tag == "Arm" && dragDropInQuestion.dragDropOrigin != null)
                     {
-                        //Check if Equip Region Slot is filled, and replace with the Part In Question if so
+                        dragDropInQuestion.ResetDragDrop();
+                        /*//Check if Equip Region Slot is filled, and replace with the Part In Question if so
                         if (itemOccupiedBy != null)
                             itemOccupiedBy.ResetDragDrop();
                         //Clear the previous Equip Region's item and set the current Equip Region's item
                         dragDropInQuestion.homeSlot.itemOccupiedBy = null;
                         itemOccupiedBy = dragDropInQuestion.dragDropOrigin;
                         dragDropInQuestion.ResetItemSlotDragDrop();
-                        ItemSlotDragDropEnable();
+                        ItemSlotDragDropEnable();*/
                     }
                     else
                     {

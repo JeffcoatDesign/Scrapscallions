@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f53028a4deee3cc419ea2ae668ea3d5d, type: 3}
   m_Name: Hover
   m_EditorClassIdentifier: 
-  <PartName>k__BackingField: Hover
+  <PartName>k__BackingField: HoverRing Unit
   <MaxHP>k__BackingField: 5
   <CurrentHP>k__BackingField: 5
   <Price>k__BackingField: 5

@@ -28,6 +28,15 @@ public class UIManager : MonoBehaviour
 
     private MusicPlayer musicPlayer;
 
+    public static UIManager Instance;
+
+    [SerializeField] private GameObject inventoryManagerPrefab;
+
+    void OnEnable()
+    {
+        Instance = this;
+    }
+
     void Start()
     {
         Cursor.SetCursor(cursor, Vector2.zero, CursorMode.ForceSoftware);
@@ -60,6 +69,48 @@ public class UIManager : MonoBehaviour
     }
 
     public void OpenHub()
+    {
+        sfxPlayer.ButtonClick();
+        mainMenu.SetActive(false);
+        isMainMenuOpen = false;
+        hubMenu.SetActive(true);
+        if (InventoryManager.Instance.IsFullyEquipped)
+        {
+            battleButton.interactable = true;
+            heapButton.interactable = true;
+        }
+        else
+        {
+            battleButton.interactable = false;
+            heapButton.interactable = false;
+        }
+    }
+
+    //Still iffy on how to make this actually work
+    public void NewGame()
+    {
+        sfxPlayer.ButtonClick();
+        if (InventoryManager.Instance.isFirstTime)
+        {
+            Destroy(InventoryManager.Instance.gameObject);
+            Instantiate(inventoryManagerPrefab);
+        }
+        mainMenu.SetActive(false);
+        isMainMenuOpen = false;
+        hubMenu.SetActive(true);
+        if (InventoryManager.Instance.IsFullyEquipped)
+        {
+            battleButton.interactable = true;
+            heapButton.interactable = true;
+        }
+        else
+        {
+            battleButton.interactable = false;
+            heapButton.interactable = false;
+        }
+    }
+
+    public void Continue()
     {
         sfxPlayer.ButtonClick();
         mainMenu.SetActive(false);

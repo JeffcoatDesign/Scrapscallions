@@ -55,6 +55,7 @@ public class PopulateShop : MonoBehaviour
             itemPartsChosen.Remove(chosenPart);
             //Set layer to be Shop
             itemDragDrop.gameObject.layer = 6;
+            itemDragDrop.homeSlot.gameObject.layer = 6;
         }
     }
 }
