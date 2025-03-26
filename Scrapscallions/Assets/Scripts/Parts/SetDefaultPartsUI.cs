@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class SetDefaultPartsUI : MonoBehaviour
 {
+    public static SetDefaultPartsUI Instance;
     private InventoryManager inventoryManager;
     public DragDrop[] allItems;
     [SerializeField, Header("Equip Regions")] private ItemSlot headSlot;
@@ -14,14 +15,21 @@ public class SetDefaultPartsUI : MonoBehaviour
     [SerializeField] private ItemSlot rightArmSlot;
     [SerializeField] private ItemSlot legsSlot;
     [SerializeField] private DisplayRobot m_displayRobot;
-    private void Start()
+
+    public void Awake()
+    {
+        Instance = this;
+        SetParts();
+    }
+
+    public void SetParts()
     {
         inventoryManager = FindAnyObjectByType<InventoryManager>();
-        allItems = FindObjectsOfType<DragDrop>();
+        allItems = InventoryManager.Instance.inventoryParent.GetComponentsInChildren<DragDrop>();
 
         m_displayRobot.gameObject.SetActive(true);
 
-        foreach(DragDrop dd in allItems)
+        foreach (DragDrop dd in allItems)
         {
             if (dd.gameObject.layer != 12)
             {

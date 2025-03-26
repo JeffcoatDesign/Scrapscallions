@@ -104,7 +104,7 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
         {
             botPartToLegs = (RobotPartLegs)botPart;
             itemDescription[3].gameObject.SetActive(true);
-            itemDescription[3].text = "Speeed: " + botPartToLegs.MaxSpeed; //Need quirks done for quirk description
+            itemDescription[3].text = "Speed: " + botPartToLegs.MaxSpeed; //Need quirks done for quirk description
             if (itemDescription.Length > 4)
                 itemDescription[4].gameObject.SetActive(false);
         }

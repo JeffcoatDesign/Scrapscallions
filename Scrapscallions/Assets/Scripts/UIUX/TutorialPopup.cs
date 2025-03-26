@@ -5,16 +5,22 @@ using UnityEngine.UI;
 
 public class TutorialPopup : MonoBehaviour
 {
+    public static TutorialPopup Instance;
     [SerializeField] private GameObject[] tutorialPages;
     private int currentPage;
     public Button hubCloseButton;
 
-    void Start()
+    public void Awake()
+    {
+        Instance = this;
+    }
+
+    void OnEnable()
     {
         if (!InventoryManager.Instance.isFirstTime)
         {
             hubCloseButton.interactable = true;
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     }
 
@@ -41,6 +47,7 @@ public class TutorialPopup : MonoBehaviour
     public void Close()
     {
         hubCloseButton.interactable = true;
+        InventoryManager.Instance.isFirstTime = false;
         gameObject.SetActive(false);
     }
 }

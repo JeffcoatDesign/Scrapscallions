@@ -86,7 +86,6 @@ namespace Scraps.UI
             }
             if (timePassed <= 0)
             {
-                Debug.Log("Time Up!");
                 isTimerGoing = false;
                 OnAnnounceTie();
             }

@@ -11,6 +11,7 @@ public class UIManager : MonoBehaviour
     public SFXPlayer sfxPlayer;
     public Button battleButton;
     public Button heapButton;
+    public Button continueButton;
 
     [Header("Menus")]
     [SerializeField] private GameObject mainMenu;
@@ -41,7 +42,10 @@ public class UIManager : MonoBehaviour
     {
         Cursor.SetCursor(cursor, Vector2.zero, CursorMode.ForceSoftware);
         if (InventoryManager.Instance.isFirstTime)
+        {
             isMainMenuOpen = true;
+            continueButton.interactable = false;
+        }
         else
         {
             isMainMenuOpen = false;
@@ -74,48 +78,12 @@ public class UIManager : MonoBehaviour
         mainMenu.SetActive(false);
         isMainMenuOpen = false;
         hubMenu.SetActive(true);
-        if (InventoryManager.Instance.IsFullyEquipped)
-        {
-            battleButton.interactable = true;
-            heapButton.interactable = true;
-        }
-        else
-        {
-            battleButton.interactable = false;
-            heapButton.interactable = false;
-        }
-    }
-
-    //Still iffy on how to make this actually work
-    public void NewGame()
-    {
-        sfxPlayer.ButtonClick();
-        if (InventoryManager.Instance.isFirstTime)
-        {
-            Destroy(InventoryManager.Instance.gameObject);
-            Instantiate(inventoryManagerPrefab);
-        }
-        mainMenu.SetActive(false);
-        isMainMenuOpen = false;
-        hubMenu.SetActive(true);
-        if (InventoryManager.Instance.IsFullyEquipped)
-        {
-            battleButton.interactable = true;
-            heapButton.interactable = true;
-        }
-        else
-        {
-            battleButton.interactable = false;
-            heapButton.interactable = false;
-        }
-    }
-
-    public void Continue()
-    {
-        sfxPlayer.ButtonClick();
-        mainMenu.SetActive(false);
-        isMainMenuOpen = false;
-        hubMenu.SetActive(true);
+        /*workshopUI.SetActive(true);
+        workshopInteriorUI.SetActive(true);
+        workshopUI.SetActive(false);
+        workshopInteriorUI.SetActive(false);*/
+        if (!continueButton.interactable)
+            continueButton.interactable = true;
         if (InventoryManager.Instance.IsFullyEquipped)
         {
             battleButton.interactable = true;
@@ -134,6 +102,14 @@ public class UIManager : MonoBehaviour
         mainMenu.SetActive(true);
         isMainMenuOpen = true;
         hubMenu.SetActive(false);
+    }
+
+    public void NewGame()
+    {
+        if(TutorialPopup.Instance != null)
+            TutorialPopup.Instance.gameObject.SetActive(true);
+        if(!InventoryManager.Instance.isFirstTime)
+            InventoryManager.Instance.NewGame();
     }
 
     public void OpenBattle()

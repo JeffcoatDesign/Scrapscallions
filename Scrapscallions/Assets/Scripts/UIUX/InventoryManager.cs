@@ -17,11 +17,11 @@ public class InventoryManager : MonoBehaviour
     public GameObject inventoryParent;
     private DragDrop itemDragDrop;
     public List<RobotPart> itemParts;
-    private RobotPart chosenPart;
     public int money;
     public int overallItemID = 0;
 
     public Robot myRobot;
+    [SerializeField] private Robot defaultRobot;
     public bool IsFullyEquipped { get => myRobot.body != null && myRobot.head != null && myRobot.leftArm != null && myRobot.rightArm != null && myRobot.legs != null; }
     public bool isFirstTime = true;
 
@@ -42,6 +42,8 @@ public class InventoryManager : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
 
+        isFirstTime = true;
+        myRobot = defaultRobot;
         myRobot = myRobot.Copy();
         AddToInventory(myRobot.head);
         AddToInventory(myRobot.body);
@@ -50,6 +52,17 @@ public class InventoryManager : MonoBehaviour
         AddToInventory(myRobot.legs);
 
         UnityEngine.Random.InitState((int)System.DateTime.Now.Ticks);
+    }
+
+    public void NewGame()
+    {
+        foreach (DragDrop dragDrop in SetDefaultPartsUI.Instance.GetComponentsInChildren<DragDrop>())
+            dragDrop.ResetItemSlotDragDrop();
+        inventoryParent.GetComponent<InventoryReload>().ResetInventory();
+        overallItemID = 0;
+        itemParts.Clear();
+        inventoryParent.GetComponent<InventoryReload>().ClearInventory();
+        Start();
     }
 
     public void AddToInventory(RobotPart robotPart)
