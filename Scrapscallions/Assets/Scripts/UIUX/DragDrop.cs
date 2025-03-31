@@ -31,7 +31,6 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
     private void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
-        canvas = UIManager.Instance.GetComponent<Canvas>();
         canvasGroup = GetComponent<CanvasGroup>();
         homeSlot = GetComponentInParent<ItemSlot>();
         itemImage = GetComponent<Image>();
@@ -42,6 +41,11 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
             toolTipPos = toolTip.GetComponent<RectTransform>();
         }
         draggable = true;
+    }
+
+    void OnEnable()
+    {
+        canvas = UIManager.Instance.canvas;
     }
 
     public void OnBeginDrag(PointerEventData eventData)

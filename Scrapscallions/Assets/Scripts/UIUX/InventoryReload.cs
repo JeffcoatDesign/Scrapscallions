@@ -35,6 +35,7 @@ public class InventoryReload : MonoBehaviour
                     inventoryItemID = inventoryItem.ItemID;
                     inventoryManager.InstantiateInventoryItem(inventoryItem, gameObject);
                 }
+                SetDefaultPartsUI.Instance.SetParts();
                 inventoryPopulated = true;
             }
             foreach (ItemSlot inventoryItem in GetComponentsInChildren<ItemSlot>())
@@ -63,7 +64,7 @@ public class InventoryReload : MonoBehaviour
             }
             foreach (ItemSlot inventoryItem in GetComponentsInChildren<ItemSlot>())
             {
-                if(inventoryItem.gameObject.layer != 6)
+                if (inventoryItem.gameObject.layer != 6)
                 {
                     itemShop = inventoryItem.GetComponentInChildren<DragDrop>().AddComponent<Shop>();
                     itemShop.shopInventory = this;
@@ -80,10 +81,5 @@ public class InventoryReload : MonoBehaviour
         {
             Destroy(inventoryItem.gameObject);
         }
-        foreach (RobotPart inventoryItem in inventoryManager.itemParts)
-        {
-            inventoryManager.InstantiateInventoryItem(inventoryItem, gameObject);
-        }
-        SetDefaultPartsUI.Instance.SetParts();
     }
 }

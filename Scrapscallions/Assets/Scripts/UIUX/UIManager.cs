@@ -12,6 +12,7 @@ public class UIManager : MonoBehaviour
     public Button battleButton;
     public Button heapButton;
     public Button continueButton;
+    public Canvas canvas;
 
     [Header("Menus")]
     [SerializeField] private GameObject mainMenu;
@@ -31,11 +32,10 @@ public class UIManager : MonoBehaviour
 
     public static UIManager Instance;
 
-    [SerializeField] private GameObject inventoryManagerPrefab;
-
     void OnEnable()
     {
         Instance = this;
+        canvas = GetComponent<Canvas>();
     }
 
     void Start()

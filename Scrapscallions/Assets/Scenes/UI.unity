@@ -2317,7 +2317,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: fde7282f7592d724987f061f79044ffa, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -7485,7 +7485,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 0ba87fa9177008e4093daa34a08b1cc6, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -13001,7 +13001,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: dcad03b431b771043bbe0776962ef039, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -13597,7 +13597,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 7cbb02f4c93dab344965bf7d3341fd59, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -15819,6 +15819,7 @@ MonoBehaviour:
   battleButton: {fileID: 2127858461}
   heapButton: {fileID: 630374898}
   continueButton: {fileID: 37761268}
+  canvas: {fileID: 0}
   mainMenu: {fileID: 444639440}
   optionsMenu: {fileID: 1225081164}
   hubMenu: {fileID: 1613546687}
@@ -15830,7 +15831,6 @@ MonoBehaviour:
   shopInteriorUI: {fileID: 13932361}
   cache: {fileID: 2091243402}
   mouse: {fileID: 1112338392}
-  inventoryManagerPrefab: {fileID: 5739464246754107847, guid: 7fe3ee0b899aef5468935cda91aa5060, type: 3}
 --- !u!1 &1082976090
 GameObject:
   m_ObjectHideFlags: 0
@@ -20286,7 +20286,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 0b03d9f5bc405254db4ab2226a0d9844, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

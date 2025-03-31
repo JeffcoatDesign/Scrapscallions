@@ -39,9 +39,15 @@ public class InventoryManager : MonoBehaviour
 
     void Start()
     {
+        SetUpInventory();
+    }
+
+    public void SetUpInventory()
+    {
         Instance = this;
         DontDestroyOnLoad(gameObject);
 
+        money = 100;
         isFirstTime = true;
         myRobot = defaultRobot;
         myRobot = myRobot.Copy();
@@ -50,6 +56,9 @@ public class InventoryManager : MonoBehaviour
         AddToInventory(myRobot.leftArm);
         AddToInventory(myRobot.rightArm);
         AddToInventory(myRobot.legs);
+
+        if(SetDefaultPartsUI.Instance != null)
+            SetDefaultPartsUI.Instance.SetParts();
 
         UnityEngine.Random.InitState((int)System.DateTime.Now.Ticks);
     }
@@ -60,9 +69,13 @@ public class InventoryManager : MonoBehaviour
             dragDrop.ResetItemSlotDragDrop();
         inventoryParent.GetComponent<InventoryReload>().ResetInventory();
         overallItemID = 0;
+        foreach(RobotPart r in itemParts)
+            Debug.Log(r);
         itemParts.Clear();
+        foreach (RobotPart r in itemParts)
+            Debug.Log(r);
         inventoryParent.GetComponent<InventoryReload>().ClearInventory();
-        Start();
+        SetUpInventory();
     }
 
     public void AddToInventory(RobotPart robotPart)

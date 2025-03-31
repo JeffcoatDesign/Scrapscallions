@@ -22,6 +22,8 @@ public class TutorialPopup : MonoBehaviour
             hubCloseButton.interactable = true;
             gameObject.SetActive(false);
         }
+        currentPage = 0;
+        tutorialPages[currentPage].gameObject.SetActive(true);
     }
 
     public void NextPage()
