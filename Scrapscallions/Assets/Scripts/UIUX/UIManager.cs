@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TMPro;
 
 public class UIManager : MonoBehaviour
 {
@@ -83,7 +84,10 @@ public class UIManager : MonoBehaviour
         workshopUI.SetActive(false);
         workshopInteriorUI.SetActive(false);*/
         if (!continueButton.interactable)
+        {
             continueButton.interactable = true;
+            continueButton.GetComponentInChildren<TextMeshProUGUI>().color = Color.white;
+        }
         if (InventoryManager.Instance.IsFullyEquipped)
         {
             battleButton.interactable = true;

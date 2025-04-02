@@ -24,6 +24,7 @@ public class InventoryManager : MonoBehaviour
     [SerializeField] private Robot defaultRobot;
     public bool IsFullyEquipped { get => myRobot.body != null && myRobot.head != null && myRobot.leftArm != null && myRobot.rightArm != null && myRobot.legs != null; }
     public bool isFirstTime = true;
+    public bool canSell = false;
 
     private void OnEnable()
     {
@@ -83,7 +84,7 @@ public class InventoryManager : MonoBehaviour
         if (robotPart != null)
         {
             overallItemID++;
-            if(inventoryParent != null && inventoryParent.GetComponentInParent<Shop>() == null)
+            if(inventoryParent != null/* && inventoryParent.GetComponentInParent<Shop>() == null*/)
                 InstantiateInventoryItem(robotPart, inventoryParent);
 
             //Update player money
@@ -91,6 +92,84 @@ public class InventoryManager : MonoBehaviour
 
             robotPart.ItemID = overallItemID;
             itemParts.Add(robotPart);
+        }
+    }
+
+    public void RemoveFromInventory(DragDrop dragDrop)
+    {
+        RobotPart robotPart = dragDrop.botPart;
+        if (robotPart != null)
+        {
+            //Make sure selling the part in question won't give you an unusuable bot
+            if (itemParts.Count <= 5)
+                canSell = false;
+            else
+            {
+                //Check if part being sold is equipped
+                if ((robotPart.ItemID == myRobot.head.ItemID) ||
+                   (robotPart.ItemID == myRobot.body.ItemID) ||
+                   (robotPart.ItemID == myRobot.leftArm.ItemID) ||
+                   (robotPart.ItemID == myRobot.rightArm.ItemID) ||
+                   (robotPart.ItemID == myRobot.legs.ItemID))
+                    canSell = false;
+
+                //Check if selling part would remove any of that kind of part
+                //Kind of redundant but just making sure
+                int numHeads = 0;
+                int numBodies = 0;
+                int numArms = 0;
+                int numLegs = 0;
+                foreach (RobotPart r in itemParts)
+                {
+                    if (r is RobotPartHead)
+                        numHeads++;
+                    else if (r is RobotPartBody)
+                        numBodies++;
+                    else if (r is RobotPartArm)
+                        numArms++;
+                    else if (r is RobotPartLegs)
+                        numLegs++;
+                    else
+                        Debug.Log("Uh oh!");
+                }
+                if ((numHeads <= 1 && robotPart is RobotPartHead) ||
+                   (numBodies <= 1 && robotPart is RobotPartBody) ||
+                   (numArms <= 2 && robotPart is RobotPartArm) ||
+                   (numLegs <= 1 && robotPart is RobotPartLegs))
+                    canSell = false;
+            }
+
+            //Sell if part elligble to be sold
+            if (canSell)
+            {
+                foreach (RobotPart rp in itemParts)
+                {
+                    if (rp.ItemID == robotPart.ItemID)
+                    {
+                        itemParts.Remove(rp);
+                        break;
+                    }
+                }
+                if (inventoryParent != null /*&& inventoryParent.GetComponentInParent<Shop>() != null*/)
+                {
+                    foreach (ItemSlot itemSlot in inventoryParent.GetComponentsInChildren<ItemSlot>())
+                    {
+                        if (itemSlot.GetComponentInChildren<DragDrop>().botPart.ItemID == robotPart.ItemID)
+                        {
+                            Destroy(itemSlot.gameObject);
+                        }
+                    }
+                }
+                money += robotPart.Price;
+                //Update player money
+                MoneyChanged?.Invoke(money);
+            }
+            else
+            {
+                Debug.Log("Couldn't Sell");
+                dragDrop.ResetDragDrop();
+                canSell = true;
+            }
         }
     }
 
