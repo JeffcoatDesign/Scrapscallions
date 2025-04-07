@@ -78,7 +78,11 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
     {
         //Debug.Log("OnPointerDown");
         if (draggable)
+        {
             EventSystem.current.SetSelectedGameObject(gameObject);
+            Debug.Log(GetComponentInParent<DragDropParentObject>());
+            GetComponentInParent<DragDropParentObject>().gameObject.transform.SetAsLastSibling();
+        }
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -146,7 +150,7 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
         draggable = true;
         itemImage.maskable = true;
         homePosition = homeSlot.GetComponent<RectTransform>().position;
-        GetComponent<RectTransform>().position = homePosition;
+        rectTransform.position = homePosition;
     }
 
     //Specifically for resetting DragDrops that are children of the Equip Region Slots

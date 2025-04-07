@@ -1022,4 +1022,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slotDragDrop: {fileID: 0}
   itemOccupiedBy: {fileID: 0}
+  m_displayRobot: {fileID: 0}
   sfxPlayer: {fileID: 0}

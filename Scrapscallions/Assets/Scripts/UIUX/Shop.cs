@@ -11,7 +11,7 @@ public class Shop : MonoBehaviour, IDropHandler
     private DragDrop dragDropInQuestion;
     public InventoryReload shopInventory;
     public GameObject tooExpensiveAlert;
-
+    bool inInventory = false;
     public SFXPlayer sfxPlayer;
 
     void Start()
@@ -24,7 +24,18 @@ public class Shop : MonoBehaviour, IDropHandler
         if (eventData.pointerDrag != null)
         {
             dragDropInQuestion = eventData.pointerDrag.GetComponent<DragDrop>();
-            if (dragDropInQuestion != null && dragDropInQuestion.botPart.Price <= InventoryManager.Instance.money)
+
+            foreach (RobotPart part in InventoryManager.Instance.itemParts)
+            {
+                if (part.ItemID == dragDropInQuestion.botPart.ItemID)
+                    inInventory = true;
+            }
+
+            if(inInventory)
+            {
+                dragDropInQuestion.ResetDragDrop();
+            }
+            else if (dragDropInQuestion != null && dragDropInQuestion.botPart.Price <= InventoryManager.Instance.money)
             {
                 sfxPlayer.Buy();
                 dragDropInQuestion.dropped = true;
@@ -41,6 +52,7 @@ public class Shop : MonoBehaviour, IDropHandler
                 tooExpensiveAlert.SetActive(true);
                 Invoke("ClearAlert", 1f);
             }
+            inInventory = false;
         }
     }
 
