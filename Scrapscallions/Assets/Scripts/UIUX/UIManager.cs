@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TMPro;
 
 public class UIManager : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class UIManager : MonoBehaviour
     public SFXPlayer sfxPlayer;
     public Button battleButton;
     public Button heapButton;
+    public Button continueButton;
+    public Canvas canvas;
 
     [Header("Menus")]
     [SerializeField] private GameObject mainMenu;
@@ -28,11 +31,22 @@ public class UIManager : MonoBehaviour
 
     private MusicPlayer musicPlayer;
 
+    public static UIManager Instance;
+
+    void OnEnable()
+    {
+        Instance = this;
+        canvas = GetComponent<Canvas>();
+    }
+
     void Start()
     {
         Cursor.SetCursor(cursor, Vector2.zero, CursorMode.ForceSoftware);
         if (InventoryManager.Instance.isFirstTime)
+        {
             isMainMenuOpen = true;
+            continueButton.interactable = false;
+        }
         else
         {
             isMainMenuOpen = false;
@@ -65,6 +79,15 @@ public class UIManager : MonoBehaviour
         mainMenu.SetActive(false);
         isMainMenuOpen = false;
         hubMenu.SetActive(true);
+        /*workshopUI.SetActive(true);
+        workshopInteriorUI.SetActive(true);
+        workshopUI.SetActive(false);
+        workshopInteriorUI.SetActive(false);*/
+        if (!continueButton.interactable)
+        {
+            continueButton.interactable = true;
+            continueButton.GetComponentInChildren<TextMeshProUGUI>().color = Color.white;
+        }
         if (InventoryManager.Instance.IsFullyEquipped)
         {
             battleButton.interactable = true;
@@ -83,6 +106,14 @@ public class UIManager : MonoBehaviour
         mainMenu.SetActive(true);
         isMainMenuOpen = true;
         hubMenu.SetActive(false);
+    }
+
+    public void NewGame()
+    {
+        if(TutorialPopup.Instance != null)
+            TutorialPopup.Instance.gameObject.SetActive(true);
+        if(!InventoryManager.Instance.isFirstTime)
+            InventoryManager.Instance.NewGame();
     }
 
     public void OpenBattle()

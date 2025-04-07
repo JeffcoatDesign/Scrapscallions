@@ -9,8 +9,8 @@ public class Shop : MonoBehaviour, IDropHandler
 {
     //The DragDrop dropped into the ItemSlot
     private DragDrop dragDropInQuestion;
-    [SerializeField] private InventoryReload shopInventory;
-    [SerializeField] private GameObject tooExpensiveAlert;
+    public InventoryReload shopInventory;
+    public GameObject tooExpensiveAlert;
 
     public SFXPlayer sfxPlayer;
 

@@ -24,13 +24,13 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
     public TextMeshProUGUI[] itemDescription;
     private RobotPartArm botPartToArm;
     private RobotPartHead botPartToHead;
+    private RobotPartLegs botPartToLegs;
     private RectTransform toolTipPos;
     private InventoryManager inventoryManager;
 
     private void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
-        canvas = GetComponentInParent<Canvas>();
         canvasGroup = GetComponent<CanvasGroup>();
         homeSlot = GetComponentInParent<ItemSlot>();
         itemImage = GetComponent<Image>();
@@ -41,6 +41,11 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
             toolTipPos = toolTip.GetComponent<RectTransform>();
         }
         draggable = true;
+    }
+
+    void OnEnable()
+    {
+        canvas = UIManager.Instance.canvas;
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -99,6 +104,14 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
             if (itemDescription.Length > 4)
                 itemDescription[4].gameObject.SetActive(false);
         }
+        else if (tag == "Leg")
+        {
+            botPartToLegs = (RobotPartLegs)botPart;
+            itemDescription[3].gameObject.SetActive(true);
+            itemDescription[3].text = "Speed: " + botPartToLegs.MaxSpeed; //Need quirks done for quirk description
+            if (itemDescription.Length > 4)
+                itemDescription[4].gameObject.SetActive(false);
+        }
         else
         {
             if (itemDescription.Length > 3)
@@ -113,7 +126,7 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
         toolTip.SetActive(true);
 
         //Moves ToolTip position if it's in a position that it can go off screen
-        if ((int)toolTipPos.position.x == 1848)
+        if (((int)toolTipPos.position.x == 1848) || ((int)toolTipPos.position.x == 1409) || ((int)toolTipPos.position.x == 1447) || ((int)toolTipPos.position.x == 1197))
             toolTipPos.position = new Vector2(toolTipPos.position.x - 400, toolTipPos.position.y);
     }
 
@@ -134,27 +147,6 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
         itemImage.maskable = true;
         homePosition = homeSlot.GetComponent<RectTransform>().position;
         GetComponent<RectTransform>().position = homePosition;
-        if (homeSlot.gameObject.layer != 3)
-        {
-            switch (GetComponentInParent<ItemSlot>().gameObject.name)
-            {
-                case "Head":
-                    inventoryManager.myRobot.head = null;
-                    break;
-                case "Body":
-                    inventoryManager.myRobot.body = null;
-                    break;
-                case "Left Arm":
-                    inventoryManager.myRobot.leftArm = null;
-                    break;
-                case "Right Arm":
-                    inventoryManager.myRobot.rightArm = null;
-                    break;
-                case "Legs":
-                    inventoryManager.myRobot.legs = null;
-                    break;
-            }
-        }
     }
 
     //Specifically for resetting DragDrops that are children of the Equip Region Slots

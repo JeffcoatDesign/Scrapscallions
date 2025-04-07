@@ -9,6 +9,7 @@ public class PopulateShop : MonoBehaviour
     [SerializeField] private GameObject inventoryItemPrefab;
     [SerializeField] private GameObject inventoryParent;
     private DragDrop itemDragDrop;
+    private ShopSell shopSell;
     [SerializeField] private RobotPart[] itemParts;
     private List<RobotPart> itemPartsChosen = new List<RobotPart>();
     private RobotPart chosenPart;
@@ -55,6 +56,8 @@ public class PopulateShop : MonoBehaviour
             itemPartsChosen.Remove(chosenPart);
             //Set layer to be Shop
             itemDragDrop.gameObject.layer = 6;
+            itemDragDrop.homeSlot.gameObject.layer = 6;
+            shopSell = itemDragDrop.gameObject.AddComponent<ShopSell>();
         }
     }
 }

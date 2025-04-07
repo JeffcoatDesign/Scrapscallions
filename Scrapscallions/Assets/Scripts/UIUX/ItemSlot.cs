@@ -55,14 +55,15 @@ public class ItemSlot : MonoBehaviour, IDropHandler
                     //Check if part is specifically an Arm and being dragged from an Equip Region
                     if (tag == "Arm" && dragDropInQuestion.dragDropOrigin != null)
                     {
-                        //Check if Equip Region Slot is filled, and replace with the Part In Question if so
+                        dragDropInQuestion.ResetDragDrop();
+                        /*//Check if Equip Region Slot is filled, and replace with the Part In Question if so
                         if (itemOccupiedBy != null)
                             itemOccupiedBy.ResetDragDrop();
                         //Clear the previous Equip Region's item and set the current Equip Region's item
                         dragDropInQuestion.homeSlot.itemOccupiedBy = null;
                         itemOccupiedBy = dragDropInQuestion.dragDropOrigin;
                         dragDropInQuestion.ResetItemSlotDragDrop();
-                        ItemSlotDragDropEnable();
+                        ItemSlotDragDropEnable();*/
                     }
                     else
                     {
@@ -104,21 +105,12 @@ public class ItemSlot : MonoBehaviour, IDropHandler
     {
         ddInQuestion.dropped = true;
         itemTag = ddInQuestion.tag;
-        //Check if DragDrop is put in the trash
-        if (tag == "Trash")
-        {
-            //Check if DragDrop is dragged from Equip Region or Inventory and react accordingly
-            if (ddInQuestion.dragDropOrigin != null)
-                ItemSlotDragDropTrash();
-            else
-                ddInQuestion.ResetDragDrop();
-        }
-        //Check if DragDrop is the correct Part Type and not being dragged to a different inventory slot
-        else if (tag != itemTag || gameObject.layer == 3)
+
+        if (tag != itemTag || gameObject.layer == 3)
             ddInQuestion.ResetDragDrop();
         else
         {
-            //Check if part is specifically an Arm and being dragged from an Equip Region
+            /*Check if part is specifically an Arm and being dragged from an Equip Region
             if (tag == "Arm" && ddInQuestion.dragDropOrigin != null)
             {
                 //Check if Equip Region Slot is filled, and replace with the Part In Question if so
@@ -139,8 +131,13 @@ public class ItemSlot : MonoBehaviour, IDropHandler
                 ddInQuestion.GetComponent<RectTransform>().position = ddInQuestion.homeSlot.GetComponent<RectTransform>().position;
                 itemOccupiedBy = ddInQuestion;
                 ItemSlotDragDropEnable(ddInQuestion);
-            }
-
+            }*/
+            if (itemOccupiedBy != null)
+                itemOccupiedBy.ResetDragDrop();
+            //Send the DragDrop dragged from the inventory back to the inventory, create a reference to it on the Equip Region, and enable the Equip Region's DragDrop
+            ddInQuestion.GetComponent<RectTransform>().position = ddInQuestion.homeSlot.GetComponent<RectTransform>().position;
+            itemOccupiedBy = ddInQuestion;
+            ItemSlotDragDropEnable(ddInQuestion);
             switch (gameObject.name)
             {
                 case "Head":

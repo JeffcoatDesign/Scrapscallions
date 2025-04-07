@@ -10,6 +10,8 @@ public class InventoryReload : MonoBehaviour
     public InventoryManager inventoryManager;
     [SerializeField] private bool isShop;
     [SerializeField] private bool inventoryPopulated;
+    [SerializeField] private GameObject tooExpensiveAlert;
+    private Shop itemShop;
     int inventoryItemID;
 
     private void Start()
@@ -33,51 +35,20 @@ public class InventoryReload : MonoBehaviour
                     inventoryItemID = inventoryItem.ItemID;
                     inventoryManager.InstantiateInventoryItem(inventoryItem, gameObject);
                 }
+                SetDefaultPartsUI.Instance.SetParts();
                 inventoryPopulated = true;
             }
             foreach (ItemSlot inventoryItem in GetComponentsInChildren<ItemSlot>())
             {
                 inventoryItemID = inventoryItem.GetComponentInChildren<DragDrop>().botPart.ItemID;
-
-                if (inventoryManager.myRobot.head == null && inventoryItem.GetComponentInChildren<DragDrop>().botPart is RobotPartHead)
-                {
-                    Debug.Log("No Head");
-                    inventoryItem.GetComponentInChildren<DragDrop>().ResetDragDrop();
-                }
-                else if (inventoryManager.myRobot.body == null && inventoryItem.GetComponentInChildren<DragDrop>().botPart is RobotPartBody)
-                {
-                    Debug.Log("No Body");
-                    inventoryItem.GetComponentInChildren<DragDrop>().ResetDragDrop();
-                }
-                else if (inventoryManager.myRobot.leftArm == null && inventoryItem.GetComponentInChildren<DragDrop>().botPart is RobotPartArm)
-                {
-                    Debug.Log("No Left Arm");
-                    inventoryItem.GetComponentInChildren<DragDrop>().ResetDragDrop();
-                }
-                else if (inventoryManager.myRobot.rightArm == null && inventoryItem.GetComponentInChildren<DragDrop>().botPart is RobotPartArm)
-                {
-                    Debug.Log("No Right Arm");
-                    inventoryItem.GetComponentInChildren<DragDrop>().ResetDragDrop();
-                }
-                else if (inventoryManager.myRobot.legs == null && inventoryItem.GetComponentInChildren<DragDrop>().botPart is RobotPartLegs)
-                {
-                    Debug.Log("No Legs");
-                    inventoryItem.GetComponentInChildren<DragDrop>().ResetDragDrop();
-                }
-                else if (inventoryItemID != inventoryManager.myRobot.head.ItemID
+                if (inventoryItemID != inventoryManager.myRobot.head.ItemID
                       && inventoryItemID != inventoryManager.myRobot.rightArm.ItemID
                       && inventoryItemID != inventoryManager.myRobot.leftArm.ItemID
                       && inventoryItemID != inventoryManager.myRobot.body.ItemID
                       && inventoryItemID != inventoryManager.myRobot.legs.ItemID)
-                {
-                    Debug.Log("Item " + inventoryItemID + " was not equipped");
                     inventoryItem.GetComponentInChildren<DragDrop>().ResetDragDrop();
-                }
                 else
-                {
-                    Debug.Log("Item " + inventoryItemID + " was equipped");
                     inventoryItem.GetComponentInChildren<DragDrop>().DisableDragDrop();
-                }
 
             }
         }
@@ -91,10 +62,24 @@ public class InventoryReload : MonoBehaviour
             {
                 inventoryManager.InstantiateInventoryItem(inventoryItem, gameObject);
             }
-            foreach (DragDrop inventoryItem in GetComponentsInChildren<DragDrop>())
+            foreach (ItemSlot inventoryItem in GetComponentsInChildren<ItemSlot>())
             {
-                inventoryItem.GetComponent<Image>().raycastTarget = false;
+                if (inventoryItem.gameObject.layer != 6)
+                {
+                    itemShop = inventoryItem.GetComponentInChildren<DragDrop>().AddComponent<Shop>();
+                    itemShop.shopInventory = this;
+                    itemShop.tooExpensiveAlert = tooExpensiveAlert;
+                }
             }
+        }
+    }
+
+
+    public void ClearInventory()
+    {
+        foreach (ItemSlot inventoryItem in GetComponentsInChildren<ItemSlot>())
+        {
+            Destroy(inventoryItem.gameObject);
         }
     }
 }
