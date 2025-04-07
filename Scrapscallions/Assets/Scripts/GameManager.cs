@@ -45,7 +45,7 @@ namespace Scraps.Gameplay
             {
                 agent.Died += OnPlayerLost;
                 playerAgent = agent;
-                OpponentRobotSpawned?.Invoke(robot);
+                PlayerRobotSpawned?.Invoke(robot);
             }
             else
             {

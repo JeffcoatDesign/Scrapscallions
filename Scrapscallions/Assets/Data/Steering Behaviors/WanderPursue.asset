@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 946b0107cca8d874ea29565b70b0387c, type: 3}
+  m_Name: WanderPursue
+  m_EditorClassIdentifier: 
+  behaviorName: Wander Chaser Guy
+  steeringBehavior1: {fileID: 11400000, guid: fb3682d57eaf66746b4101e4f6993962, type: 2}
+  steeringBehavior2: {fileID: 11400000, guid: b47e2c70099f3ad40b12db36095e97ee, type: 2}
+  blendWeight: 0.5

@@ -52,6 +52,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_bodyAttachPoint: {fileID: 920319634739895438}
+  legs: {fileID: 0}
 --- !u!65 &6002168036279243231
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -71,8 +72,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.0610157, y: 0.10608804, z: 1.0326167}
-  m_Center: {x: 0.0030457377, y: 0.10323596, z: 0.000073730946}
+  m_Size: {x: 1.0610157, y: 0.14479238, z: 1.0326167}
+  m_Center: {x: 0.0030457377, y: 0.08388379, z: 0.000073730946}
 --- !u!114 &6512339162029684147
 MonoBehaviour:
   m_ObjectHideFlags: 0

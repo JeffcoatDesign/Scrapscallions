@@ -311,7 +311,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 1.5
+  m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &634261222287309664
 MonoBehaviour:
@@ -325,7 +325,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ae61107f5b9c35468f94f5b794c6fef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  detectionRadius: 1.5
+  detectionRadius: 0.5
   timerInterval: 1
   m_part: {fileID: 8109103142882329366}
 --- !u!1 &4377433661880628463
@@ -388,7 +388,7 @@ MonoBehaviour:
   m_facingThreshold: 0.9
   m_actionController: {fileID: 1127691821109781028}
   arm: {fileID: 0}
-  isInitialized: 0
+  isBehaviourReady: 0
   m_opponentCloseSensor: {fileID: 634261222287309664}
   m_aimsWithDown: 0
 --- !u!65 &4161171900873313623

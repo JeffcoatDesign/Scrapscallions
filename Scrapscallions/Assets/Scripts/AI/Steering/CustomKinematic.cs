@@ -14,7 +14,6 @@ public class CustomKinematic : Kinematic
     [SerializeField] private SteeringBehavior m_steeringBehavior;
 
     private SteeringBehavior m_steeringInstance;
-    private bool m_canMove = true;
 
     internal void SetSteeringBehavior(SteeringBehavior steeringBehavior)
     {
@@ -23,19 +22,22 @@ public class CustomKinematic : Kinematic
 
     internal void DisableMovement()
     {
-        m_canMove = false;
+        Rigidbody rb = GetComponent<Rigidbody>();
+        rb.velocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+        robotState.CanMove = false;
     }
 
     internal void EnableMovement()
     {
-        m_canMove = true;
+        robotState.CanMove = true;
     }
 
-    private void Start()
+    public void Initialize()
     {
         robotState = agent.robot.State;
-        maxSpeed = robotState.maxSpeed;
-        robotState.maxAngularAcceleration = maxAngularVelocity;
+        maxSpeed = robotState.MaxSpeed;
+        maxAngularVelocity = robotState.MaxAngularAcceleration;
 
         if (m_steeringBehavior != null)
         {
@@ -45,8 +47,9 @@ public class CustomKinematic : Kinematic
 
     protected override void Update()
     {
-        maxSpeed = robotState.maxSpeed;
-        if (!m_canMove || !robotState.CanMove)
+        maxSpeed = robotState.MaxSpeed;
+        maxAngularVelocity = robotState.MaxAngularAcceleration;
+        if (!robotState.CanMove || !robotState.CanMove)
         {
             SteeringOutput stationary = new()
             {

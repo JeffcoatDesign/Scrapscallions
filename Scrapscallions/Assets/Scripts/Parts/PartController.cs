@@ -15,9 +15,10 @@ namespace Scraps.Parts
     {
         public static event Action AnyPartHit;
         protected Robot m_robot { get; private set; }
-        internal bool isBroken;
+        internal bool isBroken, isInitialized;
         internal Action<int> PartHit;
         internal Action PartBroken;
+        internal Action PartInitialized;
         public Action Broke;
 
         virtual public void Break()
@@ -52,6 +53,8 @@ namespace Scraps.Parts
         {
             m_robot = robot;
             m_robot.agent.Died += OnDied;
+            isInitialized = true;
+            PartInitialized?.Invoke();
         }
 
         virtual public void Repair(int amount)

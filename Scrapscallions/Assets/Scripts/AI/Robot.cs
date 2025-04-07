@@ -63,16 +63,15 @@ public class Robot : ScriptableObject
         rightArmController.arm = rightArm;
         legsController.legs = legs;
 
+        State = new(this, headController, bodyController, legsController, leftArmController, rightArmController, agent, target, isPlayer);
+
+        State.character.myTarget = target.AgentObject;
+
         legsController.Initialize(this);
         bodyController.Initialize(this);
         headController.Initialize(this);
         leftArmController.Initialize(this);
         rightArmController.Initialize(this);
-
-        State = new(headController, bodyController, legsController, leftArmController, rightArmController, agent, target, isPlayer);
-
-        State.character.myTarget = target.AgentObject;
-        State.maxSpeed = legs.MaxSpeed;
 
         AgentObject = () => agent.gameObject;
         agent.Initialize(this);

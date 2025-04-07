@@ -16,7 +16,7 @@ namespace Scraps.Parts
         [SerializeField] protected ActionController m_actionController;
 
         public RobotPartArm arm;
-        public bool isInitialized = false;
+        public bool isBehaviourReady = false;
 
         protected bool m_facingOpponent = true;
 
@@ -90,7 +90,7 @@ namespace Scraps.Parts
                 .Build()
             );
 
-            isInitialized = true;
+            isBehaviourReady = true;
         }
 
         override public void GetGoals(GoapAgent agent, SerializableHashSet<AgentGoal> goals, Dictionary<string, AgentBelief> agentBeliefs)
@@ -105,7 +105,7 @@ namespace Scraps.Parts
         }
         private void Update()
         {
-            if (isBroken || !isInitialized)
+            if (isBroken || !isBehaviourReady)
                 return;
 
             m_attackReadyTimer?.Tick(Time.deltaTime);

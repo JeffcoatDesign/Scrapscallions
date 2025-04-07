@@ -48,8 +48,16 @@ namespace Scraps.AI.GOAP
             GetGoals();
 
             robot.body.Break += OnDie;
+            robot.legs.Break += OnLegsBroke;
+
+            kinematic.Initialize();
 
             m_isInitialized = true;
+        }
+
+        private void OnLegsBroke()
+        {
+            kinematic.DisableMovement();
         }
 
         internal void EnableAI() => m_isAIEnabled = true;
@@ -60,12 +68,14 @@ namespace Scraps.AI.GOAP
             robot.State.isAlive = false;
             Died?.Invoke();
             kinematic.DisableMovement();
+            m_isAIEnabled = false;
             SFXPlayer.Instance.Death();
         }
 
         private void OnDestroy()
         {
             robot.body.Break -= OnDie;
+            robot.legs.Break -= OnLegsBroke;
         }
 
         //TODO MOVE THIS TO A STATIC UTIL

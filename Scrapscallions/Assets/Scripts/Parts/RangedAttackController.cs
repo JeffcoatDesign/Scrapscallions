@@ -20,6 +20,7 @@ namespace Scraps.Parts
         public override bool IsTakingAction { get; set; } = false;
         public override bool IsReady { get; set; } = true;
         public override bool IsCooledDown { get; set; } = true;
+        public override bool IsInitialized { get; set; } = false;
         [field: SerializeField] public override float ActionLength { get; set; } = 1f;
         [field: SerializeField] public override float CooldownTime { get; set; } = 3f;
         public override Action ActionCompleted { get; set; }

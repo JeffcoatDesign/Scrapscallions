@@ -185,6 +185,7 @@ GameObject:
   - component: {fileID: 2603364743854946318}
   - component: {fileID: 6063562388237067891}
   - component: {fileID: 7233408331520085268}
+  - component: {fileID: 4565726803289633796}
   m_Layer: 0
   m_Name: Bear
   m_TagString: Robot
@@ -409,6 +410,25 @@ MonoBehaviour:
   <ActionLength>k__BackingField: 0.5
   <CooldownTime>k__BackingField: 1
   <ActionName>k__BackingField: Bash Attack
+--- !u!114 &4565726803289633796
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4797223487188948200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d09a79af1ba614542a455773cf5768da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_mainPowerUpKey: 3
+  m_altPowerUpKey: 4
+  m_readyUI: {fileID: 0}
+  m_keyText: {fileID: 0}
+  <ActionLength>k__BackingField: 3
+  <CooldownTime>k__BackingField: 4
+  <ActionName>k__BackingField: Power Up
 --- !u!1 &5286033237210595332
 GameObject:
   m_ObjectHideFlags: 0

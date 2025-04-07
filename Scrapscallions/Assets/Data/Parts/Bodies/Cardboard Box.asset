@@ -15,7 +15,8 @@ MonoBehaviour:
   <PartName>k__BackingField: Cardboard Box
   <MaxHP>k__BackingField: 7
   <CurrentHP>k__BackingField: 7
-  <Price>k__BackingField: 5
+  <Price>k__BackingField: 3
   <Prefab>k__BackingField: {fileID: 4797223487188948200, guid: d2ee6e828d93ec94199991592b315d94, type: 3}
+  <ItemID>k__BackingField: 0
   <Sprite>k__BackingField: {fileID: 21300000, guid: fde7282f7592d724987f061f79044ffa, type: 3}
   <IsBroken>k__BackingField: 0

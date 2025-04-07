@@ -17,6 +17,7 @@ namespace Scraps.Parts
         [field: SerializeField] public override Sprite Sprite { get; set; }
         [field: SerializeField] public override bool IsBroken { get; set; } = false;
         [field: SerializeField] public float MaxSpeed { get; set; } = 10;
+        [field: SerializeField] public float MaxAngularAcceleration { get; internal set; } = 45;
 
         /*  LEG PROPERTIES  */
         //[field: SerializeField, Header("Leg Properties")] public float AttackSpeed { get; set; }

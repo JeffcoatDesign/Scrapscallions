@@ -12,10 +12,12 @@ namespace Assets.Scripts.Parts
         [SerializeField] float m_timeUntilDisableColliders = 2f;
         [SerializeField] bool m_doesShrinkAndDisappear = true;
         [SerializeField] float m_shrinkSpeed = 0.05f;
+        [SerializeField] float m_dropSpeed = 0.1f;
         [SerializeField] float m_timeUntilShrink = 10f;
         private void OnEnable()
         {
-            part.Broke += OnBroke;
+            if (part != null)
+                part.Broke += OnBroke;
         }
 
         private void OnDisable()
@@ -25,13 +27,14 @@ namespace Assets.Scripts.Parts
 
         protected void OnBroke()
         {
-            transform.parent = null;
-
             if (part is LegsController)
             {
                 LegsController legs = part as LegsController;
-                legs.BodyAttachPoint.transform.parent = transform.parent;
+                legs.BodyAttachPoint.parent = transform.parent;
+                StartCoroutine(DropBody(legs.BodyAttachPoint));
             }
+
+            transform.parent = null;
 
             if (part != null && part.GetRobot() != null && part.GetRobot().agent != null)
             {
@@ -50,6 +53,18 @@ namespace Assets.Scripts.Parts
 
             if (m_doesShrinkAndDisappear)
                 StartCoroutine(ShrinkAndDisappear());
+        }
+
+        private IEnumerator DropBody(Transform body)
+        {
+            Vector3 velocity = Vector3.zero;
+            while (body.localPosition.y > 0)
+            {
+                velocity += Vector3.down * Time.deltaTime * m_dropSpeed;
+                body.localPosition += velocity;
+                yield return new WaitForEndOfFrame();
+            }
+            body.localPosition = body.localPosition.With(y:0);
         }
 
         private IEnumerator ShrinkAndDisappear()

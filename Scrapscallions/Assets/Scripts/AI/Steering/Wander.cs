@@ -12,7 +12,6 @@ namespace Scraps.AI
         public float slowRadius = 10f;
         public float timeToTarget = 0.1f;
 
-        private System.Random m_rng = new();
         private RobotState m_robotState;
         private Vector3 targetPos;
         private float m_lastCheckedTime = 0f;
@@ -31,10 +30,10 @@ namespace Scraps.AI
                 m_timeUntilWander = wanderRate;
                 targetPos = robotState.Position + (GetRandomPointInUnitCircle() * wanderRadius);
             }
-            Debug.DrawLine(new(targetPos.x, 0, targetPos.y), new(robotState.Position.x, 0, robotState.Position.y));
+            Debug.DrawLine(targetPos, m_robotState.Position, Color.magenta);
 
             result.angular = Face(targetPos).angular;
-            result.linear = robotState.maxSpeed * robotState.character.transform.forward;
+            result.linear = robotState.MaxSpeed * robotState.character.transform.forward;
 
             m_lastCheckedTime = Time.time;
 
@@ -43,8 +42,8 @@ namespace Scraps.AI
 
         protected Vector3 GetRandomPointInUnitCircle()
         {
-            float x = (float)m_rng.NextDouble();
-            float z = (float)m_rng.NextDouble();
+            float x = (float)Random.value;
+            float z = (float)Random.value;
 
             float radius = Mathf.Sqrt(x * x + z * z);
             
@@ -56,13 +55,13 @@ namespace Scraps.AI
 
         protected float GetTargetAngle(Vector3 target)
         {
-            Vector3 direction = (m_robotState.Position - target).With(y:0);
-            float targetAngle = Mathf.Atan2(-direction.x, direction.y) * Mathf.Rad2Deg;
+            Vector3 direction = (target - m_robotState.Position).With(y:0);
+            float targetAngle = Mathf.Atan2(-direction.x, direction.z) * Mathf.Rad2Deg;
 
             return targetAngle;
         }
 
-        protected SteeringOutput Face(Vector2 target)
+        protected SteeringOutput Face(Vector3 target)
         {
             SteeringOutput result = new SteeringOutput();
 
@@ -76,11 +75,11 @@ namespace Scraps.AI
             float targetRotation;
             if (rotationSize > slowRadius)
             {
-                targetRotation = m_robotState.maxAngularAcceleration;
+                targetRotation = m_robotState.MaxAngularAcceleration;
             }
             else // otherwise use a scaled rotation
             {
-                targetRotation = m_robotState.maxAngularAcceleration * rotationSize / slowRadius;
+                targetRotation = m_robotState.MaxAngularAcceleration * rotationSize / slowRadius;
             }
 
             // the final targetRotation combines speed (already in the variable) and direction
@@ -94,14 +93,24 @@ namespace Scraps.AI
 
             // check if the acceleration is too great
             float angularAcceleration = Mathf.Abs(result.angular);
-            if (angularAcceleration > m_robotState.maxAngularAcceleration)
+            if (angularAcceleration > m_robotState.MaxAngularAcceleration)
             {
                 result.angular /= angularAcceleration;
-                result.angular *= m_robotState.maxAngularAcceleration;
+                result.angular *= m_robotState.MaxAngularAcceleration;
             }
 
             result.linear = Vector3.zero;
             return result;
+        }
+
+        public override SteeringBehavior Clone()
+        {
+            Wander wander = CreateInstance(nameof(Wander)) as Wander;
+            wander.wanderRadius = wanderRadius;
+            wander.timeToTarget = timeToTarget;
+            wander.slowRadius = slowRadius;
+            wander.wanderRate = wanderRate;
+            return wander;
         }
     }
 }

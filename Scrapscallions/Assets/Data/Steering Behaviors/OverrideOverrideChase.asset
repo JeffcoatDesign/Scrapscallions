@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   behaviorName: OverrideOverrideChase
   flee: 0
-  baseBehavior: {fileID: 11400000, guid: fb3682d57eaf66746b4101e4f6993962, type: 2}
+  baseBehavior: {fileID: 11400000, guid: 82427cf59f5f3204d8e3db73f1c3ad72, type: 2}
   rayLength: 0.5
   avoidanceRadius: 3
   layermask:

@@ -23,7 +23,7 @@ namespace Scraps.UI
         public GoapAgent playerGOAP;
         public GoapAgent enemyGOAP;
 
-
+        public PowerUpsDisplay playerPowerUps, opponentPowerUps;
         [SerializeField] TextMeshProUGUI m_winnerText;
         [SerializeField] GameObject m_winnerBG;
 

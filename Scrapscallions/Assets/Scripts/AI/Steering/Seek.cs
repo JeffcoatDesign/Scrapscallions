@@ -40,7 +40,7 @@ namespace Scraps.AI
 
             // give full acceleration along this direction
             result.linear.Normalize();
-            result.linear *= robotState.maxSpeed;
+            result.linear *= robotState.MaxSpeed;
 
             result.angular = 0;
             return result;

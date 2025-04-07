@@ -8,6 +8,9 @@ using UnityEngine;
 
 namespace Scraps
 {
+    /// <summary>
+    /// Tracks the state of the robot
+    /// </summary>
     [System.Serializable]
     public class RobotState
     {
@@ -16,40 +19,70 @@ namespace Scraps
         public Func<Vector3> destination;
         public GameObject[] obstacles;
         public Kinematic[] targets;
+
         public bool hasPath = false;
         public bool isAlive = true;
         internal bool isPursuing = true;
         public bool isPlayer;
+
+        private bool m_canMove = true;
         public bool CanMove
         {
             get
             {
                 if(LegsController != null)
                 {
-                    return !LegsController.isBroken;
+                    return !LegsController.isBroken && m_canMove;
                 }
                 return false;
             }
+            set => m_canMove = value;
         }
         public bool IsDisarmed { get => LeftArmController.isBroken && RightArmController.isBroken; }
 
-        public float maxSpeed = 1f;
-        public float maxAngularAcceleration = 45f;
+        public float MaxSpeed { 
+            get
+            {
+                if (!CanMove || Robot.legs == null)
+                {
+                    return 0f;
+                } else
+                {
+                    return Robot.legs.MaxSpeed;
+                }
+            } 
+        }
+        public float MaxAngularAcceleration { 
+            get
+            {
+                if (!CanMove || Robot.legs == null)
+                {
+                    return 0f;
+                }
+                else
+                {
+                    return Robot.legs.MaxAngularAcceleration;
+                }
+            }
+                
+        }
         public float collisionRadius = 0.5f;
 
+        public Robot Robot { get; private set; }
+
+        //Physical Parts
         private readonly HeadController m_headController;
         private readonly BodyController m_bodyController;
         private readonly LegsController m_legsController;
         private readonly ArmController m_leftArmController;
         private readonly ArmController m_rightArmController;
-        private readonly GoapAgent m_agent;
 
         public HeadController HeadController { get => m_headController; }
         public BodyController BodyController { get => m_bodyController; }
         public LegsController LegsController { get => m_legsController; }
         public ArmController LeftArmController { get => m_leftArmController; }
         public ArmController RightArmController { get => m_rightArmController; }
-        public GoapAgent Agent { get => m_agent; }
+        public GoapAgent Agent { get; private set; }
 
         [SerializeField] private Path m_path;
         public Path Path
@@ -74,18 +107,22 @@ namespace Scraps
                 return Vector3.zero;
             }
         }
-        public float RemainingDistance { get => Vector3.Distance(m_agent.transform.position, destination()); }
+        public float RemainingDistance { get => Vector3.Distance(Agent.transform.position, destination()); }
 
-        public RobotState(HeadController headController, BodyController bodyController, LegsController legsController, 
+        public RobotState(Robot robot, HeadController headController, BodyController bodyController, LegsController legsController, 
             ArmController leftArmController, ArmController rightArmController, GoapAgent agent, Robot targetRobot, bool isPlayer)
         {
+            Robot = robot;
+
             this.isPlayer = isPlayer;
+
             m_headController = headController;
             m_bodyController = bodyController;
             m_legsController = legsController;
             m_leftArmController = leftArmController;
             m_rightArmController = rightArmController;
-            m_agent = agent;
+            Agent = agent;
+
             if (agent.TryGetComponent(out CustomKinematic kinematic))
             {
                 character = kinematic;
@@ -93,17 +130,6 @@ namespace Scraps
             else
                 Debug.LogError("Character Not Found!");
             target = () => targetRobot.State.character.gameObject;
-        }
-
-        public RobotState(CustomKinematic character, GameObject target = null, GameObject[] obstacles = null, Kinematic[] targets = null, Path path = null, float maxAngularAcceleration = 45f, float collisionRadius = 0.5f)
-        {
-            this.character = character;
-            this.target = () => target;
-            this.obstacles = obstacles;
-            this.targets = targets;
-            m_path = path;
-            this.maxAngularAcceleration = maxAngularAcceleration;
-            this.collisionRadius = collisionRadius;
         }
 
         internal void SetDestination(Func<Vector3> destination)
@@ -114,7 +140,7 @@ namespace Scraps
 
         internal void ResetPath()
         {
-            destination = () => m_agent.transform.position;
+            destination = () => Agent.transform.position;
             hasPath = false;
         }
 
