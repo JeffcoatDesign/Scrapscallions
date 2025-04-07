@@ -8,11 +8,13 @@ namespace Scraps.Parts
         public float ActionLength { get; }
         public float CooldownTime { get; }
         public bool IsReady { get; }
+        public bool IsInitialized { get; }
         public bool IsCooledDown { get; }
         public bool IsTakingAction { get; }
 
         public Action ActionCompleted { get; set; }
 
         public void Activate();
+        public void Initialize(PartController part);
     }
 }

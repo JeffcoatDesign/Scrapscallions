@@ -17,8 +17,8 @@ namespace Scraps.Parts
         [field: SerializeField] public override bool IsBroken { get; set; } = false;
 
         /*  ARM PROPERTIES  */
-        [field: SerializeField, Header("Arm Properties")] public float AttackSpeed { get; set; } = 10;
-        [field: SerializeField] public int AttackDamage { get; set; } = 20;
+        [field: SerializeField, Header("Arm Properties")] public float AttackSpeed { get; set; } = 1;
+        [field: SerializeField] public int AttackDamage { get; set; } = 2;
 
         public ArmController Spawn(BodyController bodyController, bool isRightArm)
         {
@@ -36,6 +36,5 @@ namespace Scraps.Parts
 
             return armController;
         }
-        
     }
 }

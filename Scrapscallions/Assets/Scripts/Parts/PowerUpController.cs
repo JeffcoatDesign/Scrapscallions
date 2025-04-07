@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Scraps.UI;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Scraps.Parts
@@ -10,10 +12,8 @@ namespace Scraps.Parts
     {
         [SerializeField] private string m_mainPowerUpKey;
         [SerializeField] private string m_altPowerUpKey;
-        [SerializeField] private Canvas m_readyUI;
-        [SerializeField] private TextMeshProUGUI m_keyText;
-        private PartController m_controller;
-        private string m_powerUpKey = null;
+        public PartController partController;
+        public string powerUpKey = null;
         //TODO Make a progress bar
 
         public float CooldownProgress { get => m_cooldownTimer.Progress; }
@@ -21,6 +21,7 @@ namespace Scraps.Parts
         public override bool IsTakingAction { get; set; } = false;
         public override bool IsReady { get { return !IsTakingAction && IsCooledDown; } set { } }
         public override bool IsCooledDown { get; set; } = false;
+        public override bool IsInitialized { get; set; } = false;
         [field: SerializeField] public override float ActionLength { get; set; } = 3f;
         [field: SerializeField] public override float CooldownTime { get; set; } = 4f;
         public override Action ActionCompleted { get; set; }
@@ -30,16 +31,29 @@ namespace Scraps.Parts
 
         private CountdownTimer m_powerUpTimer;
 
+        private void OnDestroy()
+        {
+            if (partController == null || partController.GetRobot() == null) return;
+
+            if (partController.GetRobot().State.isPlayer)
+            {
+                BattleUI.Instance.playerPowerUps.RemovePowerUp(this);
+            }
+            else
+            {
+                BattleUI.Instance.opponentPowerUps.RemovePowerUp(this);
+            }
+        }
+
         protected override void Awake()
         {
             base.Awake();
-
-            m_controller = GetComponent<PartController>();
 
             m_powerUpTimer = new(ActionLength);
 
             m_powerUpTimer.OnTimerStop += OnFinished;
         }
+
 
         private void OnFinished()
         {
@@ -50,27 +64,15 @@ namespace Scraps.Parts
 
         protected override void Update()
         {
-            if (m_powerUpKey == null)
-            {
-                if (m_controller is ArmController arm && arm.isInitialized)
-                {
-                    if (arm.side == ArmController.Side.Left)
-                        m_powerUpKey = m_altPowerUpKey;
-                    else
-                        m_powerUpKey = m_mainPowerUpKey;
-                }
-                if (m_powerUpKey != null)
-                    m_keyText.text = $"[{m_powerUpKey}]";
-            }
-
             base.Update();
 
-            bool isPlayer = m_controller != null && m_controller.GetRobot().State.isPlayer;
-            m_readyUI.enabled = IsReady && isPlayer;
+            if (!IsInitialized) return;
+
+            bool isPlayer = partController != null && partController.GetRobot().State.isPlayer;
 
             if (IsReady && !IsTakingAction)
             {
-                if (isPlayer && Input.GetKeyDown(m_powerUpKey))
+                if (isPlayer && Input.GetKeyDown(powerUpKey))
                 {
                     Activate();
                 }
@@ -84,6 +86,33 @@ namespace Scraps.Parts
             m_powerUpTimer.Start();
             IsTakingAction = true;
             Activated?.Invoke();
+        }
+
+        public override void Initialize(PartController part)
+        {
+            partController = part;
+
+            if (partController is ArmController arm)
+            {
+                if (arm.side == ArmController.Side.Left)
+                    powerUpKey = m_mainPowerUpKey;
+                else
+                    powerUpKey = m_altPowerUpKey;
+            }
+            else
+                powerUpKey = m_mainPowerUpKey;
+
+            if (BattleUI.Instance == null) return;
+            if (partController.GetRobot().State.isPlayer)
+            {
+                BattleUI.Instance.playerPowerUps.AddPowerUp(this);
+            }
+            else
+            {
+                BattleUI.Instance.opponentPowerUps.AddPowerUp(this);
+            }
+
+            IsInitialized = true;
         }
     }
 }

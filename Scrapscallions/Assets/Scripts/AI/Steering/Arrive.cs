@@ -30,12 +30,12 @@ namespace Scraps.AI
             float targetSpeed;
             if (distance > slowRadius)
             {
-                targetSpeed = robotState.maxSpeed;
+                targetSpeed = robotState.MaxSpeed;
             }
             else // otherwise calculate a scaled speed
             {
                 //targetSpeed = -(maxSpeed * distance / slowRadius); // should slowRadius here instead be targetRadius?
-                targetSpeed = robotState.maxSpeed * (distance - targetRadius) / targetRadius;
+                targetSpeed = robotState.MaxSpeed * (distance - targetRadius) / targetRadius;
             }
 
             // the target velocity combines speed and direction
@@ -49,11 +49,11 @@ namespace Scraps.AI
             result.linear /= timeToDestination;
 
             // check if the acceleration is too fast
-            if (result.linear.magnitude > robotState.maxSpeed)
+            if (result.linear.magnitude > robotState.MaxSpeed)
             {
                 //sresult.linear.y = 0f;
                 result.linear.Normalize();
-                result.linear *= robotState.maxSpeed;
+                result.linear *= robotState.MaxSpeed;
             }
 
             return result;

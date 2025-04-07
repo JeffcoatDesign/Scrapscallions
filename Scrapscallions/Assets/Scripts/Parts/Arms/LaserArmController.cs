@@ -17,8 +17,12 @@ namespace Scraps.Parts
         {
             base.Initialize(robot);
             m_powerUpController = GetComponent<PowerUpController>();
-            m_powerUpController.Activated += OnLaserActivated;
-            m_powerUpController.ActionCompleted += OnLaserStopped;
+            if (m_powerUpController != null)
+            {
+                m_powerUpController.Activated += OnLaserActivated;
+                m_powerUpController.ActionCompleted += OnLaserStopped;
+                m_powerUpController.Initialize(this);
+            }
         }
 
         private void OnLaserStopped()
@@ -89,7 +93,7 @@ namespace Scraps.Parts
             );
 
             /* NOT THE PLAYER */
-            if (!m_robot.State.isPlayer)
+            if (!m_robot.State.isPlayer && m_powerUpController != null)
             {
                 actions.Add(
                     new AgentAction.Builder(side.ToString() + "ArmFireLaser")
@@ -119,7 +123,7 @@ namespace Scraps.Parts
                 .WithPriority(4)
                 .Build());
 
-            isInitialized = true;
+            isBehaviourReady = true;
         }
     }
 }

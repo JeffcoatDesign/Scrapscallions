@@ -897,6 +897,7 @@ RectTransform:
   - {fileID: 47365286}
   - {fileID: 864906067}
   - {fileID: 666860427}
+  - {fileID: 1533166354}
   m_Father: {fileID: 1418446562}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -1488,7 +1489,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1001 &259600574
@@ -2498,6 +2499,8 @@ MonoBehaviour:
   enemyHP: {fileID: 189325665}
   playerGOAP: {fileID: 0}
   enemyGOAP: {fileID: 0}
+  playerPowerUps: {fileID: 1533166355}
+  opponentPowerUps: {fileID: 573782601}
   m_winnerText: {fileID: 257540797}
   m_winnerBG: {fileID: 65452346}
 --- !u!1 &431797170
@@ -2820,6 +2823,7 @@ RectTransform:
   - {fileID: 1781262671}
   - {fileID: 189325664}
   - {fileID: 1630003700}
+  - {fileID: 573782600}
   m_Father: {fileID: 1418446562}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -3309,6 +3313,80 @@ Transform:
   m_Children: []
   m_Father: {fileID: 130827826}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!1 &573782599
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 573782600}
+  - component: {fileID: 573782602}
+  - component: {fileID: 573782601}
+  m_Layer: 5
+  m_Name: Opp Power Ups
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &573782600
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 573782599}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 470537071}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 498.38, y: 314.2}
+  m_SizeDelta: {x: 503.25, y: 80}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &573782601
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 573782599}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3f7ef32b376ab64cb53a9ed63241dd3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_powerUpIconPrefab: {fileID: 8666400197822376092, guid: 99bac1c488a42294b97a1a06e3e1bd5a, type: 3}
+--- !u!114 &573782602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 573782599}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 5
+  m_StartCorner: 0
+  m_StartAxis: 0
+  m_CellSize: {x: 80, y: 80}
+  m_Spacing: {x: 5, y: 5}
+  m_Constraint: 0
+  m_ConstraintCount: 2
 --- !u!1001 &581623237
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5592,12 +5670,24 @@ PrefabInstance:
     m_TransformParent: {fileID: 842501280}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: aaf22490fd516cd45a7cd8c4efafe092, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 60.91662
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: aaf22490fd516cd45a7cd8c4efafe092, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.94744635
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: aaf22490fd516cd45a7cd8c4efafe092, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 46.85286
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: aaf22490fd516cd45a7cd8c4efafe092, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: aaf22490fd516cd45a7cd8c4efafe092, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.5
+      value: -0.46
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: aaf22490fd516cd45a7cd8c4efafe092, type: 3}
       propertyPath: m_LocalPosition.z
@@ -8031,6 +8121,80 @@ Transform:
   m_Children: []
   m_Father: {fileID: 906898617}
   m_LocalEulerAnglesHint: {x: 0, y: -110.122, z: 0}
+--- !u!1 &1533166353
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1533166354}
+  - component: {fileID: 1533166356}
+  - component: {fileID: 1533166355}
+  m_Layer: 5
+  m_Name: Power Ups
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1533166354
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1533166353}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 112728653}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -501.63, y: 315.2043}
+  m_SizeDelta: {x: 503.25, y: 80}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1533166355
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1533166353}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3f7ef32b376ab64cb53a9ed63241dd3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_powerUpIconPrefab: {fileID: 8666400197822376092, guid: 99bac1c488a42294b97a1a06e3e1bd5a, type: 3}
+--- !u!114 &1533166356
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1533166353}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 3
+  m_StartCorner: 0
+  m_StartAxis: 0
+  m_CellSize: {x: 80, y: 80}
+  m_Spacing: {x: 5, y: 5}
+  m_Constraint: 0
+  m_ConstraintCount: 2
 --- !u!1 &1553922111
 GameObject:
   m_ObjectHideFlags: 0

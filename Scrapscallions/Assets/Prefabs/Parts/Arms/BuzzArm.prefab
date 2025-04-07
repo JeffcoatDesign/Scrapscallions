@@ -61,6 +61,7 @@ MonoBehaviour:
   m_facingThreshold: 0.9
   m_actionController: {fileID: 8525378723493469973}
   arm: {fileID: 0}
+  isBehaviourReady: 0
 --- !u!114 &8525378723493469973
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -75,6 +76,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <ActionLength>k__BackingField: 2
   <ActionName>k__BackingField: Buzz Saw Attack
+  m_armController: {fileID: 4876686782989000796}
   m_attackCollider: {fileID: 364147913822322774}
   m_meleeSensor: {fileID: 3120394889155600356}
   m_attackRotation: {x: -90, y: 0, z: 0}
@@ -99,6 +101,7 @@ MonoBehaviour:
   m_timeUntilDisableColliders: 2
   m_doesShrinkAndDisappear: 1
   m_shrinkSpeed: 0.05
+  m_dropSpeed: 0.1
   m_timeUntilShrink: 10
 --- !u!65 &7734156346588636146
 BoxCollider:
@@ -392,7 +395,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.47
+  m_Radius: 0.6
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &364147913822322774
 MonoBehaviour:
@@ -407,7 +410,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_partController: {fileID: 4876686782989000796}
-  canHit: 0
 --- !u!1001 &296626761118895377
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -22,6 +22,7 @@ namespace Scraps.Parts
         public override bool IsTakingAction { get; set; } = false;
         public override bool IsReady { get; set; } = true;
         public override bool IsCooledDown { get; set; } = false;
+        public override bool IsInitialized { get; set; } = false;
         [field: SerializeField] public override float ActionLength { get; set; } = 3f;
         [field: SerializeField] public override float CooldownTime { get; set; } = 4f;
         public override Action ActionCompleted { get; set; }
@@ -63,24 +64,21 @@ namespace Scraps.Parts
             m_fireTickReady = true;
             float startTime = Time.time;
             Vector3 rotation = Vector3.zero;
-            Quaternion startRotation = m_rangedArmController.transform.rotation;
+            Quaternion startRotation = m_rangedArmController.transform.localRotation;
             Vector3 directionToTarget = m_rangedArmController.transform.forward;
             if (m_sensor.TargetPosition != Vector3.zero)
                 directionToTarget = (m_sensor.TargetPosition - m_rangedArmController.transform.position).normalized;
+
             Vector3 targetAngle = Quaternion.LookRotation(directionToTarget).eulerAngles;
             Quaternion endRotation = Quaternion.LookRotation(directionToTarget);
+
             while (Time.time - startTime < ActionLength)
             {
                 float t = (Time.time - startTime) / ActionLength;
-                //rotation = new(
-                //    Mathf.Lerp(rotation.x, targetAngle.x, t),
-                //    Mathf.Lerp(rotation.y, targetAngle.y, t),
-                //    Mathf.Lerp(rotation.z, targetAngle.z, t)
-                //);
 
                 Debug.DrawLine(m_rangedArmController.transform.position, m_rangedArmController.transform.position + directionToTarget, Color.yellow);
 
-                m_rangedArmController.transform.rotation = Quaternion.Lerp(startRotation, endRotation, t);
+                m_rangedArmController.transform.localRotation = Quaternion.Lerp(startRotation, endRotation, t);
 
                 //m_rangedArmController.transform.localRotation = Quaternion.Euler(rotation);
                 yield return new WaitForEndOfFrame();

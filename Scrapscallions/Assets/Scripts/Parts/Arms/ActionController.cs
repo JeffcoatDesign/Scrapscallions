@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Scraps.UI;
 using UnityEngine;
 
 namespace Scraps.Parts
@@ -9,13 +10,14 @@ namespace Scraps.Parts
     {
         public abstract bool IsTakingAction { get; set; }
         public abstract bool IsReady { get; set; }
+        public abstract bool IsInitialized { get; set; }
         public abstract bool IsCooledDown { get; set; }
         public abstract float ActionLength { get; set; }
         public abstract float CooldownTime { get; set; }
         public abstract Action ActionCompleted { get; set; }
         public abstract string ActionName { get; set; }
-
         protected CountdownTimer m_cooldownTimer;
+        public event Action CooledDown;
 
         protected virtual void Awake()
         {
@@ -25,6 +27,7 @@ namespace Scraps.Parts
             {
                 IsReady = true;
                 IsCooledDown = true;
+                CooledDown?.Invoke();
             };
 
             if(!IsReady)
@@ -35,12 +38,19 @@ namespace Scraps.Parts
 
         protected virtual void Update()
         {
+            if(!IsInitialized) return;
+
             m_cooldownTimer.Tick(Time.deltaTime);
         }
 
         protected void StartCooldown()
         {
             m_cooldownTimer.Start();
+        }
+
+        public virtual void Initialize(PartController part)
+        {
+            IsInitialized = true;
         }
     }
 }

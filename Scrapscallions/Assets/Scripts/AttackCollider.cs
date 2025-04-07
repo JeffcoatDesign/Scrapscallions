@@ -9,12 +9,30 @@ using UnityEngine.Serialization;
 public class AttackCollider : MonoBehaviour
 {
     [SerializeField] private PartController m_partController;
-    private List<PartController> m_hitParts = new();
-    public bool canHit = false;
+    private List<int> m_hitParts = new();
+    private bool m_canHit = false;
+    public bool CanHit {  
+        get { return m_canHit; } 
+        set 
+        {
+            if(!value)
+            {
+                m_hitParts.Clear();
+            }
+            if (m_canHit != value) 
+            { 
+                m_canHit = value; 
+                if(value)
+                {
+                    Debug.Log("New Attack");
+                }
+            }
+        } 
+    }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!canHit && !other.CompareTag("Robot")) return;
+        if (!CanHit && !other.CompareTag("Robot")) return;
         
         if (other.TryGetComponent(out PartController otherPart))
         {
@@ -26,26 +44,19 @@ public class AttackCollider : MonoBehaviour
             if (otherPart.GetRobot() == null) return;
             if (otherPart.GetRobot() == m_partController.GetRobot()) return;
             if (otherPart.isBroken) return;
-            if (!m_hitParts.Contains(otherPart))
+            int instanceID = otherPart.GetInstanceID();
+            if (!m_hitParts.Contains(instanceID))
             {
-                m_hitParts.Add(otherPart);
+                m_hitParts.Add(instanceID);
+
+                Debug.Log("Hitting part: " + otherPart.name + " with instanceID: " + instanceID);
+
                 if (m_partController is ArmController arm)
                     otherPart.Hit(arm.arm.AttackDamage);
                 else
                 {
                     otherPart.Hit(1);
                 }
-            }
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.TryGetComponent(out PartController otherPart))
-        {
-            if (m_hitParts.Contains(otherPart))
-            {
-                m_hitParts.Remove(otherPart);
             }
         }
     }

@@ -23,6 +23,12 @@ namespace Scraps.Parts
         public Transform HeadAttachPoint { get => m_headAttachPoint; }
         public Transform LeftArmAttachPoint { get => m_leftArmAttachPoint; }
         public Transform RightArmAttachPoint { get => m_rightArmAttachPoint; }
+
+        public override void Initialize(Robot robot)
+        {
+            base.Initialize(robot);
+            m_bashController.Initialize(this);
+        }
         override public void Break()
         {
             isBroken = true;

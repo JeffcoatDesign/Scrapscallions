@@ -13,7 +13,7 @@ namespace Scraps.Parts
         public Transform BodyAttachPoint { get => m_bodyAttachPoint; }
         override public void Break()
         {
-            isBroken = true;
+            base.Break();
             legs.CurrentHP = 0;
         }
 

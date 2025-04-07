@@ -109,7 +109,8 @@ namespace Scraps.Gameplay
             m_battleUI.isTimerGoing = false;
 
             CinematicManager.instance.RemoveTarget(opponentRobot.AgentObject().transform);
-            CinematicManager.instance.RemoveTarget(opponentRobot.headController.transform.parent);
+            if (opponentRobot != null && opponentRobot.headController != null)
+                CinematicManager.instance.RemoveTarget(opponentRobot.headController.transform.parent);
         }
 
         public void LeaveWithLoot()

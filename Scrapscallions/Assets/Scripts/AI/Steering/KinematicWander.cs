@@ -11,8 +11,8 @@ namespace Scraps.AI
         {
             SteeringOutput result = new()
             {
-                linear = robotState.maxSpeed * robotState.character.transform.forward,
-                angular = RandomBinomial() * robotState.maxAngularAcceleration
+                linear = robotState.MaxSpeed * robotState.character.transform.forward,
+                angular = RandomBinomial() * robotState.MaxAngularAcceleration
             };
 
             return result;
