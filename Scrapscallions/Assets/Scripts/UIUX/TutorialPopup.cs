@@ -5,25 +5,19 @@ using UnityEngine.UI;
 
 public class TutorialPopup : MonoBehaviour
 {
-    public static TutorialPopup Instance;
     [SerializeField] private GameObject[] tutorialPages;
     private int currentPage;
-    public Button hubCloseButton;
+    public Button relevantButton;
 
-    public void Awake()
+    void Start()
     {
-        Instance = this;
-    }
-
-    void OnEnable()
-    {
-        if (!InventoryManager.Instance.isFirstTime)
-        {
-            hubCloseButton.interactable = true;
-            gameObject.SetActive(false);
-        }
         currentPage = 0;
         tutorialPages[currentPage].gameObject.SetActive(true);
+        if (relevantButton != null)
+        {
+            Button butt = Instantiate(relevantButton);
+            butt.transform.SetParent(transform, false);
+        }
     }
 
     public void NextPage()
@@ -33,7 +27,7 @@ public class TutorialPopup : MonoBehaviour
         if (currentPage >= tutorialPages.Length)
         {
             gameObject.SetActive(false);
-            hubCloseButton.interactable = true;
+            Debug.Log("Exceeded page count");
         }
         else
             tutorialPages[currentPage].gameObject.SetActive(true);
@@ -48,7 +42,6 @@ public class TutorialPopup : MonoBehaviour
 
     public void Close()
     {
-        hubCloseButton.interactable = true;
         InventoryManager.Instance.isFirstTime = false;
         gameObject.SetActive(false);
     }

@@ -110,8 +110,13 @@ public class UIManager : MonoBehaviour
 
     public void NewGame()
     {
-        if(TutorialPopup.Instance != null)
-            TutorialPopup.Instance.gameObject.SetActive(true);
+        if (TutorialManager.Instance != null)
+        {
+            for(int i = 0; i < TutorialManager.Instance.flags.Count; i++)
+            {
+                TutorialManager.Instance.flags[i] = true;
+            }
+        }
         if(!InventoryManager.Instance.isFirstTime)
             InventoryManager.Instance.NewGame();
     }

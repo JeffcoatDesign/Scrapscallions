@@ -64,9 +64,18 @@ public class InventoryReload : MonoBehaviour
             }
             foreach (ItemSlot inventoryItem in GetComponentsInChildren<ItemSlot>())
             {
+                DragDrop dd = inventoryItem.GetComponentInChildren<DragDrop>();
+                if ((dd.botPart == (RobotPart)InventoryManager.Instance.myRobot.head) ||
+                    (dd.botPart == (RobotPart)InventoryManager.Instance.myRobot.body) ||
+                    (dd.botPart == (RobotPart)InventoryManager.Instance.myRobot.leftArm) ||
+                    (dd.botPart == (RobotPart)InventoryManager.Instance.myRobot.rightArm) ||
+                    (dd.botPart == (RobotPart)InventoryManager.Instance.myRobot.legs))
+                {
+                    dd.canvasGroup.alpha = 0.5f;
+                }
                 if (inventoryItem.gameObject.layer != 6)
                 {
-                    itemShop = inventoryItem.GetComponentInChildren<DragDrop>().AddComponent<Shop>();
+                    itemShop = dd.AddComponent<Shop>();
                     itemShop.shopInventory = this;
                     itemShop.tooExpensiveAlert = tooExpensiveAlert;
                 }
