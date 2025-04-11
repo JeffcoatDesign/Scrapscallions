@@ -24,7 +24,6 @@ public class Shop : MonoBehaviour, IDropHandler
         if (eventData.pointerDrag != null)
         {
             dragDropInQuestion = eventData.pointerDrag.GetComponent<DragDrop>();
-            Debug.Log(dragDropInQuestion.botPart.ItemID);
 
             foreach (RobotPart part in InventoryManager.Instance.itemParts)
             {
@@ -46,6 +45,10 @@ public class Shop : MonoBehaviour, IDropHandler
                 InventoryManager.Instance.AddToInventory(dragDropInQuestion.botPart);
                 Destroy(dragDropInQuestion.GetComponentInParent<ItemSlot>().gameObject);
                 shopInventory.ResetInventory();
+
+                FirstTimeShop FTS = FindAnyObjectByType<FirstTimeShop>();
+                if (FTS != null)
+                    FTS.EndTutorial();
             }
             else
             {

@@ -1,21 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TutorialManager : MonoBehaviour
 {
     public static TutorialManager Instance;
 
-    public bool _introDone = false;
+    /*public bool _introDone = false;
     public bool _workshopDone = false;
     public bool _shopOpened = false;
     public bool _boughtPart = false;
     public bool _workshop2Done = false;
     public bool _botCustomized = false;
     public bool _scrapyardDone = false;
-    public bool _shopOpenedAfterScrapyard = false;
+    public bool _shop2Done = false;
     public bool _arenaTried = false;
-    public bool _tutorialDone = false;
+    public bool _tutorialDone = false;*/
     public List<bool> flags;
 
     public TutorialPopup introPopup;
@@ -30,6 +31,7 @@ public class TutorialManager : MonoBehaviour
     public TutorialPopup shop2InteriorPopup;
     public TutorialPopup arenaPopup;
     public TutorialPopup finishPopup;
+    public List<TutorialPopup> tutorialPopups;
 
     private void Awake()
     {
@@ -42,21 +44,13 @@ public class TutorialManager : MonoBehaviour
             Destroy(gameObject);
     }
 
-    public void IntroFlag()
+    public void SetFlag(int relevantFlag)
     {
-        _introDone = true;
-    }
-    public void WorkshopFlag()
-    {
-        _workshopDone = true;
-    }
-    public void ShopOpenFlag()
-    {
-        _shopOpened = true;
-    }
-    public void BuyPartFlag()
-    {
-        _boughtPart = true;
+        flags[relevantFlag] = true;
     }
 
+    public void OpenTutorial(int popupToOpen)
+    {
+        tutorialPopups[popupToOpen].gameObject.SetActive(true);
+    }
 }

@@ -45,9 +45,6 @@ public class InventoryManager : MonoBehaviour
 
     public void SetUpInventory()
     {
-        Instance = this;
-        DontDestroyOnLoad(gameObject);
-
         money = 100;
         isFirstTime = true;
         myRobot = defaultRobot;
@@ -62,6 +59,7 @@ public class InventoryManager : MonoBehaviour
             SetDefaultPartsUI.Instance.SetParts();
 
         UnityEngine.Random.InitState((int)System.DateTime.Now.Ticks);
+        inventoryParent.GetComponent<InventoryReload>().inventoryPopulated = true;
     }
 
     public void NewGame()

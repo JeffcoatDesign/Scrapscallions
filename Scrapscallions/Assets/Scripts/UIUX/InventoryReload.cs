@@ -9,7 +9,7 @@ public class InventoryReload : MonoBehaviour
 {
     public InventoryManager inventoryManager;
     [SerializeField] private bool isShop;
-    [SerializeField] private bool inventoryPopulated;
+    public bool inventoryPopulated;
     [SerializeField] private GameObject tooExpensiveAlert;
     private Shop itemShop;
     int inventoryItemID;

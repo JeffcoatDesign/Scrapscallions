@@ -1,22 +1,35 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class TutorialPopup : MonoBehaviour
 {
-    [SerializeField] private GameObject[] tutorialPages;
-    private int currentPage;
+    [SerializeField] private List<GameObject> tutorialPages;
+    public int currentPage;
     public Button relevantButton;
+    public int relevantFlag;
 
     void Start()
     {
-        currentPage = 0;
-        tutorialPages[currentPage].gameObject.SetActive(true);
-        if (relevantButton != null)
+        if (TutorialManager.Instance.flags[relevantFlag])
         {
-            Button butt = Instantiate(relevantButton);
-            butt.transform.SetParent(transform, false);
+            gameObject.SetActive(false);
+        }
+        else
+        {
+            currentPage = 0;
+            tutorialPages[currentPage].gameObject.SetActive(true);
+            if (relevantButton != null)
+            {
+                Button butt = Instantiate(relevantButton);
+                butt.transform.SetParent(transform, false);
+                butt.onClick.AddListener(() =>
+                {
+                    Close();
+                });
+            }
         }
     }
 
@@ -24,10 +37,10 @@ public class TutorialPopup : MonoBehaviour
     {
         tutorialPages[currentPage].gameObject.SetActive(false);
         currentPage++;
-        if (currentPage >= tutorialPages.Length)
+        if (currentPage >= tutorialPages.Count)
         {
-            gameObject.SetActive(false);
             Debug.Log("Exceeded page count");
+            Close();
         }
         else
             tutorialPages[currentPage].gameObject.SetActive(true);
@@ -43,6 +56,11 @@ public class TutorialPopup : MonoBehaviour
     public void Close()
     {
         InventoryManager.Instance.isFirstTime = false;
+        TutorialManager.Instance.SetFlag(relevantFlag);
+        if (relevantFlag + 1 < TutorialManager.Instance.flags.Count)
+        {
+            TutorialManager.Instance.OpenTutorial((relevantFlag + 1));
+        }
         gameObject.SetActive(false);
     }
 }
