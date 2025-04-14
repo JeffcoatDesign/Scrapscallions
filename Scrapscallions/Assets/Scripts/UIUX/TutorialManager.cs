@@ -19,7 +19,7 @@ public class TutorialManager : MonoBehaviour
     public bool _tutorialDone = false;*/
     public List<bool> flags;
 
-    public TutorialPopup introPopup;
+    /*public TutorialPopup introPopup;
     public TutorialPopup workshopPopup;
     public TutorialPopup workshopInteriorPopup;
     public TutorialPopup shopPopup;
@@ -30,7 +30,7 @@ public class TutorialManager : MonoBehaviour
     public TutorialPopup shop2Popup;
     public TutorialPopup shop2InteriorPopup;
     public TutorialPopup arenaPopup;
-    public TutorialPopup finishPopup;
+    public TutorialPopup finishPopup;*/
     public List<TutorialPopup> tutorialPopups;
 
     private void Awake()
@@ -39,9 +39,27 @@ public class TutorialManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
+            SetPopups();
         }
         else
+        {
+            Instance.tutorialPopups = tutorialPopups;
+            SetPopups();
             Destroy(gameObject);
+        }
+    }
+
+    public void SetPopups()
+    {
+        for (int i = 0; i < tutorialPopups.Count; i++)
+        {
+            Debug.Log("Flag " + i + " is " + Instance.flags[i]);
+            if (!Instance.flags[i])
+            {
+                Instance.tutorialPopups[i].gameObject.SetActive(true);
+                break;
+            }
+        }
     }
 
     public void SetFlag(int relevantFlag)

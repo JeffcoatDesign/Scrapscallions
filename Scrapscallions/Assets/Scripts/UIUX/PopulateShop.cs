@@ -15,7 +15,7 @@ public class PopulateShop : MonoBehaviour
     private RobotPart chosenPart;
     [SerializeField] private InventoryManager inventoryManager;
 
-    void OnEnable()
+    void Awake()
     {
         if(itemPartsChosen != null)
             itemPartsChosen.RemoveRange(0, itemPartsChosen.Count);
@@ -57,7 +57,7 @@ public class PopulateShop : MonoBehaviour
             //Set layer to be Shop
             itemDragDrop.gameObject.layer = 6;
             itemDragDrop.homeSlot.gameObject.layer = 6;
-            itemDragDrop.botPart.ItemID = 0;
+            itemDragDrop.botPart.ItemID = -1;
             shopSell = itemDragDrop.gameObject.AddComponent<ShopSell>();
         }
     }

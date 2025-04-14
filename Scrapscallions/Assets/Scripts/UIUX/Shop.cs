@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using Scraps.Parts;
+using UnityEditor.Experimental.GraphView;
 
 public class Shop : MonoBehaviour, IDropHandler
 {
@@ -28,7 +29,9 @@ public class Shop : MonoBehaviour, IDropHandler
             foreach (RobotPart part in InventoryManager.Instance.itemParts)
             {
                 if (part.ItemID == dragDropInQuestion.botPart.ItemID)
+                {
                     inInventory = true;
+                }
             }
 
             if(inInventory)

@@ -11,12 +11,10 @@ public class TutorialPopup : MonoBehaviour
     public Button relevantButton;
     public int relevantFlag;
 
-    void Start()
+    public void Start()
     {
         if (TutorialManager.Instance.flags[relevantFlag])
-        {
-            gameObject.SetActive(false);
-        }
+            Close();
         else
         {
             currentPage = 0;

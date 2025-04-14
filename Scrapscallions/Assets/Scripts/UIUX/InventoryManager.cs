@@ -24,7 +24,7 @@ public class InventoryManager : MonoBehaviour
     [SerializeField] private Robot defaultRobot;
     public bool IsFullyEquipped { get => myRobot.body != null && myRobot.head != null && myRobot.leftArm != null && myRobot.rightArm != null && myRobot.legs != null; }
     public bool isFirstTime = true;
-    public bool canSell = false;
+    public bool canSell = true;
 
     private void OnEnable()
     {
@@ -98,11 +98,18 @@ public class InventoryManager : MonoBehaviour
         RobotPart robotPart = dragDrop.botPart;
         if (robotPart != null)
         {
+            Debug.Log("Item Parts Count = " + itemParts.Count);
             //Make sure selling the part in question won't give you an unusuable bot
             if (itemParts.Count <= 5)
                 canSell = false;
             else
             {
+                Debug.Log("Current part ID = " + robotPart.ItemID);
+                Debug.Log("myRobot head ID = " + myRobot.head.ItemID);
+                Debug.Log("myRobot body ID = " + myRobot.body.ItemID);
+                Debug.Log("myRobot larm ID = " + myRobot.leftArm.ItemID);
+                Debug.Log("myRobot rarm ID = " + myRobot.rightArm.ItemID);
+                Debug.Log("myRobot legs ID = " + myRobot.legs.ItemID);
                 //Check if part being sold is equipped
                 if ((robotPart.ItemID == myRobot.head.ItemID) ||
                    (robotPart.ItemID == myRobot.body.ItemID) ||
@@ -130,6 +137,10 @@ public class InventoryManager : MonoBehaviour
                     else
                         Debug.Log("Uh oh!");
                 }
+                Debug.Log("heads = " + numHeads);
+                Debug.Log("bodies = " + numBodies);
+                Debug.Log("arms = " + numArms);
+                Debug.Log("legs = " + numLegs);
                 if ((numHeads <= 1 && robotPart is RobotPartHead) ||
                    (numBodies <= 1 && robotPart is RobotPartBody) ||
                    (numArms <= 2 && robotPart is RobotPartArm) ||

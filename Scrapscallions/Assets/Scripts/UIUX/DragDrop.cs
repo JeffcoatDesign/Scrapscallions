@@ -80,7 +80,6 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
         if (draggable)
         {
             EventSystem.current.SetSelectedGameObject(gameObject);
-            Debug.Log(GetComponentInParent<DragDropParentObject>());
             GetComponentInParent<DragDropParentObject>().gameObject.transform.SetAsLastSibling();
         }
     }
