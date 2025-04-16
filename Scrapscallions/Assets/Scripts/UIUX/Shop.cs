@@ -25,41 +25,43 @@ public class Shop : MonoBehaviour, IDropHandler
         if (eventData.pointerDrag != null)
         {
             dragDropInQuestion = eventData.pointerDrag.GetComponent<DragDrop>();
-
-            foreach (RobotPart part in InventoryManager.Instance.itemParts)
+            if (dragDropInQuestion.draggable)
             {
-                if (part.ItemID == dragDropInQuestion.botPart.ItemID)
+                foreach (RobotPart part in InventoryManager.Instance.itemParts)
                 {
-                    inInventory = true;
+                    if (part == dragDropInQuestion.botPart)
+                    {
+                        inInventory = true;
+                    }
                 }
-            }
 
-            if(inInventory)
-            {
-                dragDropInQuestion.ResetDragDrop();
-            }
-            else if (dragDropInQuestion != null && dragDropInQuestion.botPart.Price <= InventoryManager.Instance.money)
-            {
-                sfxPlayer.Buy();
-                dragDropInQuestion.dropped = true;
-                Debug.Log("Buying " + dragDropInQuestion.botPart);
+                if (inInventory)
+                {
+                    dragDropInQuestion.ResetDragDrop();
+                }
+                else if (dragDropInQuestion != null && dragDropInQuestion.botPart.Price <= InventoryManager.Instance.money)
+                {
+                    sfxPlayer.Buy();
+                    dragDropInQuestion.dropped = true;
+                    Debug.Log("Buying " + dragDropInQuestion.botPart);
 
-                InventoryManager.Instance.money -= dragDropInQuestion.botPart.Price;
-                InventoryManager.Instance.AddToInventory(dragDropInQuestion.botPart);
-                Destroy(dragDropInQuestion.GetComponentInParent<ItemSlot>().gameObject);
-                shopInventory.ResetInventory();
+                    InventoryManager.Instance.money -= dragDropInQuestion.botPart.Price;
+                    InventoryManager.Instance.AddToInventory(dragDropInQuestion.botPart);
+                    Destroy(dragDropInQuestion.GetComponentInParent<ItemSlot>().gameObject);
+                    shopInventory.ResetInventory();
 
-                FirstTimeShop FTS = FindAnyObjectByType<FirstTimeShop>();
-                if (FTS != null)
-                    FTS.EndTutorial();
+                    FirstTimeShop FTS = FindAnyObjectByType<FirstTimeShop>();
+                    if (FTS != null)
+                        FTS.EndTutorial();
+                }
+                else
+                {
+                    dragDropInQuestion.ResetDragDrop();
+                    tooExpensiveAlert.SetActive(true);
+                    Invoke("ClearAlert", 1f);
+                }
+                inInventory = false;
             }
-            else
-            {
-                dragDropInQuestion.ResetDragDrop();
-                tooExpensiveAlert.SetActive(true);
-                Invoke("ClearAlert", 1f);
-            }
-            inInventory = false;
         }
     }
 

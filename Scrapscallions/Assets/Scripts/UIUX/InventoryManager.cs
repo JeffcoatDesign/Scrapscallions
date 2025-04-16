@@ -25,6 +25,7 @@ public class InventoryManager : MonoBehaviour
     public bool IsFullyEquipped { get => myRobot.body != null && myRobot.head != null && myRobot.leftArm != null && myRobot.rightArm != null && myRobot.legs != null; }
     public bool isFirstTime = true;
     public bool canSell = true;
+    public SetDefaultPartsUI SDPUI;
 
     private void OnEnable()
     {
@@ -50,13 +51,17 @@ public class InventoryManager : MonoBehaviour
         myRobot = defaultRobot;
         myRobot = myRobot.Copy();
         AddToInventory(myRobot.head);
+        myRobot.head = (RobotPartHead)itemParts[0];
         AddToInventory(myRobot.body);
+        myRobot.body = (RobotPartBody)itemParts[1];
         AddToInventory(myRobot.leftArm);
+        myRobot.leftArm = (RobotPartArm)itemParts[2];
         AddToInventory(myRobot.rightArm);
+        myRobot.rightArm = (RobotPartArm)itemParts[3];
         AddToInventory(myRobot.legs);
+        myRobot.legs = (RobotPartLegs)itemParts[4];
 
-        if(SetDefaultPartsUI.Instance != null)
-            SetDefaultPartsUI.Instance.SetParts();
+        SDPUI.SetParts();
 
         UnityEngine.Random.InitState((int)System.DateTime.Now.Ticks);
         inventoryParent.GetComponent<InventoryReload>().inventoryPopulated = true;
@@ -81,15 +86,16 @@ public class InventoryManager : MonoBehaviour
     {
         if (robotPart != null)
         {
+            RobotPart partToAdd = Instantiate(robotPart);
             overallItemID++;
             if(inventoryParent != null/* && inventoryParent.GetComponentInParent<Shop>() == null*/)
-                InstantiateInventoryItem(robotPart, inventoryParent);
+                InstantiateInventoryItem(partToAdd, inventoryParent);
 
             //Update player money
             MoneyChanged?.Invoke(money);
 
-            robotPart.ItemID = overallItemID;
-            itemParts.Add(robotPart);
+            partToAdd.ItemID = overallItemID;
+            itemParts.Add(partToAdd);
         }
     }
 
@@ -213,7 +219,7 @@ public class InventoryManager : MonoBehaviour
             //Set up the DragDrop's variables based on the created RobotPart
             itemDragDrop.botPart = robotPart;
             itemDragDrop.gameObject.name = itemDragDrop.botPart.PartName;
-            itemDragDrop.GetComponent<Image>().sprite = itemDragDrop.botPart.Sprite;
+            itemDragDrop.GetComponent<Image>().sprite = itemDragDrop.botPart.Sprite;     
         }
     }
 

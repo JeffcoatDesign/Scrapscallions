@@ -57,7 +57,6 @@ public class PopulateShop : MonoBehaviour
             //Set layer to be Shop
             itemDragDrop.gameObject.layer = 6;
             itemDragDrop.homeSlot.gameObject.layer = 6;
-            itemDragDrop.botPart.ItemID = -1;
             shopSell = itemDragDrop.gameObject.AddComponent<ShopSell>();
         }
     }

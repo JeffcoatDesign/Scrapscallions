@@ -53,7 +53,6 @@ public class TutorialManager : MonoBehaviour
     {
         for (int i = 0; i < tutorialPopups.Count; i++)
         {
-            Debug.Log("Flag " + i + " is " + Instance.flags[i]);
             if (!Instance.flags[i])
             {
                 Instance.tutorialPopups[i].gameObject.SetActive(true);
