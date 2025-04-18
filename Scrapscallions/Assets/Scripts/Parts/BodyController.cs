@@ -19,7 +19,9 @@ namespace Scraps.Parts
         [SerializeField] private Transform m_leftArmAttachPoint;
         [SerializeField] private Transform m_rightArmAttachPoint;
         [SerializeField] private ActionController m_bashController;
+        [SerializeField] private PowerUpController m_powerUpController;
         [SerializeField] private Sensor m_bashSensor;
+        [SerializeField] private Sensor m_powerUpSensor;
         public Transform HeadAttachPoint { get => m_headAttachPoint; }
         public Transform LeftArmAttachPoint { get => m_leftArmAttachPoint; }
         public Transform RightArmAttachPoint { get => m_rightArmAttachPoint; }
@@ -28,6 +30,9 @@ namespace Scraps.Parts
         {
             base.Initialize(robot);
             m_bashController.Initialize(this);
+
+            if (m_powerUpController != null)
+                m_powerUpController.Initialize(this);
         }
         override public void Break()
         {
@@ -57,12 +62,36 @@ namespace Scraps.Parts
                 .WithStrategy(ScriptableObject.CreateInstance<MoveToStrategy>().Initialize(m_robot.State, () => m_robot.State.target().transform.position, m_bashSensor.detectionRadius / 2))
                 .Build()
             );
+
+            if(!m_robot.State.isPlayer && m_powerUpController != null)
+            {
+                actions.Add(new AgentAction.Builder(m_powerUpController.ActionName)
+                    .WithCost(3)
+                    .WithPrecondition(agentBeliefs[m_powerUpController.ActionName + "Ready"])
+                    .WithPrecondition(agentBeliefs[m_powerUpController.ActionName + "InRange"])
+                    .AddEffect(agentBeliefs["AttackingOpponent"])
+                    .WithStrategy(ScriptableObject.CreateInstance<PowerUpStrategy>().Initialize(m_powerUpController)) 
+                    .Build()
+                );
+            }
         }
 
         override public void GetBeliefs(GoapAgent agent, Dictionary<string, AgentBelief> agentBeliefs)
         {
             BeliefFactory beliefFactory = new(agent, agentBeliefs);
             beliefFactory.AddSensorBelief("InBashRange", m_bashSensor);
+
+            if (m_powerUpController != null) {
+                beliefFactory.AddBelief(m_powerUpController.ActionName + "Ready", () => m_powerUpController.IsReady);
+                if (m_powerUpSensor != null)
+                {
+                    beliefFactory.AddSensorBelief(m_powerUpController.ActionName + "InRange", m_powerUpSensor);
+                }
+                else
+                {
+                    beliefFactory.AddBelief(m_powerUpController.ActionName + "InRange", () => true);
+                }
+            }
         }
 
         override public void GetGoals(GoapAgent agent, SerializableHashSet<AgentGoal> goals, Dictionary<string, AgentBelief> agentBeliefs)

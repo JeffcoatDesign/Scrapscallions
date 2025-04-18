@@ -1,4 +1,5 @@
 using Scraps.Parts;
+using Scraps.Utilities;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,8 +12,10 @@ namespace Scraps.Gameplay
     {
         [SerializeField] private List<LootTableEntry> m_entries = new();
         [SerializeField] private float m_rareChance, m_epicChance;
+        [SerializeField] private float m_skewQuotient = 2;
+        [Header("Difficulty Curves")]
         [SerializeField] private AnimationCurve m_healthCurve;
-        internal RobotPart GetRandomPart(PartType type, Rarity rarity = Rarity.Any, bool randomizeHealth = false)
+        internal RobotPart GetRandomPart(PartType type, Rarity rarity = Rarity.Any, bool randomizeHealth = false, float skew = 0)
         {
             RobotPart part = null;
             List<LootTableEntry> parts;
@@ -24,16 +27,19 @@ namespace Scraps.Gameplay
             if (rarity == Rarity.Any)
             {
                 float commonChance = 1f - m_rareChance - m_epicChance;
-                float randomValue = Random.Range(0f, 1f);
+                float randomValue = MathUtility.NormalizedRandom(0, 1) + skew;
                 bool isCommon = randomValue < commonChance;
-                bool isRare = !isCommon && randomValue < m_epicChance;
+                bool isRare = !isCommon && randomValue < 1 - m_epicChance;
+
                 if (isCommon) rarity = Rarity.Common;
                 else if (isRare) rarity = Rarity.Rare;
                 else rarity = Rarity.Epic;
             }
+
             if (parts.Where(p => p.rarity == rarity).Count() > 0)
                 parts.RemoveAll(p => p.rarity != rarity);
             if (parts.Count == 0) Debug.Log("No part found");
+
             //Look for a less rare part if none are found
             if (parts.Count < 1 && rarity != Rarity.Common) GetRandomPart(type, rarity - 1);
             else if (parts.Count < 1 && rarity != Rarity.Epic) GetRandomPart(type, rarity + 1);
@@ -45,8 +51,8 @@ namespace Scraps.Gameplay
 
             if (randomizeHealth)
             {
-                float randomValue = m_healthCurve.Evaluate(Random.Range(0f, 1f));
-                part.CurrentHP = Mathf.RoundToInt(randomValue * part.MaxHP);
+                float randomValue = m_healthCurve.Evaluate(MathUtility.NormalizedRandom(0.1f) + skew);
+                part.CurrentHP = Mathf.Clamp(Mathf.RoundToInt(randomValue * part.MaxHP), 0, int.MaxValue);
             } 
             else
                 part.CurrentHP = part.MaxHP;
@@ -54,14 +60,15 @@ namespace Scraps.Gameplay
             return part;
         }
 
-        public Robot GetRandomRobot(bool randomizeHealth = false)
+        public Robot GetRandomRobot(int numDefeated, bool randomizeHealth = false)
         {
+            float skew = numDefeated / m_skewQuotient;
             Robot robot = CreateInstance<Robot>();
-            robot.head = (RobotPartHead)GetRandomPart(PartType.Head, Rarity.Any, randomizeHealth);
-            robot.leftArm = (RobotPartArm)GetRandomPart(PartType.Arm, Rarity.Any, randomizeHealth);
-            robot.rightArm = (RobotPartArm)GetRandomPart(PartType.Arm, Rarity.Any, randomizeHealth);
-            robot.body = (RobotPartBody)GetRandomPart(PartType.Body, Rarity.Any, randomizeHealth);
-            robot.legs = (RobotPartLegs)GetRandomPart(PartType.Legs, Rarity.Any, randomizeHealth);
+            robot.head = (RobotPartHead)GetRandomPart(PartType.Head, Rarity.Any, randomizeHealth, skew);
+            robot.leftArm = (RobotPartArm)GetRandomPart(PartType.Arm, Rarity.Any, randomizeHealth, skew);
+            robot.rightArm = (RobotPartArm)GetRandomPart(PartType.Arm, Rarity.Any, randomizeHealth, skew);
+            robot.body = (RobotPartBody)GetRandomPart(PartType.Body, Rarity.Any, randomizeHealth, skew);
+            robot.legs = (RobotPartLegs)GetRandomPart(PartType.Legs, Rarity.Any, randomizeHealth, skew);
             return robot;
         }
 

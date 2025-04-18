@@ -147,6 +147,11 @@ namespace Scraps.AI.GOAP
         {
             if (!m_isInitialized || !m_isAIEnabled) return;
 
+            if (robot.State.freezeTime > 0)
+            {
+                robot.State.freezeTime -= Time.deltaTime;
+            }
+
             if (currentAction == null)
             {
                 //Debug.Log("Calculating any potential new plan");

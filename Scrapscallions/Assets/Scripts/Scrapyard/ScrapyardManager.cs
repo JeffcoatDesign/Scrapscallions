@@ -17,17 +17,21 @@ namespace Scraps.Gameplay
 
         public ScrapyardCollection collection;
         [SerializeField] private LootTable m_lootTable;
+        [SerializeField] private float m_timeUntilScreen = 3f;
+        [Header("UI")]
         [SerializeField] private GameObject m_playerIndicator;
         [SerializeField] private GameObject m_winScreen;
         [SerializeField] private GameObject m_loseScreen;
         private bool m_gameOver = false;
         private MusicPlayer m_musicPlayer;
+        private int m_robotsDefeated = 0;
         public void KeepGoing()
         {
+            m_gameOver = false;
             m_winScreen.SetActive(false);
             PostProcessingManager.Instance.HideVignette();
 
-            opponentRobot = m_lootTable.GetRandomRobot();
+            opponentRobot = m_lootTable.GetRandomRobot(m_robotsDefeated, true);
 
             int index = UnityEngine.Random.Range(0, m_spawnPoints.Count);
             SpawnRobot(opponentRobot, m_spawnPoints[index], playerRobot, false);
@@ -60,7 +64,7 @@ namespace Scraps.Gameplay
         private void Start()
         {
             playerRobot = InventoryManager.Instance.myRobot.Copy();
-            opponentRobot = m_lootTable.GetRandomRobot(true);
+            opponentRobot = m_lootTable.GetRandomRobot(m_robotsDefeated, true);
 
             List<Transform> spawnPoints = m_spawnPoints;
             
@@ -82,8 +86,9 @@ namespace Scraps.Gameplay
 
             m_gameOver = true;
             Debug.Log("The Heap Won!");
-            m_loseScreen.SetActive(true);
+
             Time.timeScale = 0.5f;
+            Invoke(nameof(ShowLoseScreen), m_timeUntilScreen);
 
             PostProcessingManager.Instance.ShowVignette();
 
@@ -96,16 +101,19 @@ namespace Scraps.Gameplay
         protected override void OnPlayerWon()
         {
             if (m_gameOver) return;
+            m_gameOver = true;
 
             playerAgent.kinematic.DisableMovement();
             opponentRobot.agent.Died -= OnPlayerWon;
             collection.GetPartFromRobot(opponentRobot);
 
+            m_robotsDefeated++;
+
             PostProcessingManager.Instance.ShowVignette();
 
             Time.timeScale = 0.5f;
+            Invoke(nameof(ShowWinScreen), m_timeUntilScreen);
 
-            m_winScreen.SetActive(true);
             m_battleUI.isTimerGoing = false;
 
             CinematicManager.instance.RemoveTarget(opponentRobot.AgentObject().transform);
@@ -127,6 +135,16 @@ namespace Scraps.Gameplay
             {
                 LoadMenu();
             }
+        }
+
+        private void ShowWinScreen()
+        {
+            m_winScreen.SetActive(true);
+        }
+
+        private void ShowLoseScreen()
+        {
+            m_loseScreen.SetActive(true);
         }
     }
 }

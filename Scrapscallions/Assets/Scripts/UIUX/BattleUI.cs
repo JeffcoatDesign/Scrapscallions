@@ -62,8 +62,11 @@ namespace Scraps.UI
 
         private void Start()
         {
-            playerHP.maxValue = InventoryManager.Instance.myRobot.TotalMaxHP;
-            playerHP.value = InventoryManager.Instance.myRobot.TotalCurrentHP;
+            if (InventoryManager.Instance != null)
+            {
+                playerHP.maxValue = InventoryManager.Instance.myRobot.TotalMaxHP;
+                playerHP.value = InventoryManager.Instance.myRobot.TotalCurrentHP;
+            }
 
             enemyHP.maxValue = GameManager.Instance.opponentRobot.TotalMaxHP;
             enemyHP.value = GameManager.Instance.opponentRobot.TotalCurrentHP;

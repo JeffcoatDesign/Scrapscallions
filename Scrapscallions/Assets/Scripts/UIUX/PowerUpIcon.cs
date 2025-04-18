@@ -20,7 +20,7 @@ namespace Scraps.UI
             m_text.text = $"[{powerUpController.powerUpKey.ToUpper()}]";
 
             powerUpController.CooledDown += OnStatusChanged;
-            powerUpController.Activated += OnStatusChanged;
+            powerUpController.OnActivated.AddListener(OnStatusChanged);
 
             OnStatusChanged();
         }
@@ -30,7 +30,7 @@ namespace Scraps.UI
             if (m_powerUpController != null)
             {
                 m_powerUpController.CooledDown -= OnStatusChanged;
-                m_powerUpController.Activated -= OnStatusChanged;
+                m_powerUpController.OnActivated.RemoveListener(OnStatusChanged);
             }
         }
 

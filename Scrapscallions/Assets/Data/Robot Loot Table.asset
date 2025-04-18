@@ -55,29 +55,39 @@ MonoBehaviour:
   - rarity: 3
     partType: 3
     part: {fileID: 11400000, guid: 88ec8a085c2444049b45f12e3049c1cf, type: 2}
-  m_rareChance: 0.3
+  - rarity: 2
+    partType: 2
+    part: {fileID: 11400000, guid: beb8b2d7aa11ac14b9cb5b8d5c9c0d14, type: 2}
+  - rarity: 1
+    partType: 3
+    part: {fileID: 11400000, guid: 953e52c3a9fabe14f900e52a41b26d3a, type: 2}
+  - rarity: 2
+    partType: 2
+    part: {fileID: 11400000, guid: 4514914f5b73eb34fa892215afefe409, type: 2}
+  m_rareChance: 0.4
   m_epicChance: 0.05
+  m_skewQuotient: 100
   m_healthCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0.16184959
       value: 0.20218265
-      inSlope: 0.03284435
-      outSlope: 0.03284435
+      inSlope: 0.08837772
+      outSlope: 0.08837772
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.7219421
+      outWeight: 0.2743017
     - serializedVersion: 3
-      time: 0.6250497
-      value: 0.6582929
-      inSlope: 2.4616013
-      outSlope: 2.4616013
-      tangentMode: 34
+      time: 0.6800792
+      value: 0.6633233
+      inSlope: 2.6829224
+      outSlope: 2.6829224
+      tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
+      inWeight: 0.0801211
+      outWeight: 1
     - serializedVersion: 3
       time: 0.7121124
       value: 1.0011902
