@@ -14,6 +14,7 @@ namespace Assets.Scripts.Parts
         [SerializeField] float m_shrinkSpeed = 0.05f;
         [SerializeField] float m_dropSpeed = 0.1f;
         [SerializeField] float m_timeUntilShrink = 10f;
+        public bool IsDetached { get; set; } = false;
         private void OnEnable()
         {
             if (part != null)
@@ -49,6 +50,8 @@ namespace Assets.Scripts.Parts
                 gameObject.AddComponent<BoxCollider>();
             }
 
+            IsDetached = true;
+
             Invoke(nameof(DisableColliders), m_timeUntilDisableColliders);
 
             if (m_doesShrinkAndDisappear)
@@ -57,6 +60,11 @@ namespace Assets.Scripts.Parts
 
         private IEnumerator DropBody(Transform body)
         {
+            DetachOnBreak bodyDetachPoint = body.GetChild(0).GetComponent<DetachOnBreak>();
+            if (bodyDetachPoint != null) {
+                bodyDetachPoint.IsDetached = true;
+            }
+
             Vector3 velocity = Vector3.zero;
             while (body.localPosition.y > 0)
             {

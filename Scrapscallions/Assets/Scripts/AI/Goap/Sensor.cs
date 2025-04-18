@@ -73,6 +73,8 @@ public class Sensor : MonoBehaviour
 
     void UpdateTargetPosition()
     {
+        //TODO, remove broken parts
+
         if(IsTargetInRange && (lastKnownPosition != TargetPosition || lastKnownPosition != Vector3.zero))
         {
             if (Target == null && m_collidingParts.Count > 0)
@@ -98,14 +100,14 @@ public class Sensor : MonoBehaviour
             if (otherPart.GetRobot() == null) return;
             bool partIsNull = m_part == null;
             bool partRobotIsNull = partIsNull ? true : m_part.GetRobot() == null;
-            if (!partIsNull && m_part.GetRobot() == otherPart.GetRobot())
+            if (partIsNull || otherPart.isBroken || partRobotIsNull)
             {
-                //Debug.Log("From the same robot");
+                //Part is invalid
                 return;
             }
-            else if (otherPart.isBroken || partIsNull || partRobotIsNull)
+            else if (m_part.GetRobot() == otherPart.GetRobot())
             {
-                //Debug.Log("Sensor's robot not found");
+                //The same robot
                 return;
             }
         }

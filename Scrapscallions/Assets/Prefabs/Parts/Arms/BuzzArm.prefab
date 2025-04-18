@@ -79,6 +79,7 @@ MonoBehaviour:
   m_armController: {fileID: 4876686782989000796}
   m_attackCollider: {fileID: 364147913822322774}
   m_meleeSensor: {fileID: 3120394889155600356}
+  m_relaxedRotation: {x: 0, y: 0, z: 0}
   m_attackRotation: {x: -90, y: 0, z: 0}
   m_peakSwing: 0.5
 --- !u!114 &7860899771372761746

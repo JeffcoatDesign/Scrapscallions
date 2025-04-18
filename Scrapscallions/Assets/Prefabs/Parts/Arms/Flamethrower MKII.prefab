@@ -137,10 +137,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_visualEffect: {fileID: 6588125431173149339}
   m_attackCollider: {fileID: 3434555227979059538}
-  m_rangedArmController: {fileID: 8109103142882329366}
+  m_armController: {fileID: 8109103142882329366}
   m_sensor: {fileID: 4599632695647915415}
   m_fireTickTime: 1
-  <ActionLength>k__BackingField: 3
+  <ActionLength>k__BackingField: 5
   <CooldownTime>k__BackingField: 4
 --- !u!65 &3434555227979059538
 BoxCollider:
@@ -259,75 +259,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!1 &3275736042794230819
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7104431779100533307}
-  - component: {fileID: 8050912733181228817}
-  - component: {fileID: 634261222287309664}
-  m_Layer: 0
-  m_Name: Too Close Sensor
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7104431779100533307
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3275736042794230819}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2941288935419407953}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &8050912733181228817
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3275736042794230819}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &634261222287309664
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3275736042794230819}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ae61107f5b9c35468f94f5b794c6fef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  detectionRadius: 0.5
-  timerInterval: 1
-  m_part: {fileID: 8109103142882329366}
 --- !u!1 &4377433661880628463
 GameObject:
   m_ObjectHideFlags: 0
@@ -364,7 +295,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6045439770568295231}
-  - {fileID: 7104431779100533307}
   - {fileID: 5352892706331025845}
   - {fileID: 5769074850976535550}
   - {fileID: 5387265708204939639}
@@ -379,7 +309,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4377433661880628463}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a9a50340bce0e324cbec82f858028107, type: 3}
+  m_Script: {fileID: 11500000, guid: 8b81751234b653c41b797871d521e954, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   side: 0
@@ -389,8 +319,6 @@ MonoBehaviour:
   m_actionController: {fileID: 1127691821109781028}
   arm: {fileID: 0}
   isBehaviourReady: 0
-  m_opponentCloseSensor: {fileID: 634261222287309664}
-  m_aimsWithDown: 0
 --- !u!65 &4161171900873313623
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -453,6 +381,7 @@ MonoBehaviour:
   m_timeUntilDisableColliders: 2
   m_doesShrinkAndDisappear: 1
   m_shrinkSpeed: 0.05
+  m_dropSpeed: 0.1
   m_timeUntilShrink: 10
 --- !u!82 &5935629750043124169
 AudioSource:

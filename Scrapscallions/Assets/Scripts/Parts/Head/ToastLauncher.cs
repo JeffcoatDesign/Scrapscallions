@@ -21,16 +21,14 @@ namespace Scraps.Parts
         private void OnEnable()
         {
             m_headController.PartInitialized += OnInitialize;
-            m_powerUpController.Activated += OnActivated;
         }
 
         private void OnDisable()
         {
             m_headController.PartInitialized -= OnInitialize;
-            m_powerUpController.Activated -= OnActivated;
         }
 
-        private void OnActivated()
+        public void Activate()
         {
             if (m_toast != null)
                 FireToast();

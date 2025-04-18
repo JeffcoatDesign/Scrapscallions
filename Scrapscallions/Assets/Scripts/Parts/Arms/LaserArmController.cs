@@ -19,7 +19,7 @@ namespace Scraps.Parts
             m_powerUpController = GetComponent<PowerUpController>();
             if (m_powerUpController != null)
             {
-                m_powerUpController.Activated += OnLaserActivated;
+                m_powerUpController.OnActivated.AddListener(OnLaserActivated);
                 m_powerUpController.ActionCompleted += OnLaserStopped;
                 m_powerUpController.Initialize(this);
             }

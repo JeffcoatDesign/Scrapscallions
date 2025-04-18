@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9aa804005aa56d049bac21f7c7e68273, type: 3}
+  m_Name: Fridge
+  m_EditorClassIdentifier: 
+  <PartName>k__BackingField: Fridge
+  <MaxHP>k__BackingField: 15
+  <CurrentHP>k__BackingField: 15
+  <Price>k__BackingField: 10
+  <Prefab>k__BackingField: {fileID: 4797223487188948200, guid: c69580aed5939114b81a04310efb972a, type: 3}
+  <ItemID>k__BackingField: 0
+  <Sprite>k__BackingField: {fileID: 21300000, guid: 0e59c73fb5855264ca1ff6060a0764e1, type: 3}
+  <IsBroken>k__BackingField: 0

@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   head: {fileID: 11400000, guid: a722dd81783dbdf4ea232f7243046a89, type: 2}
   body: {fileID: 11400000, guid: 3e7e5b77f446df346b77521b1e89cbaf, type: 2}
-  legs: {fileID: 11400000, guid: 6d2b8c68705e29d40beb3172dff0cee5, type: 2}
-  leftArm: {fileID: 11400000, guid: 0f1541b366a894546810612d0139e716, type: 2}
+  legs: {fileID: 11400000, guid: 5f4afdf4a518a70419ac3c742e4b8a21, type: 2}
+  leftArm: {fileID: 11400000, guid: 899228efb70230645a057419b0d6916c, type: 2}
   rightArm: {fileID: 11400000, guid: 899228efb70230645a057419b0d6916c, type: 2}
   agent: {fileID: 0}
   headController: {fileID: 0}

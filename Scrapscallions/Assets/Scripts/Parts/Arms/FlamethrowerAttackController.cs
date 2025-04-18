@@ -12,7 +12,7 @@ namespace Scraps.Parts
     {
         [SerializeField] private VisualEffect m_visualEffect;
         [SerializeField] private Collider m_attackCollider;
-        [SerializeField] private RangedArmController m_rangedArmController;
+        [SerializeField] private ArmController m_armController;
         [SerializeField] private Sensor m_sensor;
         [SerializeField] private float m_fireTickTime = 1f;
         private AudioSource m_audioSource;
@@ -35,7 +35,7 @@ namespace Scraps.Parts
 
         private void OnEnable()
         {
-            m_visualEffect.enabled = false;
+            m_visualEffect.Stop();
             m_attackCollider.enabled = false;
             m_audioSource = GetComponent<AudioSource>();
 
@@ -51,7 +51,7 @@ namespace Scraps.Parts
         {
             m_visualEffect = GetComponent<VisualEffect>();
             m_attackCollider = GetComponent<Collider>();
-            m_rangedArmController.transform.parent.TryGetComponent(out m_rangedArmController);
+            transform.parent.TryGetComponent(out m_armController);
         }
 
         private IEnumerator FlamethrowerAttack()
@@ -59,37 +59,41 @@ namespace Scraps.Parts
             IsTakingAction = true;
 
             m_audioSource.Play();
-            m_visualEffect.enabled = true;
+            m_visualEffect.Play();
             m_attackCollider.enabled = true;
             m_fireTickReady = true;
             float startTime = Time.time;
             Vector3 rotation = Vector3.zero;
-            Quaternion startRotation = m_rangedArmController.transform.localRotation;
-            Vector3 directionToTarget = m_rangedArmController.transform.forward;
-            if (m_sensor.TargetPosition != Vector3.zero)
-                directionToTarget = (m_sensor.TargetPosition - m_rangedArmController.transform.position).normalized;
-
-            Vector3 targetAngle = Quaternion.LookRotation(directionToTarget).eulerAngles;
-            Quaternion endRotation = Quaternion.LookRotation(directionToTarget);
+            //Quaternion startRotation = m_armController.transform.localRotation;
+            Vector3 directionToTarget = m_armController.transform.forward;
 
             while (Time.time - startTime < ActionLength)
             {
-                float t = (Time.time - startTime) / ActionLength;
+                //float t = (Time.time - startTime) / ActionLength;
 
-                Debug.DrawLine(m_rangedArmController.transform.position, m_rangedArmController.transform.position + directionToTarget, Color.yellow);
+                if (m_sensor.TargetPosition != Vector3.zero)
+                {
+                    directionToTarget = (m_sensor.TargetPosition - m_armController.transform.position).normalized;
+                } else
+                {
+                    directionToTarget = m_armController.transform.parent.forward;
+                }
+                Quaternion endRotation = Quaternion.LookRotation(directionToTarget);
 
-                m_rangedArmController.transform.localRotation = Quaternion.Lerp(startRotation, endRotation, t);
+                Debug.DrawLine(m_armController.transform.position, m_armController.transform.position + directionToTarget, Color.yellow);
+
+                m_armController.transform.localRotation = Quaternion.Lerp(m_armController.transform.localRotation, endRotation, 0.1f);
 
                 //m_rangedArmController.transform.localRotation = Quaternion.Euler(rotation);
                 yield return new WaitForEndOfFrame();
             }
 
-            m_rangedArmController.transform.localRotation = Quaternion.identity;
+            m_armController.transform.localRotation = Quaternion.identity;
             //Action Finished
             ActionCompleted?.Invoke();
             m_audioSource.Stop();
             m_attackCollider.enabled = false;
-            m_visualEffect.enabled = false;
+            m_visualEffect.Stop();
             IsTakingAction = false;
             IsReady = false;
 
@@ -101,13 +105,13 @@ namespace Scraps.Parts
         {
             if(other.TryGetComponent(out PartController part))
             {
-                if (part.GetRobot() == m_rangedArmController.GetRobot()) return;
+                if (part.GetRobot() == m_armController.GetRobot()) return;
 
                 if(m_fireTickReady)
                 {
                     m_fireTickReady = false;
 
-                    part.Hit(m_rangedArmController.arm.AttackDamage);
+                    part.Hit(m_armController.arm.AttackDamage);
 
                     m_fireTickTimer.Start();
                 }

@@ -15,7 +15,7 @@ MonoBehaviour:
   head: {fileID: 11400000, guid: 69244bc8865b31c498fa57f050b8a7b5, type: 2}
   body: {fileID: 11400000, guid: aa45c68a164be3541bb93ed4b818682e, type: 2}
   legs: {fileID: 11400000, guid: 9a14100331d55b746b4421810ab93849, type: 2}
-  leftArm: {fileID: 11400000, guid: e4145b0c6f363c14aab365566b53bef3, type: 2}
+  leftArm: {fileID: 11400000, guid: 953e52c3a9fabe14f900e52a41b26d3a, type: 2}
   rightArm: {fileID: 11400000, guid: 2a19679e74095ee47a47571efdf3b8c8, type: 2}
   agent: {fileID: 0}
   headController: {fileID: 0}

@@ -5,6 +5,7 @@ using Scraps.UI;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Scraps.Parts
 {
@@ -27,7 +28,7 @@ namespace Scraps.Parts
         public override Action ActionCompleted { get; set; }
         [field: SerializeField] public override string ActionName { get; set; } = "Power Up";
 
-        public event Action Activated;
+        public UnityEvent OnActivated = new();
 
         private CountdownTimer m_powerUpTimer;
 
@@ -85,7 +86,7 @@ namespace Scraps.Parts
             IsCooledDown = false;
             m_powerUpTimer.Start();
             IsTakingAction = true;
-            Activated?.Invoke();
+            OnActivated?.Invoke();
         }
 
         public override void Initialize(PartController part)
