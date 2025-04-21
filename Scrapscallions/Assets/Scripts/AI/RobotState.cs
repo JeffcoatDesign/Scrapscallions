@@ -24,6 +24,7 @@ namespace Scraps
         public bool isAlive = true;
         internal bool isPursuing = true;
         public bool isPlayer;
+        public float freezeTime = 0;
 
         private bool m_canMove = true;
         public bool CanMove
@@ -32,7 +33,7 @@ namespace Scraps
             {
                 if(LegsController != null)
                 {
-                    return !LegsController.isBroken && m_canMove;
+                    return !LegsController.isBroken && !(freezeTime > 0) && m_canMove;
                 }
                 return false;
             }

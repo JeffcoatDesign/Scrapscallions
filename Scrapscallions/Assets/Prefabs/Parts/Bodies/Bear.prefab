@@ -69,7 +69,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_partController: {fileID: 7417824465601972654}
-  canHit: 0
 --- !u!1 &1923941807881072154
 GameObject:
   m_ObjectHideFlags: 0
@@ -214,6 +213,7 @@ Transform:
   - {fileID: 3116795395034306231}
   - {fileID: 899226459292168665}
   - {fileID: 6491932687549396641}
+  - {fileID: 5548146905456488051}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7417824465601972654
@@ -233,7 +233,9 @@ MonoBehaviour:
   m_leftArmAttachPoint: {fileID: 7339772013797732631}
   m_rightArmAttachPoint: {fileID: 451392982645304795}
   m_bashController: {fileID: 7233408331520085268}
+  m_powerUpController: {fileID: 4565726803289633796}
   m_bashSensor: {fileID: 8530481680492834755}
+  m_powerUpSensor: {fileID: 0}
 --- !u!136 &2651462286546290906
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -277,6 +279,7 @@ MonoBehaviour:
   m_timeUntilDisableColliders: 2
   m_doesShrinkAndDisappear: 1
   m_shrinkSpeed: 0.05
+  m_dropSpeed: 0.1
   m_timeUntilShrink: 10
 --- !u!82 &2603364743854946318
 AudioSource:
@@ -422,13 +425,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d09a79af1ba614542a455773cf5768da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_mainPowerUpKey: 3
-  m_altPowerUpKey: 4
-  m_readyUI: {fileID: 0}
-  m_keyText: {fileID: 0}
+  m_mainPowerUpKey: s
+  m_altPowerUpKey: s
+  partController: {fileID: 7417824465601972654}
+  powerUpKey: 
   <ActionLength>k__BackingField: 3
   <CooldownTime>k__BackingField: 4
-  <ActionName>k__BackingField: Power Up
+  <ActionName>k__BackingField: Bear Dash Power Up
+  OnActivated:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1508782709955168417}
+        m_TargetAssemblyTypeName: Scraps.Parts.PowerUps.BearPowerUp, Assembly-CSharp
+        m_MethodName: Activate
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &5286033237210595332
 GameObject:
   m_ObjectHideFlags: 0
@@ -460,6 +478,56 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1250228512337649411}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5998819063886579003
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5548146905456488051}
+  - component: {fileID: 1508782709955168417}
+  m_Layer: 0
+  m_Name: Bear Dash Power Up
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5548146905456488051
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5998819063886579003}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1250228512337649411}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1508782709955168417
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5998819063886579003}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5ca8c6e57440844f91268fd6d149d44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_partController: {fileID: 7417824465601972654}
+  m_attackCollider: {fileID: 2639812568072330684}
+  m_leapForce: 2
+  m_leapTime: 0.5
+  m_anticipationForce: 1
+  m_anticipationTime: 0.3
 --- !u!1 &8102327303557818105
 GameObject:
   m_ObjectHideFlags: 0

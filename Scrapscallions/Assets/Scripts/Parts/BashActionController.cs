@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Assets.Scripts.Parts;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -10,6 +11,7 @@ namespace Scraps.Parts
     {
         [SerializeField] private AttackCollider m_attackCollider;
         [SerializeField] private float m_bashForce = 2f;
+        private DetachOnBreak m_detachOnBreak;
         private PartController m_part;
         public override bool IsTakingAction { get; set; } = false;
         public override bool IsReady { get { return !IsTakingAction && IsCooledDown; } set { } }
@@ -24,6 +26,7 @@ namespace Scraps.Parts
         protected override void Awake()
         {
             base.Awake();
+            m_detachOnBreak = GetComponent<DetachOnBreak>();
         }
 
         private void OnDisable()
@@ -49,10 +52,15 @@ namespace Scraps.Parts
                     Vector3 direction = robot.State.target().transform.position - robot.State.Position;
                     robot.State.SetDestination(() => robot.State.Position);
                     direction.Normalize();
-                    robot.agent.GetComponent<Rigidbody>().AddForce(-direction * m_bashForce / 2, ForceMode.Impulse);
+                    Rigidbody rb = null;
+                    if (m_detachOnBreak.IsDetached)
+                        rb = GetComponent<Rigidbody>();
+                    else
+                        rb = robot.agent.GetComponent<Rigidbody>();
+                    rb.AddForce(-direction * m_bashForce / 2, ForceMode.Impulse);
                     yield return new WaitForSeconds(0.3f);
                     robot.State.SetDestination(() => robot.State.target().transform.position);
-                    robot.agent.GetComponent<Rigidbody>().AddForce(direction * m_bashForce, ForceMode.Impulse);
+                    rb.AddForce(direction * m_bashForce, ForceMode.Impulse);
                     m_attackCollider.CanHit = true;
 
                     yield return new WaitForSeconds(ActionLength);

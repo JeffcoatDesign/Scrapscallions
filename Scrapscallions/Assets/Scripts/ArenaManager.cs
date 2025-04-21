@@ -17,6 +17,7 @@ namespace Scraps.Gameplay
         [SerializeField] private LootTable m_lootTable;
         [SerializeField] private GameObject m_playerIndicator;
         [SerializeField] private int m_prizeMoney = 15;
+        [SerializeField] private float m_timeUntilWinner = 3f;
 
         private void Start()
         {
@@ -40,7 +41,6 @@ namespace Scraps.Gameplay
         protected override void OnPlayerLost()
         {
             Debug.Log("Chassi Won!");
-            AnnounceWinner?.Invoke("Chassi");
 
             SlowTime();
 
@@ -50,13 +50,12 @@ namespace Scraps.Gameplay
             CinematicManager.instance.SetSingleTarget(opponentRobot.bodyController.transform);
             CinematicManager.instance.SetCamera(CinematicManager.CameraType.SingleTarget);
 
-            Invoke(nameof(LoadMenu), 3f);
+            Invoke(nameof(ShowPlayerLost), m_timeUntilWinner);
         }
 
         protected override void OnPlayerWon()
         {
             Debug.Log("Scrapscallions Won!");
-            AnnounceWinner?.Invoke("The Scrapscallions");
             InventoryManager.Instance.money += m_prizeMoney;
             PostProcessingManager.Instance.ShowVignette();
             playerAgent.kinematic.DisableMovement();
@@ -66,7 +65,7 @@ namespace Scraps.Gameplay
             CinematicManager.instance.SetSingleTarget(playerRobot.bodyController.transform);
             CinematicManager.instance.SetCamera(CinematicManager.CameraType.SingleTarget);
 
-            Invoke(nameof(LoadMenu), 3f);
+            Invoke(nameof(ShowPlayerLost), m_timeUntilWinner);
         }
 
         private void Update()
@@ -76,6 +75,18 @@ namespace Scraps.Gameplay
             { 
                 LoadMenu();
             }
+        }
+
+        private void ShowPlayerWon()
+        {
+            AnnounceWinner?.Invoke("The Scrapscallions");
+            Invoke(nameof(LoadMenu), 3f);
+        }
+
+        private void ShowPlayerLost()
+        {
+            AnnounceWinner?.Invoke("Chassi");
+            Invoke(nameof(LoadMenu), 3f);
         }
     }
 }

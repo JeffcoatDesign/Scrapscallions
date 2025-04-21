@@ -20,6 +20,7 @@ namespace Scraps.Parts
         [SerializeField] private ArmController m_armController;
         [SerializeField] AttackCollider m_attackCollider;
         [SerializeField] Sensor m_meleeSensor;
+        [SerializeField] Vector3 m_relaxedRotation;
         [SerializeField] Vector3 m_attackRotation;
         [SerializeField] private float m_peakSwing = 0.5f;
         private ScrapsSFX m_sfx;
@@ -31,6 +32,18 @@ namespace Scraps.Parts
             if (m_armController == null) m_armController = GetComponent<ArmController>();
 
             m_armController.PartInitialized += OnInitialize;
+            m_armController.PartBroken += OnBreak;
+        }
+
+        private void OnDisable()
+        {
+            m_armController.PartBroken -= OnBreak;
+        }
+
+        private void OnBreak()
+        {
+            m_attackCollider.CanHit = false;
+            StopAllCoroutines();
         }
 
         private void OnInitialize()
@@ -51,7 +64,6 @@ namespace Scraps.Parts
                 m_sfx.Play();
             m_attackCollider.CanHit = true;
             float startTime = Time.time;
-            Vector3 rotation = Vector3.zero;
             Quaternion startRotation = transform.localRotation;
             Vector3 targetForward = m_meleeSensor.TargetPosition - transform.position;
             targetForward *= 0.2f;
@@ -94,6 +106,16 @@ namespace Scraps.Parts
 
             StartCooldown();
             yield return null;
+        }
+
+        protected override void Update()
+        {
+            base.Update();
+
+            if(!IsTakingAction)
+            {
+                transform.localRotation = Quaternion.Lerp(transform.localRotation, Quaternion.Euler(m_relaxedRotation), 0.1f);
+            }
         }
     }
 }
