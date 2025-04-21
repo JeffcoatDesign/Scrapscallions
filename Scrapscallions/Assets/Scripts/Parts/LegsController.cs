@@ -2,6 +2,7 @@ using Scraps.AI.GOAP;
 using Scraps.Utilities;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Burst.Intrinsics;
 using UnityEngine;
 
 namespace Scraps.Parts
@@ -11,6 +12,8 @@ namespace Scraps.Parts
         [SerializeField] private Transform m_bodyAttachPoint;
         public RobotPartLegs legs;
         public Transform BodyAttachPoint { get => m_bodyAttachPoint; }
+        public override int CurrentHP { get => legs.CurrentHP; }
+        public override int MaxHP { get => legs.MaxHP; }
         override public void Break()
         {
             base.Break();

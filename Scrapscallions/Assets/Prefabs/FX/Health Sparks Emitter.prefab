@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5872969092763061219}
   - component: {fileID: 5315124011938900981}
   m_Layer: 0
-  m_Name: Sparks Emitter
+  m_Name: Health Sparks Emitter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -170,7 +170,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 7
+      scalar: 8
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -665,7 +665,7 @@ ParticleSystem:
   ShapeModule:
     serializedVersion: 6
     enabled: 1
-    type: 4
+    type: 2
     angle: 25
     length: 5
     boxThickness: {x: 0, y: 0, z: 0}
@@ -810,7 +810,7 @@ ParticleSystem:
           m_RotationOrder: 4
     arc:
       value: 360
-      mode: 0
+      mode: 2
       spread: 0
       speed:
         serializedVersion: 2
@@ -981,8 +981,8 @@ ParticleSystem:
       countCurve:
         serializedVersion: 2
         minMaxState: 3
-        scalar: 20
-        minScalar: 10
+        scalar: 2
+        minScalar: 1
         maxCurve:
           serializedVersion: 2
           m_Curve:
@@ -1039,8 +1039,8 @@ ParticleSystem:
       countCurve:
         serializedVersion: 2
         minMaxState: 3
-        scalar: 20
-        minScalar: 10
+        scalar: 3
+        minScalar: 1
         maxCurve:
           serializedVersion: 2
           m_Curve:

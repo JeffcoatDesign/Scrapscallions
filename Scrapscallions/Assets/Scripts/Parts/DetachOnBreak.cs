@@ -60,9 +60,9 @@ namespace Assets.Scripts.Parts
 
         private IEnumerator DropBody(Transform body)
         {
-            Transform childTransform = body.GetChild(0);
-                if (childTransform == null) childTransform = transform;
-            DetachOnBreak bodyDetachPoint = childTransform.GetComponent<DetachOnBreak>();
+            if (body.childCount > 0)
+                body = body.GetChild(0);
+            DetachOnBreak bodyDetachPoint = body.GetComponent<DetachOnBreak>();
             if (bodyDetachPoint != null) {
                 bodyDetachPoint.IsDetached = true;
             }

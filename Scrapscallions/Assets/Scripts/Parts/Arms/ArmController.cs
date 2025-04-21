@@ -20,6 +20,9 @@ namespace Scraps.Parts
 
         protected bool m_facingOpponent = true;
 
+        public override int CurrentHP { get => arm.CurrentHP; }
+        public override int MaxHP { get => arm.MaxHP; }
+
         private CountdownTimer m_attackReadyTimer;
 
         //TODO Check if the body breaks through Robot.body.Break action

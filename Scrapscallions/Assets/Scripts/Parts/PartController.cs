@@ -20,6 +20,8 @@ namespace Scraps.Parts
         internal Action PartBroken;
         internal Action PartInitialized;
         public Action Broke;
+        public abstract int CurrentHP { get; }
+        public abstract int MaxHP { get; }
 
         virtual public void Break()
         {

@@ -6,6 +6,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Dynamic;
+using Unity.Burst.Intrinsics;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -25,6 +26,9 @@ namespace Scraps.Parts
         public Transform HeadAttachPoint { get => m_headAttachPoint; }
         public Transform LeftArmAttachPoint { get => m_leftArmAttachPoint; }
         public Transform RightArmAttachPoint { get => m_rightArmAttachPoint; }
+
+        public override int CurrentHP { get => body.CurrentHP; }
+        public override int MaxHP { get => body.MaxHP; }
 
         public override void Initialize(Robot robot)
         {

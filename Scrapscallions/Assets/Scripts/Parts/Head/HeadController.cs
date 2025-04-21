@@ -4,6 +4,7 @@ using Scraps.Utilities;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Burst.Intrinsics;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -18,6 +19,9 @@ namespace Scraps.Parts
         [SerializeField] private PowerUpController m_powerUpController;
         public Dictionary<string, SteeringBehavior> SteeringBehaviors { get; private set; }
         public int hp = 1;
+
+        public override int CurrentHP { get => head.CurrentHP; }
+        public override int MaxHP { get => head.MaxHP; }
         public override void Initialize(Robot robot)
         {
             base.Initialize(robot);

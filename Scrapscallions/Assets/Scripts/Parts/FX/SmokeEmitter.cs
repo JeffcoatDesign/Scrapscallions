@@ -15,6 +15,9 @@ namespace Scraps.Parts
         {
             m_audioSource = GetComponent<AudioSource>();
             m_visualEffect = GetComponent<VisualEffect>();
+
+            if (m_visualEffect != null)
+                m_visualEffect.Stop();
             if (m_part != null)
             {
                 m_part.Broke += OnBreak;
@@ -30,7 +33,7 @@ namespace Scraps.Parts
 
         private void OnBreak()
         {
-            m_visualEffect.enabled = true;
+            m_visualEffect.Play();
             if (m_audioSource != null)
                 m_audioSource.Play();
         }
