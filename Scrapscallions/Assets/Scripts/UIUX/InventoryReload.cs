@@ -9,7 +9,7 @@ public class InventoryReload : MonoBehaviour
 {
     public InventoryManager inventoryManager;
     [SerializeField] private bool isShop;
-    [SerializeField] private bool inventoryPopulated;
+    public bool inventoryPopulated;
     [SerializeField] private GameObject tooExpensiveAlert;
     private Shop itemShop;
     int inventoryItemID;
@@ -30,6 +30,10 @@ public class InventoryReload : MonoBehaviour
         {
             if (!inventoryManager.isFirstTime && !inventoryPopulated)
             {
+                foreach (ItemSlot inventoryItem in GetComponentsInChildren<ItemSlot>())
+                {
+                    Destroy(inventoryItem.gameObject);
+                }
                 foreach (RobotPart inventoryItem in inventoryManager.itemParts)
                 {
                     inventoryItemID = inventoryItem.ItemID;
@@ -64,9 +68,19 @@ public class InventoryReload : MonoBehaviour
             }
             foreach (ItemSlot inventoryItem in GetComponentsInChildren<ItemSlot>())
             {
+                DragDrop dd = inventoryItem.GetComponentInChildren<DragDrop>();
+                if ((dd.botPart.ItemID == InventoryManager.Instance.myRobot.head.ItemID) ||
+                    (dd.botPart.ItemID == InventoryManager.Instance.myRobot.body.ItemID) ||
+                    (dd.botPart.ItemID == InventoryManager.Instance.myRobot.leftArm.ItemID) ||
+                    (dd.botPart.ItemID == InventoryManager.Instance.myRobot.rightArm.ItemID) ||
+                    (dd.botPart.ItemID == InventoryManager.Instance.myRobot.legs.ItemID))
+                {
+                    dd.canvasGroup.alpha = 0.5f;
+                    dd.draggable = false;
+                }
                 if (inventoryItem.gameObject.layer != 6)
                 {
-                    itemShop = inventoryItem.GetComponentInChildren<DragDrop>().AddComponent<Shop>();
+                    itemShop = dd.AddComponent<Shop>();
                     itemShop.shopInventory = this;
                     itemShop.tooExpensiveAlert = tooExpensiveAlert;
                 }
