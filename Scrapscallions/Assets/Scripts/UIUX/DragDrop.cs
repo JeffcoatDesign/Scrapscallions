@@ -52,7 +52,6 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
     {
         if (draggable)
         {
-            //Debug.Log("OnBeginDrag");
             canvasGroup.alpha = .5f;
             canvasGroup.blocksRaycasts = false;
             itemImage.maskable = false;
@@ -61,26 +60,28 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
 
     public void OnDrag(PointerEventData eventData)
     {
-        if(draggable)
+        if (draggable)
+        {
             rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;
+        }
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        //Debug.Log("OnEndDrag");
-        if (!dropped)
-            ResetDragDrop();
-        else
-            DisableDragDrop();
+        if (draggable)
+        {
+            if (!dropped)
+                ResetDragDrop();
+            else
+                DisableDragDrop();
+        }
     }
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        //Debug.Log("OnPointerDown");
         if (draggable)
         {
             EventSystem.current.SetSelectedGameObject(gameObject);
-            Debug.Log(GetComponentInParent<DragDropParentObject>());
             GetComponentInParent<DragDropParentObject>().gameObject.transform.SetAsLastSibling();
         }
     }

@@ -7,8 +7,7 @@ using UnityEngine;
 public class SetDefaultPartsUI : MonoBehaviour
 {
     public static SetDefaultPartsUI Instance;
-    private InventoryManager inventoryManager;
-    public DragDrop[] allItems;
+    public ItemSlot[] allItems;
     [SerializeField, Header("Equip Regions")] private ItemSlot headSlot;
     [SerializeField] private ItemSlot bodySlot;
     [SerializeField] private ItemSlot leftArmSlot;
@@ -19,36 +18,37 @@ public class SetDefaultPartsUI : MonoBehaviour
     public void Awake()
     {
         Instance = this;
-        SetParts();
     }
 
     public void SetParts()
     {
-        inventoryManager = FindAnyObjectByType<InventoryManager>();
-        allItems = InventoryManager.Instance.inventoryParent.GetComponentsInChildren<DragDrop>();
+        allItems = InventoryManager.Instance.inventoryParent.GetComponentsInChildren<ItemSlot>();
+        bool left = true;
 
-        m_displayRobot.gameObject.SetActive(true);
+        //m_displayRobot.gameObject.SetActive(true);
 
-        foreach (DragDrop dd in allItems)
+        foreach (ItemSlot IS in allItems)
         {
+            DragDrop dd = IS.GetComponentInChildren<DragDrop>();
             if (dd.gameObject.layer != 12)
             {
-                if (dd.botPart is RobotPartHead && dd.botPart.ItemID == inventoryManager.myRobot.head.ItemID)
+                if (dd.botPart is RobotPartHead)
                     headSlot.ForceEquip(dd);
-                else if (dd.botPart is RobotPartBody && dd.botPart.ItemID == inventoryManager.myRobot.body.ItemID)
+                else if (dd.botPart is RobotPartBody)
                     bodySlot.ForceEquip(dd);
                 else if (dd.botPart is RobotPartArm)
                 {
-                    if (dd.botPart.ItemID == inventoryManager.myRobot.leftArm.ItemID)
+                    if (left)
                         leftArmSlot.ForceEquip(dd);
-                    else if (dd.botPart.ItemID == inventoryManager.myRobot.rightArm.ItemID)
+                    else 
                         rightArmSlot.ForceEquip(dd);
+                    left = false;
                 }
                 else if (dd.botPart is RobotPartLegs)
                     legsSlot.ForceEquip(dd);
             }
 
-            m_displayRobot.Display(InventoryManager.Instance.myRobot);
+            //m_displayRobot.Display(InventoryManager.Instance.myRobot);
         }
     }
 

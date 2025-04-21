@@ -76,7 +76,8 @@ namespace Scraps.Parts
                     directionToTarget = (m_sensor.TargetPosition - m_armController.transform.position).normalized;
                 } else
                 {
-                    directionToTarget = m_armController.transform.parent.forward;
+                    if (m_armController.transform.parent != null)
+                        directionToTarget = m_armController.transform.parent.forward;
                 }
                 Quaternion endRotation = Quaternion.LookRotation(directionToTarget);
 

@@ -110,10 +110,19 @@ public class UIManager : MonoBehaviour
 
     public void NewGame()
     {
-        if(TutorialPopup.Instance != null)
-            TutorialPopup.Instance.gameObject.SetActive(true);
         if(!InventoryManager.Instance.isFirstTime)
             InventoryManager.Instance.NewGame();
+        for (int i = 0; i < TutorialManager.Instance.flags.Count; i++)
+        {
+            TutorialManager.Instance.flags[i] = false;
+        }
+        if (Input.GetKey(KeyCode.Tab) && Input.GetKey(KeyCode.Space))
+        {
+            for (int i = 0; i < TutorialManager.Instance.flags.Count; i++)
+            {
+                TutorialManager.Instance.flags[i] = true;
+            }
+        }
     }
 
     public void OpenBattle()

@@ -1,39 +1,44 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class TutorialPopup : MonoBehaviour
 {
-    public static TutorialPopup Instance;
-    [SerializeField] private GameObject[] tutorialPages;
-    private int currentPage;
-    public Button hubCloseButton;
+    [SerializeField] private List<GameObject> tutorialPages;
+    public int currentPage;
+    public Button relevantButton;
+    public int relevantFlag;
 
-    public void Awake()
+    public void Start()
     {
-        Instance = this;
-    }
-
-    void OnEnable()
-    {
-        if (!InventoryManager.Instance.isFirstTime)
+        if (TutorialManager.Instance.flags[relevantFlag])
+            Close();
+        else
         {
-            hubCloseButton.interactable = true;
-            gameObject.SetActive(false);
+            currentPage = 0;
+            tutorialPages[currentPage].gameObject.SetActive(true);
+            if (relevantButton != null)
+            {
+                Button butt = Instantiate(relevantButton);
+                butt.transform.SetParent(transform, false);
+                butt.onClick.AddListener(() =>
+                {
+                    Close();
+                });
+            }
         }
-        currentPage = 0;
-        tutorialPages[currentPage].gameObject.SetActive(true);
     }
 
     public void NextPage()
     {
         tutorialPages[currentPage].gameObject.SetActive(false);
         currentPage++;
-        if (currentPage >= tutorialPages.Length)
+        if (currentPage >= tutorialPages.Count)
         {
-            gameObject.SetActive(false);
-            hubCloseButton.interactable = true;
+            Debug.Log("Exceeded page count");
+            Close();
         }
         else
             tutorialPages[currentPage].gameObject.SetActive(true);
@@ -48,8 +53,12 @@ public class TutorialPopup : MonoBehaviour
 
     public void Close()
     {
-        hubCloseButton.interactable = true;
         InventoryManager.Instance.isFirstTime = false;
+        TutorialManager.Instance.SetFlag(relevantFlag);
+        if (relevantFlag + 1 < TutorialManager.Instance.flags.Count)
+        {
+            TutorialManager.Instance.OpenTutorial((relevantFlag + 1));
+        }
         gameObject.SetActive(false);
     }
 }

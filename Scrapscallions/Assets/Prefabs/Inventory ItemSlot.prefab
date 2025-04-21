@@ -68,7 +68,7 @@ MonoBehaviour:
   m_text: 'Maximum HP: XX'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1aa4831307b8a7441a3bdb6aefed7448, type: 2}
-  m_sharedMaterial: {fileID: -5600523687441274839, guid: 1aa4831307b8a7441a3bdb6aefed7448, type: 2}
+  m_sharedMaterial: {fileID: -8694941575342524414, guid: 1aa4831307b8a7441a3bdb6aefed7448, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -202,7 +202,7 @@ MonoBehaviour:
   m_text: 'Attack Damage: XX'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1aa4831307b8a7441a3bdb6aefed7448, type: 2}
-  m_sharedMaterial: {fileID: -5600523687441274839, guid: 1aa4831307b8a7441a3bdb6aefed7448, type: 2}
+  m_sharedMaterial: {fileID: -8694941575342524414, guid: 1aa4831307b8a7441a3bdb6aefed7448, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -296,7 +296,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2580760578192005045}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -306,7 +306,7 @@ RectTransform:
   - {fileID: 5688971458243368374}
   - {fileID: 1213204116679946018}
   - {fileID: 2950270216631322906}
-  m_Father: {fileID: 4568453860229709121}
+  m_Father: {fileID: 6747007880441080678}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -483,7 +483,7 @@ MonoBehaviour:
   m_text: 'Quirks: XXXX'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1aa4831307b8a7441a3bdb6aefed7448, type: 2}
-  m_sharedMaterial: {fileID: -5600523687441274839, guid: 1aa4831307b8a7441a3bdb6aefed7448, type: 2}
+  m_sharedMaterial: {fileID: -8694941575342524414, guid: 1aa4831307b8a7441a3bdb6aefed7448, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -617,7 +617,7 @@ MonoBehaviour:
   m_text: 'Price: XX'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1aa4831307b8a7441a3bdb6aefed7448, type: 2}
-  m_sharedMaterial: {fileID: -5600523687441274839, guid: 1aa4831307b8a7441a3bdb6aefed7448, type: 2}
+  m_sharedMaterial: {fileID: -8694941575342524414, guid: 1aa4831307b8a7441a3bdb6aefed7448, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -751,7 +751,7 @@ MonoBehaviour:
   m_text: '"Bot Part"'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1aa4831307b8a7441a3bdb6aefed7448, type: 2}
-  m_sharedMaterial: {fileID: -5600523687441274839, guid: 1aa4831307b8a7441a3bdb6aefed7448, type: 2}
+  m_sharedMaterial: {fileID: -8694941575342524414, guid: 1aa4831307b8a7441a3bdb6aefed7448, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -848,8 +848,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 3317430339072080780}
+  m_Children: []
   m_Father: {fileID: 6747007880441080678}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -962,6 +961,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 3317430339072080780}
   - {fileID: 4568453860229709121}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
