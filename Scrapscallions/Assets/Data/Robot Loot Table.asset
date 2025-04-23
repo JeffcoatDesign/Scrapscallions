@@ -67,6 +67,15 @@ MonoBehaviour:
   - rarity: 2
     partType: 3
     part: {fileID: 11400000, guid: 583fa2348fa055e4f93d19b4d538c54f, type: 2}
+  - rarity: 2
+    partType: 3
+    part: {fileID: 11400000, guid: 797a4460fc942804bac7744d81264b79, type: 2}
+  - rarity: 3
+    partType: 3
+    part: {fileID: 11400000, guid: ef6b283725b74b249a98a28bb9065b5f, type: 2}
+  - rarity: 2
+    partType: 1
+    part: {fileID: 11400000, guid: 8f503682b05d91a4b988fb84d2d819cc, type: 2}
   m_rareChance: 0.4
   m_epicChance: 0.05
   m_skewQuotient: 100

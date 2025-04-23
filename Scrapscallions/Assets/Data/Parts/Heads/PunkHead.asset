@@ -18,7 +18,7 @@ MonoBehaviour:
   <Price>k__BackingField: 5
   <Prefab>k__BackingField: {fileID: 1642695058093926673, guid: ee8661dc43df3724fb695ccaf304e3d7, type: 3}
   <ItemID>k__BackingField: 0
-  <Sprite>k__BackingField: {fileID: 21300000, guid: 43b8204f8744a414482cc2cbf8a0f6c3, type: 3}
+  <Sprite>k__BackingField: {fileID: 21300000, guid: 289cdb66a29bb8a42af7ec742404203e, type: 3}
   <IsBroken>k__BackingField: 0
   <Quirks>k__BackingField:
     m_keys: []

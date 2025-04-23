@@ -18,7 +18,7 @@ MonoBehaviour:
   <Price>k__BackingField: 20
   <Prefab>k__BackingField: {fileID: 1139219294892635153, guid: 244ac8e1366844b4bb0a29a190f6cbab, type: 3}
   <ItemID>k__BackingField: 6
-  <Sprite>k__BackingField: {fileID: 21300000, guid: 019e80f679c859d4d93a2b27935e579d, type: 3}
+  <Sprite>k__BackingField: {fileID: 21300000, guid: 408fc782fc8e27f48880c75f65327e9d, type: 3}
   <IsBroken>k__BackingField: 0
   <MaxSpeed>k__BackingField: 15
   <MaxAngularAcceleration>k__BackingField: 55

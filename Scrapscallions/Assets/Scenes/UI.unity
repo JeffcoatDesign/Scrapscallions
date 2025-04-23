@@ -32480,6 +32480,14 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 6d2b8c68705e29d40beb3172dff0cee5, type: 2}
   - {fileID: 11400000, guid: 0ee43c51ecc1ae545837745ae7af5880, type: 2}
   - {fileID: 11400000, guid: 9a14100331d55b746b4421810ab93849, type: 2}
+  - {fileID: 11400000, guid: 4514914f5b73eb34fa892215afefe409, type: 2}
+  - {fileID: 11400000, guid: 8f503682b05d91a4b988fb84d2d819cc, type: 2}
+  - {fileID: 11400000, guid: 797a4460fc942804bac7744d81264b79, type: 2}
+  - {fileID: 11400000, guid: ef6b283725b74b249a98a28bb9065b5f, type: 2}
+  - {fileID: 11400000, guid: 0f1541b366a894546810612d0139e716, type: 2}
+  - {fileID: 11400000, guid: 88ec8a085c2444049b45f12e3049c1cf, type: 2}
+  - {fileID: 11400000, guid: beb8b2d7aa11ac14b9cb5b8d5c9c0d14, type: 2}
+  - {fileID: 11400000, guid: 583fa2348fa055e4f93d19b4d538c54f, type: 2}
   inventoryManager: {fileID: 0}
 --- !u!114 &1726232532
 MonoBehaviour:

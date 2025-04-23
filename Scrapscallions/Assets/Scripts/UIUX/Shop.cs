@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using Scraps.Parts;
-using UnityEditor.Experimental.GraphView;
 
 public class Shop : MonoBehaviour, IDropHandler
 {
