@@ -76,4 +76,9 @@ public class Robot : ScriptableObject
         AgentObject = () => agent.gameObject;
         agent.Initialize(this);
     }
+
+    public override string ToString()
+    {
+        return $"Head: {head.name} \nBody: {body.name} \nLeft arm: {leftArm.name} \nRight Arm: {rightArm.name} \nLegs: {legs.name}";
+    }
 }

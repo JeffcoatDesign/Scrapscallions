@@ -75,7 +75,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <ActionLength>k__BackingField: 2
-  <ActionName>k__BackingField: Buzz Saw Attack
+  <ActionName>k__BackingField: Pin Swipe
   m_armController: {fileID: 4876686782989000796}
   m_attackCollider: {fileID: 364147913822322774}
   m_meleeSensor: {fileID: 3120394889155600356}
@@ -124,7 +124,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 0.18788795, y: 0.85260975, z: 0.25922087}
-  m_Center: {x: 0, y: -0.27468187, z: 0.0009570569}
+  m_Center: {x: -0.13, y: -0.27468187, z: 0.0009570569}
 --- !u!65 &2670281014046804487
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -144,8 +144,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.16913311, y: 0.20370948, z: 0.68590426}
-  m_Center: {x: 0, y: -0.60104614, z: 0.47817862}
+  m_Size: {x: 0.16913313, y: 0.20370948, z: 0.78023344}
+  m_Center: {x: -0.13, y: -0.60104614, z: 0.5253433}
 --- !u!82 &3059123749334698887
 AudioSource:
   m_ObjectHideFlags: 0
@@ -499,11 +499,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b38e757cc24cb4149bf0955aae9e3579, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.295
+      value: -1.029
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b38e757cc24cb4149bf0955aae9e3579, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.838
+      value: 0.399
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b38e757cc24cb4149bf0955aae9e3579, type: 3}
       propertyPath: m_LocalRotation.w

@@ -151,6 +151,7 @@ public class UIManager : MonoBehaviour
         workshopIntroUI.SetActive(true);
         mouse.time = 0.5f;
         musicPlayer.Workshop();
+        Debug.Log("Opening workshop intro, robot is: \n" + InventoryManager.Instance.myRobot.ToString());
     }
 
     public void OpenWorkshopInterior()
@@ -158,6 +159,7 @@ public class UIManager : MonoBehaviour
         sfxPlayer.ButtonClick();
         workshopInteriorUI.SetActive(true);
         workshopIntroUI.SetActive(false);
+        Debug.Log("Opening workshop interior, robot is: \n" + InventoryManager.Instance.myRobot.ToString());
     }
 
     public void CloseWorkshop()
@@ -178,7 +180,7 @@ public class UIManager : MonoBehaviour
             battleButton.interactable = false;
             heapButton.interactable = false;
         }
-
+        Debug.Log("Exiting workshop, robot is: \n" + InventoryManager.Instance.myRobot.ToString());
     }
 
     public void OpenHeap()
@@ -215,6 +217,7 @@ public class UIManager : MonoBehaviour
         shopIntroUI.SetActive(true);
         cache.time = 0.5f;
         musicPlayer.Shop();
+        Debug.Log("Opening shop, robot is: \n" + InventoryManager.Instance.myRobot.ToString());
     }
 
     public void OpenShopInterior()
@@ -242,6 +245,7 @@ public class UIManager : MonoBehaviour
             battleButton.interactable = false;
             heapButton.interactable = false;
         }
+        Debug.Log("Exiting shop, robot is: \n" + InventoryManager.Instance.myRobot.ToString());
     }
 
     public void QuitGame()

@@ -61,7 +61,8 @@ public class InventoryManager : MonoBehaviour
         AddToInventory(myRobot.legs);
         myRobot.legs = (RobotPartLegs)itemParts[4];
 
-        SDPUI.SetParts();
+        if(isFirstTime)
+            SDPUI.SetParts();
 
         UnityEngine.Random.InitState((int)System.DateTime.Now.Ticks);
         inventoryParent.GetComponent<InventoryReload>().inventoryPopulated = true;

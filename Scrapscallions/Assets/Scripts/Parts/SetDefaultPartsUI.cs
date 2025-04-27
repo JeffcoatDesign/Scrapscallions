@@ -2,6 +2,7 @@ using Scraps;
 using Scraps.Parts;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class SetDefaultPartsUI : MonoBehaviour
@@ -24,6 +25,7 @@ public class SetDefaultPartsUI : MonoBehaviour
     {
         allItems = InventoryManager.Instance.inventoryParent.GetComponentsInChildren<ItemSlot>();
         bool left = true;
+        Debug.Log("Setting default parts");
 
         //m_displayRobot.gameObject.SetActive(true);
 
@@ -32,20 +34,40 @@ public class SetDefaultPartsUI : MonoBehaviour
             DragDrop dd = IS.GetComponentInChildren<DragDrop>();
             if (dd.gameObject.layer != 12)
             {
-                if (dd.botPart is RobotPartHead)
+                if (dd.botPart is RobotPartHead head)
+                {
+                    if (head != InventoryManager.Instance.myRobot.head)
+                        continue;
                     headSlot.ForceEquip(dd);
-                else if (dd.botPart is RobotPartBody)
+                }
+                else if (dd.botPart is RobotPartBody body)
+                {
+                    if (body != InventoryManager.Instance.myRobot.body)
+                        continue;
                     bodySlot.ForceEquip(dd);
-                else if (dd.botPart is RobotPartArm)
+                }
+                else if (dd.botPart is RobotPartArm arm)
                 {
                     if (left)
+                    {
+                        if (arm != InventoryManager.Instance.myRobot.leftArm)
+                            continue;
                         leftArmSlot.ForceEquip(dd);
-                    else 
+                    }
+                    else
+                    {
+                        if (arm != InventoryManager.Instance.myRobot.rightArm)
+                            continue;
                         rightArmSlot.ForceEquip(dd);
+                    }
                     left = false;
                 }
-                else if (dd.botPart is RobotPartLegs)
+                else if (dd.botPart is RobotPartLegs legs)
+                {
+                    if (legs != InventoryManager.Instance.myRobot.legs)
+                        continue;
                     legsSlot.ForceEquip(dd);
+                }
             }
 
             //m_displayRobot.Display(InventoryManager.Instance.myRobot);

@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEngine.SceneManagement;
+using Scraps.Parts;
+using Scraps.UI;
 
 namespace Scraps.Gameplay
 {
@@ -18,7 +20,9 @@ namespace Scraps.Gameplay
         [SerializeField] private GameObject m_playerIndicator;
         [SerializeField] private int m_prizeMoney = 15;
         [SerializeField] private float m_timeUntilWinner = 3f;
-
+        [SerializeField] private List<RobotPart> m_prizeParts;
+        [SerializeField] private Transform m_prizeParent;
+        [SerializeField] private CollectionItem m_prizePrefab;
         private void Start()
         {
             if (InventoryManager.Instance == null)
@@ -65,7 +69,7 @@ namespace Scraps.Gameplay
             CinematicManager.instance.SetSingleTarget(playerRobot.bodyController.transform);
             CinematicManager.instance.SetCamera(CinematicManager.CameraType.SingleTarget);
 
-            Invoke(nameof(ShowPlayerLost), m_timeUntilWinner);
+            Invoke(nameof(ShowPlayerWon), m_timeUntilWinner);
         }
 
         private void Update()
@@ -81,12 +85,19 @@ namespace Scraps.Gameplay
         {
             AnnounceWinner?.Invoke("The Scrapscallions");
             Invoke(nameof(LoadMenu), 3f);
+            m_prizeParent.gameObject.SetActive(true);
+            int randomIndex = UnityEngine.Random.Range(0, m_prizeParts.Count);
+            RobotPart randomPart = Instantiate(m_prizeParts[randomIndex]);
+            CollectionItem itemUI = Instantiate(m_prizePrefab, m_prizeParent);
+            itemUI.SetPart(randomPart);
+            InventoryManager.Instance.AddToInventory(randomPart);
         }
 
         private void ShowPlayerLost()
         {
             AnnounceWinner?.Invoke("Chassi");
             Invoke(nameof(LoadMenu), 3f);
+            m_prizeParent.gameObject.SetActive(false);
         }
     }
 }
