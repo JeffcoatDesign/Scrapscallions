@@ -7,7 +7,6 @@ using UnityEngine;
 
 public class SetDefaultPartsUI : MonoBehaviour
 {
-    public static SetDefaultPartsUI Instance;
     public ItemSlot[] allItems;
     [SerializeField, Header("Equip Regions")] private ItemSlot headSlot;
     [SerializeField] private ItemSlot bodySlot;
@@ -15,11 +14,6 @@ public class SetDefaultPartsUI : MonoBehaviour
     [SerializeField] private ItemSlot rightArmSlot;
     [SerializeField] private ItemSlot legsSlot;
     [SerializeField] private DisplayRobot m_displayRobot;
-
-    public void Awake()
-    {
-        Instance = this;
-    }
 
     public void SetParts()
     {

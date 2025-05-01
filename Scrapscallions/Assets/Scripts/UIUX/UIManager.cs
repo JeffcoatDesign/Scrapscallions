@@ -110,8 +110,6 @@ public class UIManager : MonoBehaviour
 
     public void NewGame()
     {
-        if(!InventoryManager.Instance.isFirstTime)
-            InventoryManager.Instance.NewGame();
         for (int i = 0; i < TutorialManager.Instance.flags.Count; i++)
         {
             TutorialManager.Instance.flags[i] = false;
@@ -123,6 +121,11 @@ public class UIManager : MonoBehaviour
                 TutorialManager.Instance.flags[i] = true;
             }
         }
+        else
+            TutorialManager.Instance.Awake();
+
+        if (!InventoryManager.Instance.isFirstTime)
+            InventoryManager.Instance.NewGame();
     }
 
     public void OpenBattle()

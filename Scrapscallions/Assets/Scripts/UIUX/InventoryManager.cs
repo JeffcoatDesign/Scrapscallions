@@ -36,7 +36,13 @@ public class InventoryManager : MonoBehaviour
             tag = "InventoryParent";
         }
         else
+        {
+            Debug.Log(SDPUI);
+            Debug.Log(Instance.SDPUI);
+            Instance.SDPUI = SDPUI;
+            Debug.Log(Instance.SDPUI);
             Destroy(gameObject);
+        }
     }
 
     void Start()
@@ -61,7 +67,7 @@ public class InventoryManager : MonoBehaviour
         AddToInventory(myRobot.legs);
         myRobot.legs = (RobotPartLegs)itemParts[4];
 
-        if(isFirstTime)
+        if (isFirstTime)
             SDPUI.SetParts();
 
         UnityEngine.Random.InitState((int)System.DateTime.Now.Ticks);
@@ -70,15 +76,11 @@ public class InventoryManager : MonoBehaviour
 
     public void NewGame()
     {
-        foreach (DragDrop dragDrop in SetDefaultPartsUI.Instance.GetComponentsInChildren<DragDrop>())
+        foreach (DragDrop dragDrop in InventoryManager.Instance.SDPUI.GetComponentsInChildren<DragDrop>())
             dragDrop.ResetItemSlotDragDrop();
         inventoryParent.GetComponent<InventoryReload>().ResetInventory();
         overallItemID = 0;
-        foreach(RobotPart r in itemParts)
-            Debug.Log(r);
         itemParts.Clear();
-        foreach (RobotPart r in itemParts)
-            Debug.Log(r);
         inventoryParent.GetComponent<InventoryReload>().ClearInventory();
         SetUpInventory();
     }

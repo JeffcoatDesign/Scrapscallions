@@ -11,7 +11,7 @@ public class TutorialPopup : MonoBehaviour
     public Button relevantButton;
     public int relevantFlag;
 
-    public void Start()
+    public void OnEnable()
     {
         if (TutorialManager.Instance.flags[relevantFlag])
             Close();

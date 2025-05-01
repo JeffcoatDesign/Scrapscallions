@@ -39,7 +39,7 @@ public class InventoryReload : MonoBehaviour
                     inventoryItemID = inventoryItem.ItemID;
                     inventoryManager.InstantiateInventoryItem(inventoryItem, gameObject);
                 }
-                SetDefaultPartsUI.Instance.SetParts();
+                InventoryManager.Instance.SDPUI.SetParts();
                 inventoryPopulated = true;
             }
             foreach (ItemSlot inventoryItem in GetComponentsInChildren<ItemSlot>())
